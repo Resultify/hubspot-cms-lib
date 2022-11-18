@@ -1,0 +1,57 @@
+{
+  "name": "@resultify/hubspot-cms-lib",
+  "version": "0.0.1",
+  "description": "Resultify HubSpot CMS lib",
+  "keywords": [
+    "hubspot",
+    "resultify",
+    "hubspot tools",
+    "hubspot cms lib",
+    "hubspot theme",
+    "hubspot cms"
+  ],
+  "homepage": "https://github.com/Resultify/hubspot-cms-lib#readme",
+  "bugs": {
+    "url": "https://github.com/Resultify/hubspot-cms-lib/issues"
+  },
+  "license" : "MIT",
+  "author": "Resultify",
+  "files": [
+    "lib/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Resultify/hubspot-cms-lib.git"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "test": "standard -v 'lib/**/*.js'"
+  },
+  "dependencies": {
+    "@hubspot/cli-lib": "~4.1.2",
+    "@rollup/plugin-node-resolve": "~15.0.0",
+    "@rollup/plugin-replace": "~5.0.0",
+    "chalk": "~5.1.0",
+    "chokidar": "~3.5.3",
+    "del": "~7.0.0",
+    "dotenv": "~16.0.1",
+    "globby": "~13.1.2",
+    "ora": "~6.1.2",
+    "postcss": "~8.4.16",
+    "postcss-import": "~15.0.0",
+    "prompts": "~2.4.2",
+    "rollup": "~3.3.0",
+    "semver": "~7.3.8",
+    "sass": "~1.56.1",
+    "open": "~8.4.0"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "standard": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=16.13.0",
+    "npm": ">=8.19.3"
+  },
+  "type": "module"
+}

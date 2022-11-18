@@ -1,0 +1,7 @@
+.vscode/*
+!.vscode/settings.json
+node_modules
+.env
+.env*
+.idea
+.tmp
