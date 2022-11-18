@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/Resultify/hubspot-cms-lib/issues"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "author": "Resultify",
   "files": [
     "lib/"
