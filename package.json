@@ -38,9 +38,9 @@
     "globby": "~13.1.2",
     "ora": "~6.1.2",
     "postcss": "~8.4.16",
-    "postcss-import": "~15.0.0",
+    "postcss-import": "~15.0.1",
     "prompts": "~2.4.2",
-    "rollup": "~3.4.0",
+    "rollup": "~3.6.0",
     "semver": "~7.3.8",
     "sass": "~1.56.1",
     "open": "~8.4.0"
