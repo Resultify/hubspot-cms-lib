@@ -1,4 +1,11 @@
 
+#### v1.0.0 `December 5, 2022`
+
+- **[TASK]** use theme.name (theme.json) to identify theme name instead of theme.label ([a971955](https://github.com/Resultify/hubspot-cms-lib/commit/a971955))
+- **[TASK]** update npm deps ([eef6c0b](https://github.com/Resultify/hubspot-cms-lib/commit/eef6c0b))
+
+***
+
 #### v0.0.2 `November 28, 2022`
 
 - **[TASK]** remove build process from watch cmd ([6eb1448](https://github.com/Resultify/hubspot-cms-lib/commit/6eb1448))
