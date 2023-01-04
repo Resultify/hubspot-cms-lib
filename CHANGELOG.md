@@ -1,4 +1,10 @@
 
+#### v1.0.1 `January 4, 2023`
+
+- **[TASK]** update npm dependencies and node/npm engines ([7e5472f](https://github.com/Resultify/hubspot-cms-lib/commit/7e5472f))
+
+***
+
 #### v1.0.0 `December 5, 2022`
 
 - **[TASK]** use theme.name (theme.json) to identify theme name instead of theme.label ([a971955](https://github.com/Resultify/hubspot-cms-lib/commit/a971955))
