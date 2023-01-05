@@ -1,4 +1,12 @@
 
+#### v1.0.2 `January 5, 2023`
+
+- **[TASK]** add github action for publish-npm ([d8a95e6](https://github.com/Resultify/hubspot-cms-lib/commit/d8a95e6))
+- **[TASK]** add the possibility to override themeConfirm prompt to use for automations ([acabe00](https://github.com/Resultify/hubspot-cms-lib/commit/acabe00))
+- **[TEST]** update github action tests, use checkout@v3 and setup-node@v3 with cache enabled ([35b54bc](https://github.com/Resultify/hubspot-cms-lib/commit/35b54bc))
+
+***
+
 #### v1.0.1 `January 4, 2023`
 
 - **[TASK]** update npm dependencies and node/npm engines ([7e5472f](https://github.com/Resultify/hubspot-cms-lib/commit/7e5472f))
