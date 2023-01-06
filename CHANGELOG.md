@@ -1,4 +1,10 @@
 
+#### v1.0.3 `January 6, 2023`
+
+- **[TASK]** check global env variables not only .env file (#1) ([f4c0dc1](https://github.com/Resultify/hubspot-cms-lib/commit/f4c0dc1))
+
+***
+
 #### v1.0.2 `January 5, 2023`
 
 - **[TASK]** add github action for publish-npm ([d8a95e6](https://github.com/Resultify/hubspot-cms-lib/commit/d8a95e6))
