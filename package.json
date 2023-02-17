@@ -28,7 +28,7 @@
     "test": "standard -v 'lib/**/*.js'"
   },
   "dependencies": {
-    "@hubspot/cli-lib": "4.1.4",
+    "@hubspot/cli-lib": "4.1.6",
     "@rollup/plugin-node-resolve": "~15.0.0",
     "@rollup/plugin-replace": "~5.0.0",
     "chalk": "~5.2.0",
@@ -40,11 +40,11 @@
     "postcss": "~8.4.16",
     "postcss-import": "~15.1.0",
     "prompts": "~2.4.2",
-    "rollup": "~3.9.1",
+    "rollup": "~3.15.0",
     "semver": "~7.3.8",
-    "sass": "~1.57.1",
+    "sass": "~1.58.2",
     "open": "~8.4.0",
-    "cli-table3": "^0.6.3"
+    "cli-table3": "~0.6.3"
   },
   "devDependencies": {
     "husky": "^8.0.1",
