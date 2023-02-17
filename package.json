@@ -43,7 +43,8 @@
     "rollup": "~3.9.1",
     "semver": "~7.3.8",
     "sass": "~1.57.1",
-    "open": "~8.4.0"
+    "open": "~8.4.0",
+    "cli-table3": "^0.6.3"
   },
   "devDependencies": {
     "husky": "^8.0.1",
