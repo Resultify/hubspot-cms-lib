@@ -1,4 +1,14 @@
 
+#### v2.0.0 `February 17, 2023`
+
+- **[TASK]** decrease lighthouse threshold score ([1e21927](https://github.com/Resultify/hubspot-cms-lib/commit/1e21927))
+- **[TASK]** update npm deps ([732e708](https://github.com/Resultify/hubspot-cms-lib/commit/732e708))
+- **[FEATURE]** add Mobile Lighthouse test for all page templates in themes ([1b5869e](https://github.com/Resultify/hubspot-cms-lib/commit/1b5869e))
+- **[FEATURE]** add a possibility to execute fetch commands directly from npm ([811b423](https://github.com/Resultify/hubspot-cms-lib/commit/811b423))
+- **[FEATURE]** add theme marketplace validation command ([471ccaa](https://github.com/Resultify/hubspot-cms-lib/commit/471ccaa))
+
+***
+
 #### v1.0.3 `January 6, 2023`
 
 - **[TASK]** check global env variables not only .env file (#1) ([f4c0dc1](https://github.com/Resultify/hubspot-cms-lib/commit/f4c0dc1))
