@@ -1,4 +1,10 @@
 
+#### v2.0.1 `February 20, 2023`
+
+- **[TASK]** improve error handling for lighthouse and marketplace validation scripts ([27c56d9](https://github.com/Resultify/hubspot-cms-lib/commit/27c56d9))
+
+***
+
 #### v2.0.0 `February 17, 2023`
 
 - **[TASK]** decrease lighthouse threshold score ([1e21927](https://github.com/Resultify/hubspot-cms-lib/commit/1e21927))
