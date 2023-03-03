@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": ".tmp",
+    "module": "esnext",
+    "target": "esnext",
+    "strict": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "useUnknownInCatchVariables": false,
+    "moduleResolution": "node"
+  }
+}

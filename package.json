@@ -25,7 +25,9 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "test": "standard -v 'lib/**/*.js'"
+    "standardJs": "standard -v 'lib/**/*.js'",
+    "tslint": "tsc --allowJs -p tsconfig.json",
+    "test": "npm run standardJs && npm run tslint"
   },
   "dependencies": {
     "@hubspot/cli-lib": "4.1.6",
@@ -33,22 +35,24 @@
     "@rollup/plugin-replace": "~5.0.0",
     "chalk": "~5.2.0",
     "chokidar": "~3.5.3",
+    "cli-table3": "~0.6.3",
     "del": "~7.0.0",
     "dotenv": "~16.0.1",
     "globby": "~13.1.2",
+    "open": "~8.4.0",
     "ora": "~6.1.2",
     "postcss": "~8.4.16",
     "postcss-import": "~15.1.0",
     "prompts": "~2.4.2",
     "rollup": "~3.15.0",
-    "semver": "~7.3.8",
     "sass": "~1.58.2",
-    "open": "~8.4.0",
-    "cli-table3": "~0.6.3"
+    "semver": "~7.3.8"
   },
   "devDependencies": {
+    "@types/node": "^18.14.4",
     "husky": "^8.0.1",
-    "standard": "^17.0.0"
+    "standard": "^17.0.0",
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": ">=16.13",
