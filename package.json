@@ -26,7 +26,7 @@
   "scripts": {
     "prepare": "husky install",
     "standardJs": "standard -v 'lib/**/*.js'",
-    "tslint": "tsc --allowJs -p tsconfig.json",
+    "tslint": "tsc -p tsconfig.json",
     "test": "npm run standardJs && npm run tslint"
   },
   "dependencies": {
