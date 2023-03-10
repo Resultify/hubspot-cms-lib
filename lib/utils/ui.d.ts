@@ -1,8 +1,8 @@
 export type THEME_FILE_INFO = {
     name?: string | undefined;
     path?: string | undefined;
-    dist: string;
-    size: string;
+    dist?: string | undefined;
+    size?: string | undefined;
 };
 export type EndTask = {
     /**
@@ -62,8 +62,8 @@ export function endTaskGroup(options: EndTask): void;
  * @type {object}
  * @property {string} [name]
  * @property {string} [path]
- * @property {string} dist
- * @property {string} size
+ * @property {string} [dist]
+ * @property {string} [size]
  */
 /**
  * @summary convert file size B -> kB/MB
