@@ -27,7 +27,6 @@
   "scripts": {
     "prepare": "husky install",
     "standardJs": "standard -v 'lib/**/*.js'",
-    "dts": "node build/declaration.js",
     "checkJs": "tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
     "test": "npm run standardJs && npm run checkJs"
   },
