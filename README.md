@@ -1,4 +1,29 @@
-# Resultify HubSpot CMS Lib
+# @resultify/hubspot-cms-lib
+Library with additional functionality on top of native HubSpot CMS CLI library ([cli-lib](https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib)) with command-line interface. ❗It should be used instead of `hubspot-cli`❗
+
+[![Run tests](https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml/badge.svg)](https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml)
+![node-current](https://img.shields.io/node/v/@resultify/hubspot-cms-lib)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![JSDoc](https://img.shields.io/badge/API\%20documentation-JSDoc-yellow)
+
+[**Documentation**](https://resultify.github.io/hubspot-cms-lib)
+
+## Table of contents
+TBD
+
+## Why?
+The **HubSpot CLI** is a useful tool for connecting local development tools with HubSpot. However, integrating it smoothly into the development process can be a challenge, as there is no easy way to consolidate all local development tasks into one tool. To simplify the process and have one tool to manage all local development tasks, we created our own library that utilizes HubSpot CLI and allows for seamless integration with other tools.
+
+**For example**, to compile `SCSS` files and upload them using the `hubspot-cli` **Watch** process, you typically need multiple tools or steps. This includes some task manager that can compile `SCSS`, copy `CSS`, and run a **Watch** process, as well as the `hubspot-cli` **Watch/Upload** process to upload the compiled files. However, with `@resultify/hubspot-cms-lib`, you only need one step. The **Watch** process combines `SCSS`, `PostCSS`, and `Rolup.js` compilers with the Hubspot CLI Watch and Upload process, allowing you to accomplish everything with just one CLI command: `npm run watch`
+
+
+## Features
+TBD
+
+
+## General recommendations
+TBD
+
 
 ## Set of tools for HubSpot CMS themes
 - JS/CSS/SASS compilers
@@ -27,6 +52,7 @@
 - HubSpot
   - Fetch
   - Upload
+  - Watch
   - Custom multi-account authentication
 
 ## Custom multi-account authentication
