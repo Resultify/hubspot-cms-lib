@@ -14,7 +14,7 @@ indent_style = space
 indent_size = 4
 
 # TypeScript/JavaScript/JSON files
-[*.{ts,js,json}]
+[*.{ts,js,json,mjs}]
 indent_size = 2
 
 # XLF/XML files
@@ -23,15 +23,6 @@ indent_style = tab
 
 # YAML-Files
 [*.{yaml,yml}]
-indent_size = 2
-
-# ReST-Files
-[*.rst]
-indent_size = 3
-
-# SQL files
-[*.sql]
-indent_style = tab
 indent_size = 2
 
 # HTML files
