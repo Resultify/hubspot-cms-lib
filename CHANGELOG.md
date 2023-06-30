@@ -1,3 +1,20 @@
+### v2.1.0 `June 30, 2023`
+* **[TASK]** add quick-release config [`f41bcfb`](https://github.com/Resultify/hubspot-cms-lib/commit/f41bcfb) (dmh)
+* **[TASK]** update npm dep-s, update editorconfig [`ae80a66`](https://github.com/Resultify/hubspot-cms-lib/commit/ae80a66) (dmh)
+* **[DOC]** update readme file [`a154d76`](https://github.com/Resultify/hubspot-cms-lib/commit/a154d76) (dmh)
+* **[TASK]** update npm deps [`f57a547`](https://github.com/Resultify/hubspot-cms-lib/commit/f57a547) (dmh)
+* **[TASK]** remove unneeded ts declarations, remove dts scripts [`7dafd01`](https://github.com/Resultify/hubspot-cms-lib/commit/7dafd01) (dmh)
+* **[TASK]** update fields task to run it externally using node, in watch process compile only one changed file instead all of them [`7c0ef7d`](https://github.com/Resultify/hubspot-cms-lib/commit/7c0ef7d) (dmh)
+* **[TASK]** add ts types [`9258167`](https://github.com/Resultify/hubspot-cms-lib/commit/9258167) (dmh)
+* **[TASK]** add generateTsDeclarations build task [`7ab7c3a`](https://github.com/Resultify/hubspot-cms-lib/commit/7ab7c3a) (dmh)
+* **[TASK]** add proper import for global jsdoc types [`eb4a3a7`](https://github.com/Resultify/hubspot-cms-lib/commit/eb4a3a7) (dmh)
+* **[TASK]** add generateTsDeclarations build task, update npm deps [`abbc76b`](https://github.com/Resultify/hubspot-cms-lib/commit/abbc76b) (dmh)
+* **[TASK]** add compileFieldsJs functionality [`2cceaca`](https://github.com/Resultify/hubspot-cms-lib/commit/2cceaca) (dmh)
+* **[TASK]** show DotEnv setup instructions if empty [`d4d9e7d`](https://github.com/Resultify/hubspot-cms-lib/commit/d4d9e7d) (dmh)
+* **[TASK]** refactor, add tsconfig instead of jsconfig, add more types, add TypeScript lint, fix lint errors [`627358c`](https://github.com/Resultify/hubspot-cms-lib/commit/627358c) (dmh)
+
+***
+
 
 #### v2.0.1 `February 20, 2023`
 
