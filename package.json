@@ -20,6 +20,16 @@
   "files": [
     "lib/"
   ],
+  "exports": {
+    "./upload": "./lib/cmd/upload.exec.js",
+    "./fetch": "./lib/cmd/fetch.exec.js",
+    "./fetchModules": "./lib/cmd/fetchModules.exec.js",
+    "./lighthouse": "./lib/cmd/lighthouse.exec.js",
+    "./validate": "./lib/cmd/validate.exec.js",
+    "./fields": "./lib/cmd/fields.exec.js",
+    "./watch": "./lib/cmd/watch.exec.js",
+     "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Resultify/hubspot-cms-lib.git"
