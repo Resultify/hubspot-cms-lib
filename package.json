@@ -28,6 +28,7 @@
     "./validate": "./lib/cmd/validate.exec.js",
     "./fields": "./lib/cmd/fields.exec.js",
     "./watch": "./lib/cmd/watch.exec.js",
+    "./build": "./lib/cmd/build.exec.js",
      "./package.json": "./package.json"
   },
   "repository": {
