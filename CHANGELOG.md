@@ -1,3 +1,9 @@
+### v2.1.1 `October 11, 2023`
+* **[BUGFIX]** fix description info for marketplace validation cmd [`430f40a`](https://github.com/Resultify/hubspot-cms-lib/commit/430f40a) (dmh)
+* **[BUGFIX]** update npm deps, move execa pkg to prod dependencies [`8d7e33a`](https://github.com/Resultify/hubspot-cms-lib/commit/8d7e33a) (dmh)
+
+***
+
 ### v2.1.0 `June 30, 2023`
 * **[TASK]** add quick-release config [`f41bcfb`](https://github.com/Resultify/hubspot-cms-lib/commit/f41bcfb) (dmh)
 * **[TASK]** update npm dep-s, update editorconfig [`ae80a66`](https://github.com/Resultify/hubspot-cms-lib/commit/ae80a66) (dmh)
