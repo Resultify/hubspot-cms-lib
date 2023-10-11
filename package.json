@@ -51,10 +51,10 @@
     "prompts": "~2.4.2",
     "rollup": "~3.25.1",
     "sass": "~1.63.6",
-    "semver": "~7.5.3"
+    "semver": "~7.5.3",
+    "execa": "~7.1.1"
   },
   "devDependencies": {
-    "execa": "~7.1.1",
     "husky": "~8.0.1",
     "standard": "~17.1.0",
     "typescript": "~5.1.3"
