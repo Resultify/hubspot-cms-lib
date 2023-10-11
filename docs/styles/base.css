@@ -1,0 +1,1190 @@
+/* border-box box model for all html elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  /* boost font sizes on small screens on some smartphones and tablets */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /*
+    inherit browsers font size which depends on browsers settings,
+    by default it is 16px
+  */
+  font-size: var(--root__font-size, inherit); /* default = 16px */
+
+  /* same line-height for all browsers */
+  line-height: var(--root__line-height, 1.5); /* default = 1.2 */
+
+  /* sans-serif font by default */
+  font-family: var(--root__font-family, sans-serif);
+
+  /* use default browser background-color rgba(0, 0, 0, 0) = transparent */
+  background-color: var(--root__bg-color, inherit);
+
+  /* use default browser color "CanvasText" = rgb(0, 0, 0) */
+  color: var(--root__color, canvastext);
+
+  /*
+    browser emphasizes rendering speed
+    over legibility and geometric precision when drawing text.
+    It disables kerning and ligatures.
+  */
+  text-rendering: optimizeSpeed;
+
+  /*
+    color for user-interface controls
+    checkbox, radio, range, progress
+  */
+  accent-color: var(--root__accent-color, auto);
+  /*
+    browser with OS will try to modify some controls
+    (canvas color, form controls, scrollbars, etc.)
+    based on color schema settings
+  */
+  color-scheme: var(--root__color-scheme, normal);
+}
+/* set smooth scrolling only if the user prefers it */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: var(--root__scroll-behavior, auto);
+  }
+}
+/* default focus outline */
+/* by default similar to webkit default focus outline */
+:where(:focus-visible) {
+  outline-offset: var(--root-focus-visible__outline-offset, 0);
+  outline-color: var(--root-focus-visible__outline-color, #842685b3);
+  outline-style: var(--root-focus-visible__outline-style, auto);
+  outline-width: var(--root-focus-visible__outline-width, .2ex);
+}
+/* text section style */
+::selection {
+  background-color: var(--root-selection__bg-color, #8426854d);
+  color: var(--root-selection__color, curentColor);
+}
+[hidden], .hidden {
+  display: none !important;
+}
+/*
+  add scroll-margin-top to prevent the anchor link
+  from being hidden under the sticky header
+*/
+:target {
+  scroll-margin-top: var(--root-sticky-header-height, 0);
+}
+:where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+) {
+  /* Override user agent default margins */
+  /* Set it to 0 for a better styling control */
+  margin-block: 0;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto; /* for Safari */
+  hyphens: auto;
+  /* experimental text-wrap: balance for large headings */
+  text-wrap: balance;
+
+}
+/* line-height adjustments for additional headings */
+:where(.text-style10, .text-style9) {
+  line-height: 1;
+}
+:where(.text-style8,.text-style7) {
+  line-height: 1.1;
+}
+:where(
+  .text-style10,
+  .text-style9,
+  .text-style8,
+  .text-style7
+  .text-style6,
+  .text-style5,
+  .text-style4,
+  .text-style3,
+  .text-style2,
+  .text-style1,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+) {
+  font-family: var(--heading__font-family, var(--root__font-family));
+  font-weight: var(--heading__font-weight, 700);
+  color: var(--heading__color, currentColor);
+}
+/* additional styles for headings fot bigger headings (7-10) */
+.text-style10 {
+  --heading__font-family: var(--text-style10__font-family);
+  --heading__font-weight: var(--text-style10__font-weight);
+  --heading__color: var(--text-style10__color);
+  font-size: var(--text-style10__font-size, 5.16rem);
+}
+.text-style9 {
+  --heading__font-family: var(--text-style9__font-family);
+  --heading__font-weight: var(--text-style9__font-weight);
+  --heading__color: var(--text-style9__color);
+  font-size: var(--text-style9__font-size, 4.3rem);
+}
+.text-style8 {
+  --heading__font-family: var(--text-style8__font-family);
+  --heading__font-weight: var(--text-style8__font-weight);
+  --heading__color: var(--text-style8__color);
+  font-size: var(--text-style8__font-size, 3.583rem);
+}
+.text-style7 {
+  --heading__font-family: var(--text-style7__font-family);
+  --heading__font-weight: var(--text-style7__font-weight);
+  --heading__color: var(--text-style7__color);
+  font-size: var(--text-style7__font-size, 2.986rem);
+}
+/* default headings */
+:where(h1), .text-style6 {
+  --heading__font-family: var(--text-style6__font-family);
+  --heading__font-weight: var(--text-style6__font-weight);
+  --heading__color: var(--text-style6__color);
+  font-size: var(--text-style6__font-size, 2.488rem);
+}
+:where(h2), .text-style5 {
+  --heading__font-family: var(--text-style5__font-family);
+  --heading__font-weight: var(--text-style5__font-weight);
+  --heading__color: var(--text-style5__color);
+  font-size: var(--text-style5__font-size, 2.074rem);
+}
+:where(h3), .text-style4 {
+  --heading__font-family: var(--text-style4__font-family);
+  --heading__font-weight: var(--text-style4__font-weight);
+  --heading__color: var(--text-style4__color);
+  font-size: var(--text-style4__font-size, 1.728rem);
+}
+:where(h4), .text-style3 {
+  --heading__font-family: var(--text-style3__font-family);
+  --heading__font-weight: var(--text-style3__font-weight);
+  --heading__color: var(--text-style3__color);
+  font-size: var(--text-style3__font-size, 1.44rem);
+}
+:where(h5), .text-style2 {
+  --heading__font-family: var(--text-style2__font-family);
+  --heading__font-weight: var(--text-style2__font-weight);
+  --heading__color: var(--text-style2__color);
+  font-size: var(--text-style2__font-size, 1.2rem);
+}
+:where(h6), .text-style1 {
+  --heading__font-family: var(--text-style1__font-family);
+  --heading__font-weight: var(--text-style1__font-weight);
+  --heading__color: var(--text-style1__color);
+  font-size: var(--text-style1__font-size, 1rem);
+}
+/* icon inside heading */
+:where(h1,h2,h3,h4,h5,h6) :where(svg) {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+/* focus-visible settings for links */
+/* with possibility to override them in the root css file specificly for links */
+:where(a:not(.button)):focus-visible {
+  outline-offset: var(--link-focus-visible__outline-offset, var(--root-focus-visible__outline-offset));
+  outline-color: var(--link-focus-visible__outline-color, var(--root-focus-visible__outline-color));
+  outline-style: var(--link-focus-visible__outline-style, var(--root-focus-visible__outline-style));
+  outline-width: var(--link-focus-visible__outline-width, var(--root-focus-visible__outline-width));
+}
+:where(a:not(.button)) {
+  display: inline-flex;
+  gap: 0.3ch;
+  align-items: baseline;
+  font-size: var(--link__font-size, inherit);
+  font-family: var(--link__font-family, inherit);
+  font-weight: var(--link__font-weight, inherit);
+  color: var(--link__color, #0052c0);
+  text-underline-offset: var(--link__text-underline-offset, auto);
+  text-decoration-line: var(--link__text-decoration-line, underline);
+  text-decoration-thickness: var(--link__text-decoration-thickness, auto);
+  text-decoration-style: var(--link__text-decoration-style, solid);
+  text-decoration-color: var(--link__text-decoration-color, currentColor);
+}
+:where(a:not(.button):visited) {
+  color: var(--link-visited__color, #551a8b);
+}
+:where(a:not(.button):hover) {
+  color: var(--link-hover__color, var(--link__color, currentColor));
+  text-underline-offset: var(--link-hover__text-underline-offset, var(--link__text-underline-offset, auto));
+  text-decoration-line: var(--link-hover__text-decoration-line, var(--link__text-decoration-line, underline));
+  text-decoration-thickness: var(--link-hover__text-decoration-thickness, var(--link__text-decoration-thickness, auto));
+  text-decoration-style: var(--link-hover__text-decoration-style, var(--link__text-decoration-style, solid));
+  text-decoration-color: var(--link-hover__text-decoration-color, var(--link__text-decoration-color, currentColor));
+}
+/* remove link styles from <a> without href attribute and class */
+:where(a:not([href]):not([class]), a:not([href]):not([class]):hover) {
+  color: inherit;
+  text-decoration: none;
+}
+:where(a:not(.button) > svg) {
+  height: 1em;
+  width: 1em;
+  fill: currentcolor;
+  /* transform: translateY(1px); */
+  align-self: center;
+  flex-shrink: 0;
+}
+/* separate settings for headings with links with fallback to link settings */
+:where(h1,h2,h3,h4,h5,h6) :where(a:not(.button)) {
+  color: var(--heading-link__color, var(--link__color, #0052c0));
+  text-underline-offset: var(--heading-link__text-underline-offset, var(--link__text-underline-offset, auto));
+  text-decoration-line: var(--heading-link__text-decoration-line, var(--link__text-decoration-line, underline));
+  text-decoration-thickness: var(--heading-link__text-decoration-thickness, var(--link__text-decoration-thickness, auto));
+  text-decoration-style: var(--heading-link__text-decoration-style, var(--link__text-decoration-style, solid));
+  text-decoration-color: var(--heading-link__text-decoration-color, var(--link__text-decoration-color, currentColor));
+}
+:where(h1,h2,h3,h4,h5,h6) :where(a:not(.button):visited) {
+  color: var(--heading-link-visited__color, var(--link-visited__color, #551a8b));
+}
+:where(h1,h2,h3,h4,h5,h6) :where(a:not(.button):hover) {
+  color: var(--heading-link-hover__color, var(--link-hover__color, currentColor));
+  text-underline-offset: var(--heading-link-hover__text-underline-offset, var(--link-hover__text-underline-offset, var(--link__text-underline-offset, auto)));
+  text-decoration-line: var(--heading-link-hover__text-decoration-line, var(--link-hover__text-decoration-line, var(--link__text-decoration-line, underline)));
+  text-decoration-thickness: var(--heading-link-hover__text-decoration-thickness, var(--link-hover__text-decoration-thickness, var(--link__text-decoration-thickness, auto)));
+  text-decoration-style: var(--heading-link-hover__text-decoration-style, var(--link-hover__text-decoration-style, var(--link__text-decoration-style, solid)));
+  text-decoration-color: var(--heading-link-hover__text-decoration-color, var(--link-hover__text-decoration-color, var(--link__text-decoration-color, currentColor)));
+}
+/* focus-visible settings for buttons */
+/* with possibility to override them in the root css file specificly for buttons */
+:where(
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"]):focus-visible {
+  outline-offset: var(--btn-focus-visible__outline-offset, var(--root-focus-visible__outline-offset));
+  outline-color: var(--btn-focus-visible__outline-color, var(--root-focus-visible__outline-color));
+  outline-style: var(--btn-focus-visible__outline-style, var(--root-focus-visible__outline-style));
+  outline-width: var(--btn-focus-visible__outline-width, var(--root-focus-visible__outline-width));
+}
+:where(
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"]),
+:where(input[type="file"])::file-selector-button {
+  font: inherit;
+  font-size: var(--btn__font-size, inherit);
+  font-family: var(--btn__font-family, inherit);
+  font-weight: var(--btn__font-weight, inherit);
+  line-height: 1;
+  letter-spacing: inherit;
+  border-radius: var(--btn__border-radius, none);
+  cursor: pointer;
+  background-color: var(--btn__bg-color, #efefef);
+  color: var(--btn__color, currentColor);
+  border-width: var(--btn__border-width, 2px);
+  border-style: var(--btn__border-style, solid);
+  border-color: var(--btn__border-color, grey);
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.4ch;
+  text-align: center;
+  padding-inline: var(--btn__padding-inline, 1em);
+  padding-block: var(--btn__padding-block, 0.7em);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  min-width: 9ch;
+  text-decoration: none;
+  align-items: baseline;
+  appearance: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :where(
+  .button,
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"]) {
+    transition: var(--btn__transition);
+  }
+}
+:where(
+.button:not([disabled]),
+button:not([disabled]),
+input[type="button"]:not([disabled]),
+input[type="submit"]:not([disabled]),
+input[type="reset"]:not([disabled])
+):where(:not(:active):hover) {
+  background-color: var(--btn-hover__bg-color, var(--btn__bg-color, transparent));
+  color: var(--btn-hover__color, var(--btn__color));
+  border-color: var(--btn-hover__border-color, var(--btn__border-color));
+}
+:where(
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"]
+)[disabled] {
+  opacity: .5;
+  cursor: not-allowed;
+}
+:where(input[type="file"]) {
+  font: inherit;
+  inline-size: 100%;
+  max-inline-size: max-content;
+}
+:where(input[type="button"]),
+:where(input[type="file"])::file-selector-button {
+  appearance: none;
+}
+:where(input[type="file"])::file-selector-button {
+  margin-inline-end: 1.5ch;
+}
+:where(
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"]
+) :where(svg) {
+  height: 1em;
+  width: 1em;
+  fill: currentcolor;
+  align-self: center;
+  flex-shrink: 0;
+}
+:where(
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"]
+):where(.btn-w100) {
+  width: 100%;
+}
+:where(
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"]
+):where(.btn-w100 + .btn-w100) {
+  margin-block-start: 0.5rem;
+}
+:where(abbr[title]) {
+  cursor: help;
+}
+:where(code,
+kbd) {
+  font-family: var(--root-mono__font-family, monospace);
+  font-size: smaller;
+}
+:where(code) {
+  padding: 0.2em 0.4em;
+  color: var(--code__color, currentColor);
+  background-color: var(--code__bg-color, initial);
+  border-radius: var(--code__border-radius, initial);
+  word-wrap: break-word;
+}
+:where(pre code) {
+  font-size: inherit;
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+  word-break: normal;
+}
+/* Override user agent default margins */
+/* Set it to 0 for a better styling control */
+:where(body) {
+  margin: 0;
+}
+:where(
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd,
+  pre,
+  ul,
+  ol
+) {
+  margin-block: 0;
+  margin-inline: 0;
+}
+:where(address) {
+  font-style: inherit;
+}
+/* horizontal rule element */
+:where(hr) {
+  border: none;
+  border-top-width: var(--hr__border-top-width, 1px);
+  border-top-style: var(--hr__border-top-style, solid);
+  border-top-color: var(--hr__border-top-color, grey);
+}
+:where(pre) {
+  overflow: auto;
+  font-size: smaller;
+  padding: 1em;
+  line-height: 1.45;
+  color: var(--pre__color, currentColor);
+  background-color: var(--pre__bg-color, initial);
+  border-radius: 6px;
+  font-family: var(--root-mono__font-family, monospace);
+}
+/* Details element */
+:where(summary) {
+  cursor: pointer;
+}
+/* Description list */
+:where(dt) {
+/* Description term bold */
+  font-weight: 700;
+}
+:where(dt~dd) {
+  margin-inline-start: 1.5ch;
+}
+:where(dd+dt) {
+  margin-block-start: .5em;
+}
+:where(blockquote) {
+  padding-inline: 0.8em;
+  margin-inline: 1em;
+  color: var(--blockquote__color, currentColor);
+}
+:where(caption, figcaption) {
+  font-size: smaller;
+  color: var(--caption__color, currentColor);
+}
+:where(ol, ul) {
+  padding-inline-start: 2rem;
+}
+/* remove list style from ul and ol inside nav tag */
+:where(nav ul, nav ol) {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-inline-start: 0;
+  gap: 0 1ch;
+}
+:where(dialog) {
+  border-color: grey;
+  background-color: var(--root__bg-color);
+}
+:where(table) {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+:where(th, td) {
+  border-width: var(--table__border-width, 1px);
+  border-style: var(--table__border-style);
+  border-color: var(--table__border-color, grey);
+  padding-inline: var(--table__padding-inline, 0.5em);
+  padding-block: var(--table__padding-block, 0.3em);
+}
+/* focus-visible settings for inputs */
+/* with possibility to override them in the root css file specificly for inputs */
+:where(
+  input:not([type="button"],[type="submit"],[type="reset"],[type="file"]),
+  textarea,
+  select
+):focus-visible {
+  outline-offset: var(--input-focus-visible__outline-offset, var(--root-focus-visible__outline-offset));
+  outline-color: var(--input-focus-visible__outline-color, var(--root-focus-visible__outline-color));
+  outline-style: var(--input-focus-visible__outline-style, var(--root-focus-visible__outline-style));
+  outline-width: var(--input-focus-visible__outline-width, var(--root-focus-visible__outline-width));
+}
+:where(
+  input:not([type="button"],[type="submit"],[type="reset"],[type="file"]),
+  textarea,
+  select
+) {
+  font: inherit;
+  min-width: 10ch;
+  font-size: var(--input__font-size, inherit);
+  font-family: var(--input__font-family, inherit);
+  font-weight: var(--input__font-weight, inherit);
+  padding: 0.25rem 0.7rem;
+  border-width: var(--input__border-width, 1px);
+  border-style: var(--input__border-style, solid);
+  border-color: var(--input__border-color, grey);
+  color: var(--input__color, currentColor);
+  border-radius: var(--input__border-radius, initial);
+  background-color: var(--input__bg-color, initial);
+}
+:where(input[type="checkbox"], input[type="radio"]) {
+  margin: 0;
+  min-width: 0;
+}
+:where(input[type="color"]) {
+  padding: 0;
+  min-width: 0;
+}
+:where(input[type="range"]) {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+:where(
+  input:not([type="button"],[type="submit"],[type="reset"],[type="file"]),
+  textarea,
+  select
+)[disabled],
+:where(fieldset[disabled])
+:where(
+  input:not([type="button"],[type="submit"],[type="reset"],[type="file"]),
+  textarea,
+  select
+) {
+  opacity: .4;
+  background-color: var(--input-disabled__bg-color, #efefef);
+}
+:where(fieldset) {
+  padding-block: 0;
+  padding-inline: 0;
+  margin-inline: 0;
+  border: 0;
+}
+:where(legend) {
+  padding-inline: 0;
+}
+:where(label) {
+  display: inline-block;
+  color: var(--label__color, currentColor);
+  font-size: var(--label__font-size, inherit);
+  font-family: var(--label__font-family, inherit);
+  font-weight: var(--label__font-weight, inherit);
+}
+/* safari datetime input fix */
+:where(input::-webkit-datetime-edit) {
+  display: block;
+}
+/* responsive image */
+:where(img, picture) {
+  /* responsive image */
+  max-width: 100%;
+  height: auto;
+  /* to remove the extra space below the image */
+  display: block;
+}
+/* remove default border from iframe */
+:where(iframe) {
+  border: 0;
+}
+:where(video) {
+  max-width: 100%;
+  height: auto;
+}
+:root {
+  /* ============ */
+  /* global styles */
+  /* ============ */
+  /* ----- global focus-visible settings ----- */
+  --root-focus-visible__outline-color: rgb(37, 109, 210);
+  /* --root-focus-visible__outline-offset:; */
+  --root-focus-visible__outline-width: .2ex;
+  --root-focus-visible__outline-style: solid;
+
+  /* ----- selection styles ----- */
+  --root-selection__color: currentColor;
+  --root-selection__bg-color: rgb(38 77 133 / 30%);
+
+  /* ----- color scheme ----- */
+  --root__color-scheme: light;
+
+  /* ----- accent color ----- */
+  /* --root__accent-color:; */
+
+  /* ----- enable global smooth scroll behaviour ----- */
+  /* --root__scroll-behavior: smooth; */
+
+  /* --root__bg-color:; */
+  /* --root__color:; */
+  --root__font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Noto Sans,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --root-mono__font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  --root-mono__font-family2: consolas, conaco, 'Andale Mono', monospace;
+  --root__line-height: 1.6;
+  --root__font-size: 16px;
+
+
+
+  /* ============ */
+    /* links */
+  /* ============ */
+  /* --link__font-weight:; */
+  /* --link__font-family:; */
+  /* --link__font-size:; */
+  /* --link-visited__color:; */
+  --link__color: #0352be;
+  --link__text-underline-offset: .2ex;
+  /* --link__text-decoration-line:; */
+  --link__text-decoration-thickness: .2ex;
+  /* --link__text-decoration-style:; */
+  /* --link__text-decoration-color:; */
+  --link-hover__color: #00607e;
+  --link-hover__text-underline-offset: .1ex;
+  /* --link-hover__text-decoration-line:; */
+  --link-hover__text-decoration-thickness: .3ex;
+  /* --link-hover__text-decoration-style:; */
+  /* --link-hover__text-decoration-color:; */
+
+  /* ----- focus-visible settings for buttons ----- */
+  --link-focus-visible__outline-offset: 3px;
+  /* --link-focus-visible__outline-color:; */
+  --link-focus-visible__outline-style: solid;
+  --link-focus-visible__outline-width: .3ex;
+
+
+
+  /* ============ */
+  /* Buttons */
+  /* ============ */
+  --btn__font-weight: 700;
+  /* --btn__font-family:; */
+  /* --btn__font-size:; */
+  --btn__color: #000;
+  --btn__bg-color: #FF8B69;
+  --btn__border-width: 1px;
+  /* --btn__border-style:; */
+  --btn__border-color: #c45400;
+  --btn__border-radius: 6px;
+  --btn-hover__color: #000;
+  --btn-hover__bg-color: #e66b4c;
+  --btn-hover__border-color: #c45400;
+  --btn__transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+
+  /* ----- focus-visible settings for buttons ----- */
+  --btn-focus-visible__outline-offset: 2px;
+  /* --btn-focus-visible__outline-color:; */
+  --btn-focus-visible__outline-style: solid;
+  --btn-focus-visible__outline-width: .5ex;
+
+
+
+  /* ============ */
+  /* Form */
+  /* ============ */
+  --input__font-weight:;
+  --input__font-family:;
+  --input__font-size:;
+  /* --input__color:; */
+  /* --input__bg-color:; */
+  --input__border-width: 2px;
+  /* --input__border-style:; */
+  --input__border-color: #afb8c1;
+  --input__border-radius: 6px;
+
+  /* ----- focus-visible settings for form inputs ----- */
+  --input-focus-visible__outline-offset:1px;
+  --input-focus-visible__outline-color: #d24500;
+  /* --input-focus-visible__outline-style:; */
+  --input-focus-visible__outline-width: 2px;
+
+
+
+  /* ============ */
+  /* inline-elements */
+  /* ============ */
+  --code__color: #1F2328;
+  --code__bg-color: #afb8c133;
+  --code__border-radius: 6px;
+
+
+  /* ============ */
+  /* block-elements */
+  /* ============ */
+  /* --pre__color:; */
+  --pre__bg-color: #afb8c133;
+  /* --hr__border-top-style:; */
+  /* --hr__border-top-width:; */
+  --hr__border-top-color: #57585a;
+  /* --blockquote__color:; */
+  /* --caption__color:; */
+  /* ============ */
+  /* ============ */
+
+
+
+  /* ============ */
+  /* table */
+  /* ============ */
+  --table__border-color: #d8dee4;
+  /* --table__border-width:; */
+  --table__border-style: solid;
+
+
+
+  /* ============ */
+  /* headings */
+  /* ============ */
+  /* ----- all headings style ----- */
+  /* --heading__font-family:; */
+  /* --heading__font-weight:; */
+  /* --heading__color:; */
+
+  /* ----- heading link ----- */
+  /* --heading-link__color:; */
+  /* --heading-link__text-decoration-offset:; */
+  --heading-link__text-decoration-line: none;
+  /* --heading-link__text-decoration-thickness:; */
+  /* --heading-link__text-decoration-style:; */
+  /* --heading-link__text-decoration-color:; */
+  /* --heading-link-hover__color:; */
+  --heading-link-hover__text-decoration-offset: 0;
+  /* --heading-link-hover__text-decoration-line:; */
+  --heading-link-hover__text-decoration-thickness: 0.15ex;
+  /* --heading-link-hover__text-decoration-style:; */
+  /* --heading-link-hover__text-decoration-color:; */
+  /* --heading-link-visited__color:; */
+
+  /* 10 headings styles separatly */
+  /* --text-style10__font-family:; */
+  /* --text-style9__font-family:; */
+  /* --text-style8__font-family:; */
+  /* --text-style7__font-family:; */
+  /* --text-style6__font-family:; */
+  /* --text-style5__font-family:; */
+  /* --text-style4__font-family:; */
+  /* --text-style3__font-family:; */
+  /* --text-style2__font-family:; */
+  /* --text-style1__font-family:; */
+  /* --text-style10__font-weight:; */
+  /* --text-style9__font-weight:; */
+  /* --text-style8__font-weight:; */
+  /* --text-style7__font-weight:; */
+  /* --text-style6__font-weight:; */
+  /* --text-style5__font-weight:; */
+  /* --text-style4__font-weight:; */
+  /* --text-style3__font-weight:; */
+  /* --text-style2__font-weight:; */
+  /* --text-style1__font-weight:; */
+  /* --text-style10__color:; */
+  /* --text-style9__color:; */
+  /* --text-style8__color:; */
+  /* --text-style7__color:; */
+  /* --text-style6__color:; */
+  /* --text-style5__color:; */
+  /* --text-style4__color:; */
+  /* --text-style3__color:; */
+  /* --text-style2__color:; */
+  /* --text-style1__color:; */
+
+
+  --heading-scale-ratio: 1.15;
+  /* sizes based on scale ratio */
+  --__size10: (var(--heading-scale-ratio) * var(--__size9));
+  --__size9: (var(--heading-scale-ratio) * var(--__size8));
+  --__size8: (var(--heading-scale-ratio) * var(--__size7));
+  --__size7: (var(--heading-scale-ratio) * var(--__size6));
+  --__size6: (var(--heading-scale-ratio) * var(--__size5));
+  --__size5: (var(--heading-scale-ratio) * var(--__size4));
+  --__size4: (var(--heading-scale-ratio) * var(--__size3));
+  --__size3: (var(--heading-scale-ratio) * var(--__size2));
+  --__size2: (var(--heading-scale-ratio) * var(--__size1));
+  --__size1: 1;
+
+  --text-style10__font-size: calc(var(--__size10) * 1rem);
+  --text-style9__font-size: calc(var(--__size9) * 1rem);
+  --text-style8__font-size: calc(var(--__size8) * 1rem);
+  --text-style7__font-size: calc(var(--__size7) * 1rem);
+  --text-style6__font-size: calc(var(--__size6) * 1rem);
+  --text-style5__font-size: calc(var(--__size5) * 1rem);
+  --text-style4__font-size: calc(var(--__size4) * 1rem);
+  --text-style3__font-size: calc(var(--__size3) * 1rem);
+  --text-style2__font-size: calc(var(--__size2) * 1rem);
+  --text-style1__font-size: calc(var(--__size1) * 1rem);
+
+
+
+  /* jsdoc variables */
+  --jsdoc-name__color: #9753da;
+  --jsdoc-signature__color: #6e767e;
+  --jsdoc-signature-type__color: #09671b;
+  --jsdoc-signature-attr__color: var(--jsdoc-signature-type__color);
+  --jsdoc-param-type__color: #046702;
+  --jsdoc-default__color: #aa231a;
+  --jsdoc-attributes__color: #804a35;
+  --jsdoc-important__color: var(--jsdoc-default__color);
+  --jsdoc-source__color: var(--code__color);
+  --jsdoc-source__bg-color: var(--root__bg-color);
+  --jsdoc-source__border-color: #d0d7de;
+  --jsdoc-readme-table__bg-color: #f6f8fa;
+}
+/* dark color scheme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --root-focus-visible__outline-color: #3b80e5;
+    --root-selection__bg-color: rgb(56 132 242 / 30%);
+    --root__color-scheme: dark;
+    --root__color: #adbac7;
+    --root__bg-color: #22272e;
+    --link__color: #6BB4FF;
+    --link-visited__color: #c498ff;
+    --link-hover__color: #91d6e0;
+    --input-disabled__bg-color: #4d4d4d;
+    --code__color: #adbac7;
+    --table__border-color:#444c56;
+
+    /* jsdoc variables */
+    --jsdoc-name__color: #dcbdfb;
+    --jsdoc-signature__color: #adbac7;
+    --jsdoc-signature-type__color: #8ddb8c;
+    --jsdoc-param-type__color: #78cab9;
+    --jsdoc-default__color: #ff958f;
+    --jsdoc-attributes__color: #c1aea7;
+    --jsdoc-source__border-color: #444c56;
+    --jsdoc-readme-table__bg-color: #2d333b;
+  }
+}
+.body {
+  max-width: 1600px;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+}
+.container {
+  margin-inline: 1rem;
+}
+/* grid */
+.main {
+  grid-area: main;
+}
+.sidenav {
+  margin-block-start: 2rem;
+  grid-area: sidenav;
+}
+.footer {
+  grid-area: footer;
+}
+@media (min-width: 1200px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    grid-template-areas:
+      "sidenav main"
+      "footer footer";
+    gap: 2rem;
+  }
+  .sidenav ul {
+    flex-direction: column;
+  }
+}
+.content {
+  margin-block-start: 2rem;
+  grid-area: content;
+  min-width: 0;
+}
+.toc {
+  margin-block-start: 2rem;
+  grid-area: toc;
+}
+@media (min-width: 1200px) {
+  .main {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    grid-template-areas: "content toc";
+    gap: 2rem;
+  }
+}
+/* typography flow  */
+:where(
+  .sidenav,
+  .toc,
+  .readme article,
+  .content,
+  .content article,
+  .content article .description,
+  .content section,
+  .content .container-overview
+  ) > * + * {
+  margin-block-start: var(--space, 1em);
+}
+:where(
+  .sidenav,
+  .toc,
+  .readme article,
+  .content,
+  .content article,
+  .content article .description,
+  .content section,
+  .content .container-overview
+  ) :is(h2 + *, h3 + *, h4 + *, h5 + *) {
+  --space: 0.5em;
+}
+/* table */
+table.params td,
+table.params th,
+table.props td,
+table.props th {
+  text-align: left;
+}
+table.params thead tr,
+table.props thead tr {
+  background-color: var(--code__bg-color);
+}
+/* responsive table with horizontal scroll */
+:where(.responsive-table) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+/* method names */
+:where(h1.name,
+h2.name,
+h3.name,
+h4.name,
+h5.name,
+h6.name) {
+  --heading__font-family: var(--root-mono__font-family);
+
+}
+:where(h1.name,
+h2.name,
+h3.name,
+h4.name,
+h5.name,
+h6.name):not(.subsection-title + .name) {
+  margin-block-start: 2.4em;
+}
+.name {
+  color: var(--jsdoc-name__color);
+}
+.signature {
+  color: var(--jsdoc-signature__color);
+}
+.type-signature {
+  color: var(--jsdoc-signature-type__color);
+}
+.signature-attributes {
+  color: var(--jsdoc-signature-attr__color);
+  font-weight: lighter;
+  vertical-align: super;
+  font-size: smaller;
+}
+.param-type,
+.param-desc {
+  color: var(--jsdoc-param-type__color);
+}
+.attributes {
+  color: var(--jsdoc-attributes__color);
+}
+.default {
+  color: var(--jsdoc-default__color);
+}
+.important {
+  color: var(--jsdoc-important__color);
+}
+/* setup monospace font for some elements */
+:where(
+  .param-desc,
+  .default,
+  .attributes,
+  dd.tag-overrides,
+  .inherited-from > ul,
+  .tag-see > ul,
+  .tag-deprecated + dd,
+  .param-type,
+  dd.tag-source,
+  dd.tag-default
+) {
+  font-family: var(--root-mono__font-family);
+}
+/* table of contents */
+/* stylelint-disable-next-line no-duplicate-selectors */
+.toc {
+  background: var(--code__bg-color);
+  padding: 12px;
+  border-radius: 2px;
+  align-self: start;
+  position: sticky;
+  top: 1rem;
+}
+.toc-nav .toc-list {
+  list-style: none;
+  padding: 0;
+}
+.toc-nav .toc-list .toc-list-item .is-active-link {
+  color: inherit;
+}
+/* source code */
+.source.linenums {
+  font-size: 0.75rem;
+  border: 1px solid var(--jsdoc-source__border-color);
+  color: var(--jsdoc-source__color);
+  background-color: var(--jsdoc-source__bg-color);
+}
+.source.linenums :where(th, td) {
+  border: none;
+}
+.prettyprint {
+  color: var(--jsdoc-source__color);
+}
+/* readme page style */
+.readme table tr:nth-child(2n) {
+  background-color: var(--jsdoc-readme-table__bg-color);
+}
+.hljs {
+  --jsdoc-hl-comment__color: #6e7781;
+  --jsdoc-hl-constant__color: #0550ae;
+  --jsdoc-hl-entity__color: #8250df;
+  --jsdoc-hl-storage-modifier-import__color: #24292f;
+  --jsdoc-hl-entity-tag__color: #116329;
+  --jsdoc-hl-keyword__color: #cf222e;
+  --jsdoc-hl-string__color: #0a3069;
+  --jsdoc-hl-variable__color: #953800;
+  --jsdoc-hl-markup-heading__color: #0550ae;
+  --jsdoc-hl-markup-list__color: #3b2300;
+  --jsdoc-hl-markup-italic__color: #24292f;
+  --jsdoc-hl-markup-bold__color: #24292f;
+  --jsdoc-hl-markup-inserted__color: #116329;
+  --jsdoc-hl-markup-inserted__bg-color: #dafbe1;
+  --jsdoc-hl-markup-deleted__color: #82071e;
+  --jsdoc-hl-markup-deleted__bg-color: #ffebe9;
+  --jsdoc-hl-ln-numbers__color: #6e7781;
+
+  word-wrap: anywhere;
+  white-space: pre;
+}
+@media (prefers-color-scheme: dark) {
+  .hljs {
+    --jsdoc-hl-comment__color: #768390;
+    --jsdoc-hl-constant__color: #6cb6ff;
+    --jsdoc-hl-entity__color: #dcbdfb;
+    --jsdoc-hl-storage-modifier-import__color: #adbac7;
+    --jsdoc-hl-entity-tag__color: #8ddb8c;
+    --jsdoc-hl-keyword__color: #f47067;
+    --jsdoc-hl-string__color: #96d0ff;
+    --jsdoc-hl-variable__color: #f69d50;
+    --jsdoc-hl-markup-heading__color: #316dca;
+    --jsdoc-hl-markup-list__color: #eac55f;
+    --jsdoc-hl-markup-italic__color: #adbac7;
+    --jsdoc-hl-markup-bold__color: #adbac7;
+    --jsdoc-hl-markup-inserted__color: #b4f1b4;
+    --jsdoc-hl-markup-inserted__bg-color: #1b4721;
+    --jsdoc-hl-markup-deleted__color: #ffd8d3;
+    --jsdoc-hl-markup-deleted__bg-color: #78191b;
+    --jsdoc-hl-ln-numbers__color: #768390;
+  }
+}
+/* keyword */
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: var(--jsdoc-hl-keyword__color);
+}
+.hljs-type {
+  color: var(--jsdoc-hl-storage-modifier-import__color);
+}
+.hljs-title.class_,
+.hljs-title.class_.inherited__ {
+  color: var(--jsdoc-hl-variable__color);
+}
+/* entity */
+.hljs-title,
+.hljs-title.function_ {
+  color: var(--jsdoc-hl-entity__color);
+}
+/* constant */
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: var(--jsdoc-hl-constant__color);
+}
+/* string */
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: var(--jsdoc-hl-string__color);
+}
+/* variable */
+.hljs-built_in,
+.hljs-symbol {
+  color: var(--jsdoc-hl-variable__color);
+}
+/* comment */
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  color: var(--jsdoc-hl-comment__color);
+}
+/* entity-tag */
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  color: var(--jsdoc-hl-entity-tag__color);
+}
+/* storage-modifier-import */
+.hljs-subst {
+  color: var(--jsdoc-hl-storage-modifier-import__color);
+}
+/* markup-heading */
+.hljs-section {
+  font-weight: bold;
+  color: var(--jsdoc-hl-section__color);
+}
+/* markup-list */
+.hljs-bullet {
+  color: var(--jsdoc-hl-bullet__color);
+}
+/* markup-italic */
+.hljs-emphasis {
+  font-style: italic;
+  color: var(--jsdoc-hl-emphasis__color);
+}
+/* markup-bold */
+.hljs-strong {
+  font-weight: bold;
+  color: var(--jsdoc-hl-strong__color);
+}
+/* markup-inserted */
+.hljs-addition {
+  color: var(--jsdoc-hl-addition__color);
+  background-color: var(--jsdoc-hl-addition__bg-color);
+}
+/* markup-deleted */
+.hljs-deletion {
+  color: var(--jsdoc-hl-deletion__color);
+  background-color: var(--jsdoc-hl-deletion__bg-color);
+}
+.hljs-char.escape_,
+.hljs-link,
+.hljs-params,
+.hljs-property,
+.hljs-punctuation,
+.hljs-tag {
+  color: var(--jsdoc-hl-constant__color);
+}
+/* line numbers */
+.hljs-ln-numbers {
+  padding-right: 2rem !important;
+  padding-left: 0.5rem !important;
+  text-align: right;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  color: var(--jsdoc-hl-ln-numbers__color);
+}
+
+/*# sourceMappingURL=base.css.map */

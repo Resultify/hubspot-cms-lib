@@ -1,0 +1,22 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["lib/"]
+  },
+  "templates": {
+    "cleverLinks": true,
+    "default": {
+      "includeDate": false
+    }
+  },
+  "opts": {
+    "template": "node_modules/modern-jsdoc-template/default",
+    "readme": "./README.md",
+    "destination": "./docs/",
+    "recurse": true,
+    "verbose": true
+  },
+  "markdown": {
+    "idInHeadings": true
+  }
+}

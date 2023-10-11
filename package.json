@@ -29,7 +29,7 @@
     "./fields": "./lib/cmd/fields.exec.js",
     "./watch": "./lib/cmd/watch.exec.js",
     "./build": "./lib/cmd/build.exec.js",
-     "./package.json": "./package.json"
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,8 @@
     "prepare": "husky install",
     "standardJs": "standard -v 'lib/**/*.js'",
     "checkJs": "tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
-    "test": "npm run standardJs && npm run checkJs"
+    "test": "npm run standardJs && npm run checkJs",
+    "docs": "node build/docs.exec.js"
   },
   "dependencies": {
     "@hubspot/cli-lib": "4.1.15",
@@ -67,6 +68,7 @@
   "devDependencies": {
     "execa": "~7.1.1",
     "husky": "~8.0.1",
+    "modern-jsdoc-template": "~1.0.0",
     "standard": "~17.1.0",
     "typescript": "~5.1.3"
   },

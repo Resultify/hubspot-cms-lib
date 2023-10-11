@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/ui.js</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link type="text/css" rel="stylesheet" href="styles/base.min.css">
+</head>
+
+<body class="body">
+
+    <div class="container">
+
+        <nav class="sidenav">
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+        </nav>
+
+        <main id="main" class="main">
+            <div id="content" class="content">
+                <h1 class="page-title">Source: utils/ui.js</h1>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module lib/utils/utils */
+
+import chalk from 'chalk'
+
+/**
+ * #### File Info
+ * @typedef THEME_FILE_INFO
+ * @type {object}
+ * @property {string} [name]
+ * @property {string} [path]
+ * @property {string} [dist]
+ * @property {string} [size]
+ */
+
+/**
+ * #### convert file size B -> kB/MB
+ * @param {number} size - env variables
+ * @returns {string} file size B/kB/MB
+ * @example
+ * convertFileSize(size)
+ */
+function convertFileSize (size) {
+  if (size &lt; 1000) {
+    return `${parseFloat(size.toFixed(2))} B`
+  } else if (size >= 1000) {
+    return `${parseFloat((size / 1000).toFixed(2))} kB`
+  } else if (size >= 1000000) {
+    return `${parseFloat((size / 1000000).toFixed(2))} MB`
+  } else {
+    return `${parseFloat((size / 1000000).toFixed(2))} MB`
+  }
+}
+
+/**
+ * #### parse file info
+ * @private
+ * @param {Array&lt;THEME_FILE_INFO>} files
+ * @returns {string} all file info
+ */
+function filesStats (files) {
+  let infoBlock = ''
+  const lastItem = files.length - 1
+  files.forEach((file, index) => {
+    if (file.size) {
+      infoBlock = infoBlock + `${chalk.green(file.dist)} ${chalk.yellow(`- ${file.size}`)}`
+    } else {
+      infoBlock = infoBlock + `${chalk.green(file.dist)}`
+    }
+    if (index !== lastItem) {
+      infoBlock = infoBlock + '\n'
+    }
+  })
+  return infoBlock
+}
+
+/**
+ * #### Start task message
+ * @description Show in console start task message with timestamp
+ * @param {string} taskName - task name
+ * @returns {number} timestamp
+ * @example
+ * const timeStart = utils.startTask('Compile CSS')
+ */
+function startTask (taskName) {
+  const timeStart = Date.now()
+  console.log(
+    `${chalk.dim(`[${new Date(timeStart).toLocaleTimeString()}]`)} ${chalk.blue(taskName)} ${chalk.dim('start')}`
+  )
+  return timeStart
+}
+
+/**
+ * #### end task/tasks options
+ * @typedef EndTask
+ * @type {object}
+ * @property {Array&lt;THEME_FILE_INFO>} [files] - file list
+ * @property {string} taskName
+ * @property {number} timeStart
+ */
+
+/**
+ * #### End task console message
+ * @description End task console message with date, title, time and filelist if present
+ * @param {EndTask} options - EndTask options
+ * @returns undefined
+ * @example
+ * utils.endTask({taskName: 'Compile CSS', timeStart: 1663932841247 })
+ */
+function endTask (options) {
+  const timeEnd = Date.now()
+  const timeDiff = (timeEnd - options.timeStart) / 1000
+  const msg = `${chalk.dim(`${chalk.magenta('─────●')} [${new Date(timeEnd).toLocaleTimeString()}]`)} ${chalk.blue(options.taskName)}`
+  if (options.files) {
+    console.log(
+      `${filesStats(options.files)}\n${msg} ${chalk.gray('finished after')} ${chalk.yellow(`${timeDiff}s`)}\n`
+    )
+  } else {
+    console.log(
+      `${msg} ${chalk.gray('finished after')} ${chalk.yellow(`${timeDiff}s`)}\n`
+    )
+  }
+}
+
+/**
+ * #### Start task group message
+ * @description Show in console start task group message with timestamp
+ * @param {string} taskName - Task name
+ * @returns {number} timestart timestamp
+ * @example
+ * const timeStart = utils.startTaskGroup('Build task')
+ */
+function startTaskGroup (taskName) {
+  const timeStart = Date.now()
+  const msg = `[${chalk.yellow(new Date(timeStart).toLocaleTimeString())}] ${chalk.bold(taskName)}`
+  console.log(`══════════════\n${msg}\n`)
+  return timeStart
+}
+
+/**
+ * #### End group of tasks info
+ * @description End group of tasks console message with date, title and time
+ * @param {EndTask} options - End task options
+ * @returns undefined
+ * @example
+ * utils.endTaskGroup({ taskName: 'Build task', timeStart: 1663932841247 })
+ */
+function endTaskGroup (options) {
+  const timeEnd = Date.now()
+  const timeDiff = (timeEnd - options.timeStart) / 1000
+
+  const msg = `[${chalk.yellow(new Date(timeEnd).toLocaleTimeString())}] ${chalk.bold(options.taskName)}`
+  let processStatusMark
+  if (process.exitCode === 1) {
+    processStatusMark = chalk.red('●')
+  } else {
+    processStatusMark = chalk.green('●')
+  }
+  console.log(`\n${processStatusMark} DONE\n${msg} ${chalk.grey('finished after')} ${chalk.bold.yellow.underline(`${timeDiff}s`)}\n═══════════════`)
+}
+
+export { startTask, endTask, startTaskGroup, endTaskGroup, convertFileSize }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+
+            <div class="toc">
+                <h2>Table of contents</h2>
+                <div class="toc-nav"></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script >
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.prettyprint.linenums code').forEach((el) => {
+                hljs.configure({
+                    languages: ['javascript'],
+                });
+                hljs.highlightElement(el);
+                hljs.lineNumbersBlock(el);
+            });
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.configure({
+                    languages: ['javascript'],
+                });
+                hljs.highlightElement(el);
+            });
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+    <script>
+        tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.toc-nav',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.main article',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1.name, h2.name, h3.name, h4.name',
+        headingLabelCallback: (string) => string
+    });
+    </script>
+</body>
+</html>
