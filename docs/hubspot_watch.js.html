@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -28,30 +28,37 @@
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/watch */
 
-import * as T from '../config/types.js' // eslint-disable-line
+import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
 import chalk from 'chalk'
 import watch from '@hubspot/cli-lib/lib/watch.js'
 import logger from '@hubspot/cli-lib/logger.js'
-import { globals } from '../config/globals.js'
-import { loadAuthConfig } from './auth.js'
+import { getThemeOptions } from '../utils/options.js'
+
+/**
+ * @ignore
+ * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
+ */
 
 let cmsMode = 'publish'
-if (process.env.MODE === 'draft') {
+if (process.env.HUB_MODE === 'draft') {
   cmsMode = 'draft'
 }
 
 /**
  * #### watch and upload all HubSpot theme files
  * @async
- * @param {T.THEME_HUB_AUTH_CONFIG|string} customAuthConfig - Rusultify custom Hubspot authentication
+ * @param {HUBSPOT_AUTH_CONFIG} config - hubspot authentication config
+ * @param {string} themeName - theme name
  * @returns undefined
  */
-async function watchHubspotTheme (customAuthConfig) {
+async function watchHubspotTheme (config, themeName) {
   try {
-    const hubconf = await loadAuthConfig(customAuthConfig)
-    const portalId = hubconf.portals[0].portalId
+    const cmslibOptions = getThemeOptions()
+    const src = `${process.cwd()}/${cmslibOptions.themeFolder}`
+    const dest = themeName
+    const portalId = config.portals[0].portalId
     logger.setLogLevel(4)
-    const watcher = await watch.watch(portalId, globals.THEME, globals.THEME_NAME, {
+    const watcher = await watch.watch(portalId, src, dest, {
       mode: cmsMode,
       remove: true,
       disableInitial: true,
@@ -60,11 +67,25 @@ async function watchHubspotTheme (customAuthConfig) {
       filePaths: ''
     })
     watcher
-      .on('ready', () => console.log(`\n${chalk.green('●')} Watcher is ready and watching ${chalk.green(`${globals.THEME}/*`)}\nAny changes detected will be automatically uploaded and overwrite the current version in the developer file system.`))
-      .on('add', (/** @type {String} */ path) => console.log(`${chalk.yellow('──●')} Uploaded file ${chalk.green(path)}`))
-      .on('change', (/** @type {String} */ path) => console.log(`${chalk.yellow('──●')} Uploaded file ${chalk.green(path)}`))
-      .on('unlink', (/** @type {String} */ path) => console.log(`${chalk.red('●──')} Deleted file ${chalk.green(path)}`))
-      .on('unlinkDir', (/** @type {String} */ path) => console.log(`${chalk.red('●──')} Deleted folder ${chalk.green(path)}`))
+      .on('ready', () => {
+        console.log(`\n${chalk.green('●')} Watcher is ready and watching ${chalk.green(`${themeName}/*`)}\nAny changes detected will be automatically uploaded and overwrite the current version in the developer file system.`)
+      })
+      .on('add', (/** @type {String} */ path) => {
+        console.debug = () => {}
+        console.log(`${chalk.yellow('──>')} Uploaded file ${chalk.green(path)}`)
+      })
+      .on('change', (/** @type {String} */ path) => {
+        console.debug = () => {}
+        console.log(`${chalk.yellow('──>')} Uploaded file ${chalk.green(path)}`)
+      })
+      .on('unlink', (/** @type {String} */ path) => {
+        console.debug = () => {}
+        console.log(`${chalk.red('●──')} Deleted file ${chalk.green(path)}`)
+      })
+      .on('unlinkDir', (/** @type {String} */ path) => {
+        console.debug = () => {}
+        console.log(`${chalk.red('●──')} Deleted folder ${chalk.green(path)}`)
+      })
   } catch (error) {
     console.error(error)
     process.exit(1)

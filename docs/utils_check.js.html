@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module lib/check */
+            <pre class="prettyprint source linenums"><code>/** @module utils/check */
 
 import { createRequire } from 'module'
 import semver from 'semver'
@@ -38,9 +38,6 @@ const require = createRequire(import.meta.url)
  * @description Will throw an error if node version is wrong and if no engines config in package,json
  * @returns undefined
  * @throws console.error &amp; process.exit(1) if node version is wrong
- * @example
- * import { checkNode } from './check.js'
- * checkNode()
  */
 async function checkNode () {
   let nodeEngine = require(`${process.cwd()}/package.json`)
@@ -55,23 +52,7 @@ async function checkNode () {
   }
 }
 
-/**
- * #### Check package.json name and theme.json name
- * @description Will throw an error if package.json[name] != theme.json[name]
- * @returns undefined
- * @throws console.error &amp; process.exit(1) if package.json[name] != theme.json[name]
- * @example
- * import { checkPackageThemeConsistent } from './check.js'
- * checkPackageThemeConsistent()
- */
-function checkPackageThemeConsistent () {
-  if (require(`${process.cwd()}/package.json`).name !== require(`${process.cwd()}/theme/theme.json`).name) {
-    console.error(`${chalk.red.bold('ERROR')}: ${chalk.cyan('package.json')} name should be equal to ${chalk.cyan('theme/theme.json')} name`)
-    process.exit(1)
-  }
-}
-
-export { checkNode, checkPackageThemeConsistent }
+export default checkNode()
 </code></pre>
         </article>
     </section>

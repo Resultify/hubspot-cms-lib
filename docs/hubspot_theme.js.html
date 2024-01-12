@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: hubspot/lighthouseScore</title>
+    <title>JSDoc: Source: hubspot/theme.js</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,281 +18,57 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Module: hubspot/lighthouseScore</h1>
+                <h1 class="page-title">Source: hubspot/theme.js</h1>
                 
 
 
 
-
-<section>
-
-<header>
     
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_lighthouse.js.html">hubspot/lighthouse.js</a>, <a href="hubspot_lighthouse.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~lighthouseScore" data-heading-label="~lighthouseScore" ><span class="type-signature">(async, inner) </span>lighthouseScore<span class="signature">(config, themeName)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <h4 id="get-mobile-lighthouse-score-for-theme">get Mobile Lighthouse Score for theme</h4>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<div class="responsive-table">
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>hubspot authentication config</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>themeName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>theme name</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</div>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_lighthouse.js.html">hubspot/lighthouse.js</a>, <a href="hubspot_lighthouse.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>lighthouse score results for mobile</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module hubspot/theme */
+
+import chalk from 'chalk'
+import { getThemeOptions } from '../utils/options.js'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const cmslibOptions = getThemeOptions()
+
+/**
+ * #### Get theme name from theme.json
+ * @returns {string}
+ * @throws console.error &amp; process.exit(1) if theme.json does not exist
+ */
+function getThemeName () {
+  try {
+    const themeName = require(`${process.cwd()}/${cmslibOptions.themeFolder}/theme.json`).name
+    return themeName
+  } catch (error) {
+    console.error(`${chalk.red.bold('ERROR')}: ${chalk.cyan(`${cmslibOptions.themeFolder}/theme.json`)} does not exist`)
+    process.exit(1)
+  }
+}
+
+const themeName = getThemeName()
+
+/**
+ * #### Check package.json name and theme.json name
+ * @description Will throw an error if package.json[name] != theme.json[name]
+ * @returns undefined
+ * @throws console.error &amp; process.exit(1) if package.json[name] != theme.json[name]
+ */
+function checkPackageThemeConsistent () {
+  if (require(`${process.cwd()}/package.json`).name !== themeName) {
+    console.error(`${chalk.red.bold('ERROR')}: ${chalk.cyan('package.json')} name should be equal to ${chalk.cyan(`${cmslibOptions.themeFolder}/theme.json`)} name`)
+    process.exit(1)
+  }
+}
+checkPackageThemeConsistent()
+
+export default themeName
+</code></pre>
+        </article>
+    </section>
 
 
 

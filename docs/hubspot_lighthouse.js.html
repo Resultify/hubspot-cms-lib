@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: hubspot/lighthouse-score.js</title>
+    <title>JSDoc: Source: hubspot/lighthouse.js</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -13,12 +13,12 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Source: hubspot/lighthouse-score.js</h1>
+                <h1 class="page-title">Source: hubspot/lighthouse.js</h1>
                 
 
 
@@ -28,41 +28,44 @@
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/lighthouseScore */
 
-import * as T from '../config/types.js' // eslint-disable-line
+import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
 import { requestLighthouseScore, getLighthouseScoreStatus, getLighthouseScore } from '@hubspot/cli-lib/api/lighthouseScore.js'
 import chalk from 'chalk'
 import Table from 'cli-table3'
 import ora from 'ora'
-import { globals } from '../config/globals.js'
-import * as utils from '../utils/ui.js'
-import { loadAuthConfig } from './auth.js'
+import { savedConsoleDebug } from '../utils/console.js'
+import { getThemeOptions } from '../utils/options.js'
+import * as ui from '../utils/ui.js'
+import { cleanUploadThemeTemplates } from '../hubspot/upload.js'
 
 /**
- * @type {T.LIGHTHOUSE_THRESHOLD}
+ * @ignore
+ * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
+ * @typedef {TYPES.LIGHTHOUSE_THRESHOLD} LIGHTHOUSE_THRESHOLD {@link LIGHTHOUSE_THRESHOLD}
+ * @typedef {TYPES.LIGHTHOUSE_SCORE} LIGHTHOUSE_SCORE {@link LIGHTHOUSE_SCORE}
  */
-const internalLighthouseThreshold = {
-  performance: 80,
-  accessibility: 90,
-  bestPractices: 90,
-  seo: 80
-}
 
 /**
  * #### get Mobile Lighthouse Score for theme
  * @async
- * @param {T.THEME_HUB_AUTH_CONFIG|string} customAuthConfig - Rusultify custom Hubspot authentication
- * @param {T.THEME_BUILD_OPTIONS} opt - task options
+ * @param {HUBSPOT_AUTH_CONFIG} config - hubspot authentication config
+ * @param {string} themeName - theme name
  * @returns {Promise&lt;Object>} lighthouse score results for mobile
  */
-async function lighthouseScore (customAuthConfig, opt) {
+async function lighthouseScore (config, themeName) {
   try {
-    const timeStart = utils.startTask('Lighthouse Score')
-    const hubconf = await loadAuthConfig(customAuthConfig)
-    const portalId = hubconf.portals[0].portalId
+    // reupload all templates
+    await cleanUploadThemeTemplates(config, themeName)
+
+    const timeStart = ui.startTask('LighthouseScore')
+
+    const cmslibOptions = getThemeOptions()
+    const portalId = config.portals[0].portalId
+
     /**
-     * @type {T.LIGHTHOUSE_THRESHOLD}
+     * @type {LIGHTHOUSE_THRESHOLD}
      */
-    const lighthouseThreshold = opt?.config?.lighthouse?.threshold ?? internalLighthouseThreshold
+    const lighthouseThreshold = cmslibOptions?.lighthouse
     const spinner = ora('Request Lighthouse score').start()
 
     // Request Lighthouse score
@@ -70,15 +73,17 @@ async function lighthouseScore (customAuthConfig, opt) {
      * @type {any}
      */
     let requestResult
+    console.debug = () => {}
     try {
       requestResult = await requestLighthouseScore(portalId, {
-        themePath: globals.THEME_NAME
+        themePath: themeName
       })
     } catch (error) {
       spinner.fail()
       console.error(error)
       process.exit(1)
     }
+    console.debug = savedConsoleDebug
     if (!requestResult || !requestResult.mobileId) {
       console.error('\nFailed to get Lighthouse score')
       process.exit(1)
@@ -103,7 +108,7 @@ async function lighthouseScore (customAuthConfig, opt) {
     let mobileScoreResult
     let averageMobileScoreResult
     let verbose = false
-    if (process.argv.slice(2)[0] === '--verbose') {
+    if (process.argv.slice(1)[0] === '--verbose') {
       verbose = true
     }
     try {
@@ -117,8 +122,8 @@ async function lighthouseScore (customAuthConfig, opt) {
     }
 
     // show trashold numbers in console
-    const showTrashold = (/** @type {T.LIGHTHOUSE_THRESHOLD} */ threshold) => {
-      console.log(`\nProject Lighthouse threshold: Accessibility:${threshold.accessibility}, Best Practices:${threshold.bestPractices}, Performance:${threshold.performance}, SEO:${threshold.seo}`)
+    const showTrashold = (/** @type {LIGHTHOUSE_THRESHOLD} */ threshold) => {
+      console.log(`${chalk.cyan(themeName)} Lighthouse threshold: Accessibility:${threshold.accessibility}, Best Practices:${threshold.bestPractices}, Performance:${threshold.performance}, SEO:${threshold.seo}`)
     }
 
     /**
@@ -135,7 +140,7 @@ async function lighthouseScore (customAuthConfig, opt) {
       return chalk.dim(val)
     }
     // exit with error if Lighthouse score is lower than threshold
-    const exitWithErrorIfLighthouseThreshold = (/** @type {T.LIGHTHOUSE_SCORE} */ scores, /** @type {T.LIGHTHOUSE_THRESHOLD} */ thresholds) => {
+    const exitWithErrorIfLighthouseThreshold = (/** @type {LIGHTHOUSE_SCORE} */ scores, /** @type {LIGHTHOUSE_THRESHOLD} */ thresholds) => {
       if (scores.accessibilityScore &lt;= thresholds.accessibility) {
         console.error(`${chalk.dim.red('[Error]')} Lighthouse Accessibility score is lower than ${chalk.yellow(thresholds.accessibility)}`)
         process.exitCode = 1
@@ -160,7 +165,7 @@ async function lighthouseScore (customAuthConfig, opt) {
     /**
      * ####
      * @private
-     * @param {{scores: T.LIGHTHOUSE_SCORE[]}} results
+     * @param {{scores: LIGHTHOUSE_SCORE[]}} results
      * @returns undefined
      */
     const showAverageResults = (results) => {
@@ -178,7 +183,7 @@ async function lighthouseScore (customAuthConfig, opt) {
     /**
      * ####
      * @private
-     * @param {{scores: T.LIGHTHOUSE_SCORE[]}} results
+     * @param {{scores: LIGHTHOUSE_SCORE[]}} results
      * @returns undefined
      */
     const showVerboseResults = results => {
@@ -210,23 +215,23 @@ async function lighthouseScore (customAuthConfig, opt) {
 
     if (verbose) {
       if ('scores' in averageMobileScoreResult &amp;&amp; 'scores' in mobileScoreResult) {
-        console.log(`\n${chalk.cyan(globals.THEME_NAME)} Average Mobile Lighthouse scores`)
+        console.log(`${chalk.cyan(themeName)} Average Mobile Lighthouse scores`)
         showAverageResults(averageMobileScoreResult)
         showVerboseResults(mobileScoreResult)
       }
     } else {
       if ('scores' in averageMobileScoreResult) {
-        console.log(`\n${chalk.cyan(globals.THEME_NAME)} Average Mobile Lighthouse scores`)
+        console.log(`${chalk.cyan(themeName)} Average Mobile Lighthouse scores`)
         showAverageResults(averageMobileScoreResult)
         console.log('This is the average of all theme templates')
-        console.log('Use the [-- --verbose] option to include individual template scores')
+        console.log('Use the [-- -- --verbose] option to include individual template scores')
       }
     }
 
-    console.log('Powered by Google Lighthouse\n')
+    console.log('Powered by Google Lighthouse')
     console.log(`id:${requestResult.mobileId}`)
     exitWithErrorIfLighthouseThreshold(averageMobileScoreResult.scores[0], lighthouseThreshold)
-    utils.endTask({ taskName: 'Lighthouse score', timeStart })
+    ui.endTask({ taskName: 'LighthouseScore', timeStart })
     return mobileScoreResult
   } catch (error) {
     console.error(error)

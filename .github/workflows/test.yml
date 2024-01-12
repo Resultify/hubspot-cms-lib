@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        node: [16, 18]
+        node: [18, 20]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js v${{ matrix.node }}

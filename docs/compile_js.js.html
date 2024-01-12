@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,73 +26,122 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module lib/rollup */
+            <pre class="prettyprint source linenums"><code>/** @module compile/js */
 
-import * as T from '../config/types.js' // eslint-disable-line
+import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
 import fsPromises from 'fs/promises'
 import { rollup } from 'rollup'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
-import { globals } from '../config/globals.js'
-import * as utils from '../utils/ui.js'
 import { getFileList } from '../utils/fs.js'
+import * as ui from '../utils/ui.js'
+import { getThemeOptions } from '../utils/options.js'
+
+/**
+ * @ignore
+ * @typedef {TYPES.THEME_OPTIONS} THEME_OPTIONS {@link THEME_OPTIONS}
+ */
+
+/**
+ * #### Get Rollup input options
+ * @private
+ * @param {Object} input - rollup input path
+ * @param {THEME_OPTIONS} options - theme options
+ * @returns {Object} portal name|names
+ */
+function getRollupInputOptions (input, options) {
+  let replaceVal = {
+    preventAssignment: false,
+    'process.env.NODE_ENV': process.env.NODE_ENV
+  }
+  replaceVal = { ...replaceVal, ...options?.js?.replace }
+  const inputOptions = {
+    input,
+    external: [],
+    plugins: [
+      nodeResolve(),
+      replace(replaceVal)
+    ]
+  }
+  const externalConfig = options?.js?.external || []
+  // @ts-ignore
+  inputOptions.external = [...inputOptions.external, ...externalConfig]
+  return inputOptions
+}
+
+/**
+ * #### Get Rollup output options
+ * @private
+ * @param {Object} output - rollup output path
+ * @param {THEME_OPTIONS} options - theme options
+ * @returns {Object} portal name|names
+ */
+function getRollupOutputOptions (output, options) {
+  const outputOptions = {
+    file: output,
+    format: 'iife',
+    globals: {}
+  }
+  outputOptions.globals = { ...outputOptions.globals, ...options?.js?.globals }
+  return outputOptions
+}
+
+/**
+ * #### build Rollup bundle
+ * @async
+ * @private
+ * @param {Object} inputOptions - rollup input options
+ * @param {Object} outputOptions - rollup output options
+ * @returns undefined
+ */
+async function build (inputOptions, outputOptions) {
+  let bundle
+  try {
+    // create a bundle
+    bundle = await rollup(inputOptions)
+    await bundle.write(outputOptions)
+  } catch (error) {
+    console.error(error)
+  }
+  if (bundle) {
+    await bundle.close()
+  }
+}
 
 /**
  * #### Compile Js task
  * @async
- * @param {T.THEME_BUILD_OPTIONS} [opt] - task options
+ * @param {boolean} [hideStatus] - hide status messages
  * @returns undefined
  */
-async function compileJs (opt) {
+async function compileJs (hideStatus) {
   try {
-    const hideStatus = opt?.hideStatus
-
-    const timeStart = utils.startTask('compileJs')
+    const timeStart = ui.startTask('compileJs')
+    /**
+     * ####
+     * @type {THEME_OPTIONS}
+     */
+    const options = getThemeOptions()
+    const jsSrc = `${options.vendorSrc}/js`
+    const jsDest = `${options.vendorDest}/js`
     const fileList = []
 
-    let replaceVal = {
-      preventAssignment: false,
-      'process.env.NODE_ENV': process.env.NODE_ENV
-    }
-    replaceVal = { ...replaceVal, ...opt?.config?.js?.replace }
-    await fsPromises.mkdir(globals.JS_DIST, { recursive: true })
-    const files = await getFileList(`${globals.JS_SRC}/*.js`, { objectMode: true })
+    await fsPromises.mkdir(jsDest, { recursive: true })
+    const files = await getFileList(`${jsSrc}/*.js`, { objectMode: true })
 
     if (files !== undefined) {
       for await (const file of files) {
-        /**
-         * @type {Array&lt;string>}
-         */
-        const externalInputOptions = []
-        const inputOptions = {
-          input: file.path,
-          external: externalInputOptions,
-          plugins: [
-            nodeResolve(),
-            replace(replaceVal)
-          ]
-        }
-        const externalConfig = opt?.config?.js?.external || []
-        inputOptions.external = [...inputOptions.external, ...externalConfig]
+        const inputOptions = getRollupInputOptions(file.path, options)
+        const outputOptions = getRollupOutputOptions(`${jsDest}/${file.name}`, options)
+        await build(inputOptions, outputOptions)
 
-        const outputOptions = {
-          file: `${globals.JS_DIST}/${file.name}`,
-          format: 'iife',
-          globals: {}
-        }
-        outputOptions.globals = { ...outputOptions.globals, ...opt?.config?.js?.globals }
-        const bundle = await rollup(inputOptions)
-        // @ts-ignore
-        await bundle.write(outputOptions)
-
-        const fileStats = await fsPromises.stat(`${globals.JS_DIST}/${file.name}`)
-
-        file.size = utils.convertFileSize(fileStats.size)
-        file.dist = `${globals.JS_DIST}/${file.name}`
+        const fileStats = await fsPromises.stat(`${jsDest}/${file.name}`)
+        file.size = ui.convertFileSize(fileStats.size)
+        file.dist = `${jsDest}/${file.name}`
         fileList.push(file)
       }
     }
-    hideStatus || utils.endTask({ files: fileList, taskName: 'compileJs', timeStart })
+    hideStatus || ui.endTask({ files: fileList, taskName: 'compileJs', timeStart })
   } catch (error) {
     console.error(error)
   }

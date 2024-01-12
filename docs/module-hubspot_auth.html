@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: hubspot/lighthouseScore</title>
+    <title>JSDoc: Module: hubspot/auth</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,7 +18,7 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Module: hubspot/lighthouseScore</h1>
+                <h1 class="page-title">Module: hubspot/auth</h1>
                 
 
 
@@ -67,7 +67,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_lighthouse.js.html">hubspot/lighthouse.js</a>, <a href="hubspot_lighthouse.js.html#line1">line 1</a>
+        <a href="hubspot_auth_auth.js.html">hubspot/auth/auth.js</a>, <a href="hubspot_auth_auth.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -106,7 +106,7 @@
     
 
     
-    <h4 class="name" id="~lighthouseScore" data-heading-label="~lighthouseScore" ><span class="type-signature">(async, inner) </span>lighthouseScore<span class="signature">(config, themeName)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    <h4 class="name" id="~getAccessTokenData" data-heading-label="~getAccessTokenData" ><span class="type-signature">(async, inner) </span>getAccessTokenData<span class="signature">(accessKey)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#HUBSPOT_ACCESSTOKEN_SCHEMA">HUBSPOT_ACCESSTOKEN_SCHEMA</a>>}</span></h4>
     
 
     
@@ -114,7 +114,7 @@
 
 
 <div class="description">
-    <h4 id="get-mobile-lighthouse-score-for-theme">get Mobile Lighthouse Score for theme</h4>
+    <h4 id="get-accesstoken-and-portalid">Get AccessToken and portalId</h4>
 </div>
 
 
@@ -151,13 +151,13 @@
 
         <tr>
             
-                <td class="name"><code>config</code></td>
+                <td class="name"><code>accessKey</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -167,9 +167,147 @@
 
             
 
-            <td class="description last"><p>hubspot authentication config</p></td>
+            <td class="description last"></td>
         </tr>
 
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_auth_auth.js.html">hubspot/auth/auth.js</a>, <a href="hubspot_auth_auth.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>AccessToken data</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="global.html#HUBSPOT_ACCESSTOKEN_SCHEMA">HUBSPOT_ACCESSTOKEN_SCHEMA</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~loadAuthConfig" data-heading-label="~loadAuthConfig" ><span class="type-signature">(async, inner) </span>loadAuthConfig<span class="signature">(themeName)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="load-and-validate-hubspot-config">Load and validate Hubspot config</h4>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="responsive-table">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -232,7 +370,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_lighthouse.js.html">hubspot/lighthouse.js</a>, <a href="hubspot_lighthouse.js.html#line27">line 27</a>
+        <a href="hubspot_auth_auth.js.html">hubspot/auth/auth.js</a>, <a href="hubspot_auth_auth.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -261,7 +399,7 @@
 
         
 <div class="param-desc">
-    <p>lighthouse score results for mobile</p>
+    <p>AccessToken data</p>
 </div>
 
 
@@ -272,7 +410,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;Object></span>
+<span class="param-type">Promise.&lt;<a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a>></span>
 
 
     </dd>

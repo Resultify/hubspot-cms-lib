@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,31 +26,31 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module lib/sass */
+            <pre class="prettyprint source linenums"><code>/** @module compile/sass */
 
-import * as T from '../config/types.js' // eslint-disable-line
 import fsPromises from 'fs/promises'
 import { pathToFileURL } from 'url'
 import * as sass from 'sass'
-import { globals } from '../config/globals.js'
-import * as utils from '../utils/ui.js'
 import { getFileList } from '../utils/fs.js'
+import * as ui from '../utils/ui.js'
+import { getThemeOptions } from '../utils/options.js'
 
 /**
  * #### Compile Scss task
  * @async
- * @param {T.THEME_BUILD_OPTIONS} [opt] - options
+ * @param {boolean} [hideStatus] - hide status messages
  * @returns undefined
  */
-async function compileScss (opt) {
-  const hideStatus = opt?.hideStatus
-
+async function compileScss (hideStatus) {
   try {
-    const timeStart = utils.startTask('compileScss')
+    const timeStart = ui.startTask('compileScss')
+    const options = getThemeOptions()
+    const scssSrc = `${options.vendorSrc}/scss`
+    const scssDest = `${options.vendorDest}/css`
     const fileList = []
 
-    await fsPromises.mkdir(globals.SCSS_DIST, { recursive: true })
-    const files = await getFileList(`${globals.SCSS_SRC}/*.scss`, { objectMode: true })
+    await fsPromises.mkdir(scssDest, { recursive: true })
+    const files = await getFileList(`${scssSrc}/*.scss`, { objectMode: true })
 
     if (files !== undefined) {
       for await (const file of files) {
@@ -66,15 +66,15 @@ async function compileScss (opt) {
         })
 
         const fileName = `${file.name.slice(0, -5)}.css`
-        await fsPromises.writeFile(`${globals.SCSS_DIST}/${fileName}`, scssResult.css)
-        const fileStats = await fsPromises.stat(`${globals.SCSS_DIST}/${fileName}`)
-        file.size = utils.convertFileSize(fileStats.size)
-        file.dist = `${globals.SCSS_DIST}/${fileName}`
+        await fsPromises.writeFile(`${scssDest}/${fileName}`, scssResult.css)
+        const fileStats = await fsPromises.stat(`${scssDest}/${fileName}`)
+        file.size = ui.convertFileSize(fileStats.size)
+        file.dist = `${scssDest}/${fileName}`
         fileList.push(file)
       }
     }
 
-    hideStatus || utils.endTask({ files: fileList, taskName: 'compileScss', timeStart })
+    hideStatus || ui.endTask({ files: fileList, taskName: 'compileScss', timeStart })
   } catch (error) {
     console.error(error)
   }

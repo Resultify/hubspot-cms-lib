@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,29 +26,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { checkNode, checkPackageThemeConsistent } from '../utils/check.js'
+            <pre class="prettyprint source linenums"><code>import '../utils/check.js'
+import themeName from '../hubspot/theme.js'
 import { fetchModules } from '../hubspot/fetch.js'
-import { globals } from '../config/globals.js'
-import { getAuthConfig } from '../hubspot/auth.js'
-import { confirmThemeName } from '../hubspot/helpers.js'
-import * as utils from '../utils/ui.js'
-checkNode()
-checkPackageThemeConsistent()
+import { loadAuthConfig } from '../hubspot/auth/auth.js'
+import * as ui from '../utils/ui.js'
 
 /**
- * #### Fetch Modules from HUBSPOT cms portall
+ * #### Fetch only modules from HubSpot theme
  * @async
- * @memberof Theme_Commands
- * @returns undefined
+ * @memberof Commands
  * @example
- * node build/fetchModules.js
+ * import { fetchModules } from '@resultify/hubspot-cms-lib/fetchModules'
+ * fetchModules()
+ *
+ * // or run with npm by adding to package.json scripts:
+ * "scripts": {
+ *   "fetchModules": "node -e 'import(`@resultify/hubspot-cms-lib/fetchModules`)'"
+ * }
  */
 async function hubspotFetchModules () {
-  await confirmThemeName()
-  const hubAuth = await getAuthConfig()
-  const timeStart = utils.startTaskGroup(`Fetch modules from ${globals.THEME_NAME}`)
-  await fetchModules(hubAuth)
-  utils.endTaskGroup({ taskName: `Fetch modules from ${globals.THEME_NAME}`, timeStart })
+  const timeStart = ui.startTaskGroup(`Fetch modules from ${themeName}`)
+  const hubAuthData = await loadAuthConfig(themeName)
+  await fetchModules(hubAuthData, themeName)
+  ui.endTaskGroup({ taskName: `Fetch modules from ${themeName}`, timeStart })
 }
 
 export { hubspotFetchModules }

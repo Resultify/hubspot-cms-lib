@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,50 +26,49 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module lib/watch */
+            <pre class="prettyprint source linenums"><code>/** @module compile/watch */
 
-import * as T from '../config/types.js' // eslint-disable-line
 import chokidar from 'chokidar'
 import chalk from 'chalk'
 import { compileCss } from './css.js'
 import { compileScss } from './sass.js'
 import { compileJs } from './js.js'
-import { globals } from '../config/globals.js'
 import { compileFieldsJs } from '../hubspot/fields.js'
+import { getThemeOptions } from '../utils/options.js'
 
 /**
  * #### Watch task
  * @async
- * @param {T.THEME_BUILD_OPTIONS} [opt] - task options
  * @returns undefined
  */
-async function watchSrc (opt) {
+async function watchVendor () {
   try {
-    chokidar.watch(`${globals.CSS_SRC}/**/*.css`, { ignoreInitial: true, awaitWriteFinish: false }).on('all', (event, path) => {
+    const options = getThemeOptions()
+    chokidar.watch(`${options.vendorSrc}/css/**/*.css`, { ignoreInitial: true, awaitWriteFinish: false }).on('all', (event, path) => {
       console.log(`${chalk.red(event)} ${path}`)
-      compileCss({ config: opt?.config, hideStatus: true })
+      compileCss(true)
     })
 
-    chokidar.watch(`${globals.JS_SRC}/**/*.js`, { ignoreInitial: true, awaitWriteFinish: false }).on('all', (event, path) => {
+    chokidar.watch(`${options.vendorSrc}/js/**/*.js`, { ignoreInitial: true, awaitWriteFinish: false }).on('all', (event, path) => {
       console.log(`${chalk.red(event)} ${path}`)
-      compileJs({ config: opt?.config, hideStatus: true })
+      compileJs(true)
     })
 
-    chokidar.watch(`${globals.SCSS_SRC}/**/*.scss`, { ignoreInitial: true }).on('all', (event, path) => {
+    chokidar.watch(`${options.vendorSrc}/scss/**/*.scss`, { ignoreInitial: true }).on('all', (event, path) => {
       console.log(`${chalk.red(event)} ${path}`)
-      compileScss({ config: opt?.config, hideStatus: true })
+      compileScss(true)
     })
 
-    chokidar.watch(globals.FIELDSJS_SRC, { ignoreInitial: true, awaitWriteFinish: false }).on('all', (event, path) => {
+    chokidar.watch(`${process.cwd()}/${options.themeFolder}/**/fields.js`, { ignoreInitial: true, awaitWriteFinish: false }).on('all', (event, path) => {
       console.log(`${chalk.red(event)} ${path}`)
-      compileFieldsJs({ hideStatus: true }, path)
+      compileFieldsJs(path, true)
     })
   } catch (error) {
     console.error(error)
   }
 }
 
-export { watchSrc }
+export { watchVendor }
 </code></pre>
         </article>
     </section>

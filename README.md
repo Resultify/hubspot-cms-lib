@@ -1,70 +1,142 @@
 # @resultify/hubspot-cms-lib
-Library with additional functionality on top of native HubSpot CMS CLI library ([cli-lib](https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib)) with command-line interface. ❗It should be used instead of `hubspot-cli`❗
+Library with additional functionality on top of native HubSpot CMS CLI library ([cli-lib](https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib)) with command-line interface.
+
+❗It should be used instead of `hubspot-cli`❗
 
 [![Run tests](https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml/badge.svg)](https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml)
 ![node-current](https://img.shields.io/node/v/@resultify/hubspot-cms-lib)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![JSDoc](https://img.shields.io/badge/API\%20documentation-JSDoc-yellow)
 
-[**Documentation**](https://resultify.github.io/hubspot-cms-lib)
+[**Code Documentation**](https://resultify.github.io/hubspot-cms-lib)
 
 ## Table of contents
-TBD
+
+- [Why?](#why)
+- [What's inside](#whats-inside)
+- [Install](#instal)
+- [Usage](#usage)
+- [Custom multi-account authentication](#custom-multi-account-authentication)
+- [Configuration](#configuration)
+- [Changelog](CHANGELOG.md)
 
 ## Why?
-The **HubSpot CLI** is a useful tool for connecting local development tools with HubSpot. However, integrating it smoothly into the development process can be a challenge, as there is no easy way to consolidate all local development tasks into one tool. To simplify the process and have one tool to manage all local development tasks, we created our own library that utilizes HubSpot CLI and allows for seamless integration with other tools.
-
-**For example**, to compile `SCSS` files and upload them using the `hubspot-cli` **Watch** process, you typically need multiple tools or steps. This includes some task manager that can compile `SCSS`, copy `CSS`, and run a **Watch** process, as well as the `hubspot-cli` **Watch/Upload** process to upload the compiled files. However, with `@resultify/hubspot-cms-lib`, you only need one step. The **Watch** process combines `SCSS`, `PostCSS`, and `Rolup.js` compilers with the Hubspot CLI Watch and Upload process, allowing you to accomplish everything with just one CLI command: `npm run watch`
-
-
-## Features
-TBD
-
-
-## General recommendations
-TBD
-
-
-## Set of tools for HubSpot CMS themes
-- JS/CSS/SASS compilers
-- HubSpot CLI `upload`, `fetch` and `watch` commands integrated with other scripts
-- Custom HubSpot multi-account authentication
-
-## Requirements
-1. Should be a part of HubSpot Theme as an NPM dependency
-2. HubSpot Theme should have entry points scripts for every task (example: [entry points scripts](https://github.com/Resultify/nimbly-lite/tree/master/build))
-3. HubSpot Theme should have tasks added as a script to package.json (example: [package.json](https://github.com/Resultify/nimbly-lite/blob/master/package.json#L9))
+- The **HubSpot CLI** is a useful tool for connecting local development tools with HubSpot. However, integrating it smoothly into the development process can be a challenge, as there is no easy way to consolidate all local development tasks into one tool. To simplify the process and have one tool to manage all local development tasks, we created our own library that utilizes HubSpot CLI LIB and allows for seamless integration with other tools.
+- **For example**, to compile `SCSS` files and upload them using the `hubspot-cli` **Watch** process, you typically need multiple tools or steps. This includes some task manager that can compile `SCSS`, copy `CSS`, and run a **Watch** process, as well as the `hubspot-cli` **Watch/Upload** process to upload the compiled files. However, with `@resultify/hubspot-cms-lib`, you only need one step. The **Watch** process combines `SCSS`, `PostCSS`, and `Rolup.js` compilers with the Hubspot Watch and Upload process, allowing you to accomplish everything with just one CLI command: `npm run watch`.
+- Additionally, this library provides a very simple and straightforward way to [authenticate multiple HubSpot accounts](#custom-multi-account-authentication).
 
 ## What's inside:
 
 - Commands
   - Watch
   - FetchModules
-  - FetchAll
+  - Fetch
   - Upload
   - Build
+  - Validate
+  - Lighthouse
+  - Fields
+  - HubDB upload (TODO)
+  - HubDB fetch (TODO)
 
 - Compilers:
-  - SASS
-  - JS
-  - CSS
+  - SCSS [sass]
+  - JS [RollupJs]
+  - CSS [PostCSS]
 
 - HubSpot
+  - [Custom multi-account authentication](#custom-multi-account-authentication)
   - Fetch
   - Upload
   - Watch
-  - Custom multi-account authentication
+  - [FieldsJs](https://github.com/Resultify/hubspot-fields-js)
+  - Marketplace validation
+  - Lighthouse
+  - HubDB (TODO)
+
+
+## Instal
+This library should be a part of HubSpot Theme as an NPM dependency
+```
+npm i @resultify/hubspot-cms-lib
+```
+## Usage
+1. Add needed scripts to package.json
+```
+  "scripts": {
+    "build": "node -e 'import(`@resultify/hubspot-cms-lib/build`)'",
+    "upload": "node -e 'import(`@resultify/hubspot-cms-lib/upload`)'",
+    "fields": "node -e 'import(`@resultify/hubspot-cms-lib/fields`)'",
+    "validate": "node -e 'import(`@resultify/hubspot-cms-lib/validate`)'",
+    "lighthouse": "node -e 'import(`@resultify/hubspot-cms-lib/lighthouse`)'",
+    "fetchModules": "node -e 'import(`@resultify/hubspot-cms-lib/fetchModules`)'",
+    "fetch": "node -e 'import(`@resultify/hubspot-cms-lib/fetch`)'",
+    "watch": "node -e 'import(`@resultify/hubspot-cms-lib/watch`)'"
+  }
+```
+2. Add [cmslib configuration](#configuration) to package.json
+```
+  "cmslib": {
+    "themeFolder": "theme",
+    "vendorSrc": "vendor",
+    "vendorDest": "theme/vendor",
+    "js": {
+      "external": ["@popperjs/core"],
+      "replace": {
+        "global.SimpleLightbox": "window.SimpleLightbox"
+      },
+      "globals": {
+        "@popperjs/core": "Popper = () => {}"
+      }
+    },
+    "lighthouse": {
+      "performance": 75,
+      "accessibility": 90,
+      "bestPractices": 90,
+      "seo": 80
+    }
+  }
+```
+3. Add `.env` file with [multi-account authentication configuration](#custom-multi-account-authentication)
+4. Run scripts with npm
+```
+npm run fetch
+```
+
+`package.json` example: https://github.com/Resultify/nimbly-lite/blob/master/package.json
+
+***
 
 ## Custom multi-account authentication
 
-1. add `.env` file to your theme
-2. add the name of the portal with the prefix `hub_` as the variable name and the `personal access key` as the variable value
-3. Run Hubspot Theme commands (fetch, upload, watch)
+1. Add `.env` file to your theme
+2. Add a name of your Hubspot portal prefixed by hub_ with associated personal access key to it
 
 ### `.env` file example
+```
+hub_sandbox=personal-access-key-for-this-sandbox-portal
+hub_portalname=personal-access-key-for-this-portalname
+hub_portalname2=personal-access-key-for-this-portalname2
+```
 
+***
+
+## Configuration
+Add **hubspot-cms-lib** configuration object to `package.json` with needed options.
+```json
+"cmslib": {
+    "themeFolder": "theme"
+}
 ```
-hub_sandbox=personal_access_key for sandbox portal
-hub_project1=personal_access_key for project1 portal
-hub_project2=personal_access_key for project2 portal
-```
+### Options
+|Option|Default value|Type|Description|
+|---|---|---|---|
+|themeFoldere|'theme'|string|HubSpot CMS theme folder name inside your repository|
+|vendorSrc|'vendor'|string|Entry point folder name for third party libraries|
+|vendorDest|'theme/vendor'|string|Folder name for compiled third party libraries|
+|lighthouse||object|lighthouse threshold numbers|
+|lighthouse.performance|75|number||
+|lighthouse.accessibility|90|number||
+|lighthouse.bestPractices|90|number||
+|lighthouse.seo|80|number||
+|js||object|rollupjs configurations|

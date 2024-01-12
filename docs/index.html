@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -44,33 +44,29 @@
 
     <section class="readme">
         <article><h1 id="%40resultify%2Fhubspot-cms-lib">@resultify/hubspot-cms-lib</h1>
-<p>Library with additional functionality on top of native HubSpot CMS CLI library (<a href="https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib">cli-lib</a>) with command-line interface. ❗It should be used instead of <code>hubspot-cli</code>❗</p>
+<p>Library with additional functionality on top of native HubSpot CMS CLI library (<a href="https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib">cli-lib</a>) with command-line interface.</p>
+<p>❗It should be used instead of <code>hubspot-cli</code>❗</p>
 <p><a href="https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml"><img src="https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml/badge.svg" alt="Run tests"></a>
 <img src="https://img.shields.io/node/v/@resultify/hubspot-cms-lib" alt="node-current">
 <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="JavaScript Style Guide"></a>
 <img src="https://img.shields.io/badge/API%20documentation-JSDoc-yellow" alt="JSDoc"></p>
-<p><a href="https://resultify.github.io/hubspot-cms-lib"><strong>Documentation</strong></a></p>
+<p><a href="https://resultify.github.io/hubspot-cms-lib"><strong>Code Documentation</strong></a></p>
 <h2 id="table-of-contents">Table of contents</h2>
-<p>TBD</p>
-<h2 id="why%3F">Why?</h2>
-<p>The <strong>HubSpot CLI</strong> is a useful tool for connecting local development tools with HubSpot. However, integrating it smoothly into the development process can be a challenge, as there is no easy way to consolidate all local development tasks into one tool. To simplify the process and have one tool to manage all local development tasks, we created our own library that utilizes HubSpot CLI and allows for seamless integration with other tools.</p>
-<p><strong>For example</strong>, to compile <code>SCSS</code> files and upload them using the <code>hubspot-cli</code> <strong>Watch</strong> process, you typically need multiple tools or steps. This includes some task manager that can compile <code>SCSS</code>, copy <code>CSS</code>, and run a <strong>Watch</strong> process, as well as the <code>hubspot-cli</code> <strong>Watch/Upload</strong> process to upload the compiled files. However, with <code>@resultify/hubspot-cms-lib</code>, you only need one step. The <strong>Watch</strong> process combines <code>SCSS</code>, <code>PostCSS</code>, and <code>Rolup.js</code> compilers with the Hubspot CLI Watch and Upload process, allowing you to accomplish everything with just one CLI command: <code>npm run watch</code></p>
-<h2 id="features">Features</h2>
-<p>TBD</p>
-<h2 id="general-recommendations">General recommendations</h2>
-<p>TBD</p>
-<h2 id="set-of-tools-for-hubspot-cms-themes">Set of tools for HubSpot CMS themes</h2>
 <ul>
-<li>JS/CSS/SASS compilers</li>
-<li>HubSpot CLI <code>upload</code>, <code>fetch</code> and <code>watch</code> commands integrated with other scripts</li>
-<li>Custom HubSpot multi-account authentication</li>
+<li><a href="#why">Why?</a></li>
+<li><a href="#whats-inside">What's inside</a></li>
+<li><a href="#instal">Install</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#custom-multi-account-authentication">Custom multi-account authentication</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="CHANGELOG.md">Changelog</a></li>
 </ul>
-<h2 id="requirements">Requirements</h2>
-<ol>
-<li>Should be a part of HubSpot Theme as an NPM dependency</li>
-<li>HubSpot Theme should have entry points scripts for every task (example: <a href="https://github.com/Resultify/nimbly-lite/tree/master/build">entry points scripts</a>)</li>
-<li>HubSpot Theme should have tasks added as a script to package.json (example: <a href="https://github.com/Resultify/nimbly-lite/blob/master/package.json#L9">package.json</a>)</li>
-</ol>
+<h2 id="why%3F">Why?</h2>
+<ul>
+<li>The <strong>HubSpot CLI</strong> is a useful tool for connecting local development tools with HubSpot. However, integrating it smoothly into the development process can be a challenge, as there is no easy way to consolidate all local development tasks into one tool. To simplify the process and have one tool to manage all local development tasks, we created our own library that utilizes HubSpot CLI LIB and allows for seamless integration with other tools.</li>
+<li><strong>For example</strong>, to compile <code>SCSS</code> files and upload them using the <code>hubspot-cli</code> <strong>Watch</strong> process, you typically need multiple tools or steps. This includes some task manager that can compile <code>SCSS</code>, copy <code>CSS</code>, and run a <strong>Watch</strong> process, as well as the <code>hubspot-cli</code> <strong>Watch/Upload</strong> process to upload the compiled files. However, with <code>@resultify/hubspot-cms-lib</code>, you only need one step. The <strong>Watch</strong> process combines <code>SCSS</code>, <code>PostCSS</code>, and <code>Rolup.js</code> compilers with the Hubspot Watch and Upload process, allowing you to accomplish everything with just one CLI command: <code>npm run watch</code>.</li>
+<li>Additionally, this library provides a very simple and straightforward way to <a href="#custom-multi-account-authentication">authenticate multiple HubSpot accounts</a>.</li>
+</ul>
 <h2 id="what's-inside%3A">What's inside:</h2>
 <ul>
 <li>
@@ -78,40 +74,173 @@
 <ul>
 <li>Watch</li>
 <li>FetchModules</li>
-<li>FetchAll</li>
+<li>Fetch</li>
 <li>Upload</li>
 <li>Build</li>
+<li>Validate</li>
+<li>Lighthouse</li>
+<li>Fields</li>
+<li>HubDB upload (TODO)</li>
+<li>HubDB fetch (TODO)</li>
 </ul>
 </li>
 <li>
 <p>Compilers:</p>
 <ul>
-<li>SASS</li>
-<li>JS</li>
-<li>CSS</li>
+<li>SCSS [sass]</li>
+<li>JS [RollupJs]</li>
+<li>CSS [PostCSS]</li>
 </ul>
 </li>
 <li>
 <p>HubSpot</p>
 <ul>
+<li><a href="#custom-multi-account-authentication">Custom multi-account authentication</a></li>
 <li>Fetch</li>
 <li>Upload</li>
 <li>Watch</li>
-<li>Custom multi-account authentication</li>
+<li><a href="https://github.com/Resultify/hubspot-fields-js">FieldsJs</a></li>
+<li>Marketplace validation</li>
+<li>Lighthouse</li>
+<li>HubDB (TODO)</li>
 </ul>
 </li>
 </ul>
+<h2 id="instal">Instal</h2>
+<p>This library should be a part of HubSpot Theme as an NPM dependency</p>
+<pre class="prettyprint source"><code>npm i @resultify/hubspot-cms-lib
+</code></pre>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Add needed scripts to package.json</li>
+</ol>
+<pre class="prettyprint source"><code>  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/build`)'&quot;,
+    &quot;upload&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/upload`)'&quot;,
+    &quot;fields&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/fields`)'&quot;,
+    &quot;validate&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/validate`)'&quot;,
+    &quot;lighthouse&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/lighthouse`)'&quot;,
+    &quot;fetchModules&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/fetchModules`)'&quot;,
+    &quot;fetch&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/fetch`)'&quot;,
+    &quot;watch&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/watch`)'&quot;
+  }
+</code></pre>
+<ol start="2">
+<li>Add <a href="#configuration">cmslib configuration</a> to package.json</li>
+</ol>
+<pre class="prettyprint source"><code>  &quot;cmslib&quot;: {
+    &quot;themeFolder&quot;: &quot;theme&quot;,
+    &quot;vendorSrc&quot;: &quot;vendor&quot;,
+    &quot;vendorDest&quot;: &quot;theme/vendor&quot;,
+    &quot;js&quot;: {
+      &quot;external&quot;: [&quot;@popperjs/core&quot;],
+      &quot;replace&quot;: {
+        &quot;global.SimpleLightbox&quot;: &quot;window.SimpleLightbox&quot;
+      },
+      &quot;globals&quot;: {
+        &quot;@popperjs/core&quot;: &quot;Popper = () => {}&quot;
+      }
+    },
+    &quot;lighthouse&quot;: {
+      &quot;performance&quot;: 75,
+      &quot;accessibility&quot;: 90,
+      &quot;bestPractices&quot;: 90,
+      &quot;seo&quot;: 80
+    }
+  }
+</code></pre>
+<ol start="3">
+<li>Add <code>.env</code> file with <a href="#custom-multi-account-authentication">multi-account authentication configuration</a></li>
+<li>Run scripts with npm</li>
+</ol>
+<pre class="prettyprint source"><code>npm run fetch
+</code></pre>
+<p><code>package.json</code> example: https://github.com/Resultify/nimbly-lite/blob/master/package.json</p>
+<hr>
 <h2 id="custom-multi-account-authentication">Custom multi-account authentication</h2>
 <ol>
-<li>add <code>.env</code> file to your theme</li>
-<li>add the name of the portal with the prefix <code>hub_</code> as the variable name and the <code>personal access key</code> as the variable value</li>
-<li>Run Hubspot Theme commands (fetch, upload, watch)</li>
+<li>Add <code>.env</code> file to your theme</li>
+<li>Add a name of your Hubspot portal prefixed by hub_ with associated personal access key to it</li>
 </ol>
 <h3 id=".env-file-example"><code>.env</code> file example</h3>
-<pre class="prettyprint source"><code>hub_sandbox=personal_access_key for sandbox portal
-hub_project1=personal_access_key for project1 portal
-hub_project2=personal_access_key for project2 portal
-</code></pre></article>
+<pre class="prettyprint source"><code>hub_sandbox=personal-access-key-for-this-sandbox-portal
+hub_portalname=personal-access-key-for-this-portalname
+hub_portalname2=personal-access-key-for-this-portalname2
+</code></pre>
+<hr>
+<h2 id="configuration">Configuration</h2>
+<p>Add <strong>hubspot-cms-lib</strong> configuration object to <code>package.json</code> with needed options.</p>
+<pre class="prettyprint source lang-json"><code>&quot;cmslib&quot;: {
+    &quot;themeFolder&quot;: &quot;theme&quot;
+}
+</code></pre>
+<h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>themeFoldere</td>
+<td>'theme'</td>
+<td>string</td>
+<td>HubSpot CMS theme folder name inside your repository</td>
+</tr>
+<tr>
+<td>vendorSrc</td>
+<td>'vendor'</td>
+<td>string</td>
+<td>Entry point folder name for third party libraries</td>
+</tr>
+<tr>
+<td>vendorDest</td>
+<td>'theme/vendor'</td>
+<td>string</td>
+<td>Folder name for compiled third party libraries</td>
+</tr>
+<tr>
+<td>lighthouse</td>
+<td></td>
+<td>object</td>
+<td>lighthouse threshold numbers</td>
+</tr>
+<tr>
+<td>lighthouse.performance</td>
+<td>75</td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td>lighthouse.accessibility</td>
+<td>90</td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td>lighthouse.bestPractices</td>
+<td>90</td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td>lighthouse.seo</td>
+<td>80</td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td>js</td>
+<td></td>
+<td>object</td>
+<td>rollupjs configurations</td>
+</tr>
+</tbody>
+</table></article>
     </section>
 
 

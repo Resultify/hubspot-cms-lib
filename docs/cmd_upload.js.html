@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_load.html">hubspot/load</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-lib_check.html">lib/check</a></li><li><a href="module-lib_clean.html">lib/clean</a></li><li><a href="module-lib_css.html">lib/css</a></li><li><a href="module-lib_hubspot_utils_utils.html">lib/hubspot/utils/utils</a></li><li><a href="module-lib_rollup.html">lib/rollup</a></li><li><a href="module-lib_sass.html">lib/sass</a></li><li><a href="module-lib_utils_fs.html">lib/utils/fs</a></li><li><a href="module-lib_utils_utils.html">lib/utils/utils</a></li><li><a href="module-lib_watch.html">lib/watch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Global_Types.html">Global_Types</a></li><li><a href="Theme_Commands.html">Theme_Commands</a></li></ul><h3>Global</h3><ul><li><a href="global.html#globals">globals</a></li></ul>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,38 +26,40 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { checkNode, checkPackageThemeConsistent } from '../utils/check.js'
+            <pre class="prettyprint source linenums"><code>import '../utils/check.js'
+import themeName from '../hubspot/theme.js'
+import { loadAuthConfig } from '../hubspot/auth/auth.js'
 import { uploadTheme } from '../hubspot/upload.js'
-import { cleanVendorFolder } from '../compile/clean.js'
+import { cleanVendorDestFolder } from '../compile/clean.js'
 import { compileScss } from '../compile/sass.js'
 import { compileCss } from '../compile/css.js'
 import { compileJs } from '../compile/js.js'
-import { globals } from '../config/globals.js'
-import { getAuthConfig } from '../hubspot/auth.js'
-import { confirmThemeName } from '../hubspot/helpers.js'
 import { compileFieldsJs } from '../hubspot/fields.js'
-import * as utils from '../utils/ui.js'
-checkNode()
-checkPackageThemeConsistent()
+import * as ui from '../utils/ui.js'
 
 /**
  * #### Upload theme to HUBSPOT cms portall
  * @async
- * @memberof Theme_Commands
- * @param {object} [opt] - local theme based config
- * @returns undefined
+ * @memberof Commands
  * @example
- * node build/upload.js
+ * import { upload } from '@resultify/hubspot-cms-lib/upload'
+ * upload()
+ *
+ * // or run with npm by adding to package.json scripts:
+ * "scripts": {
+ *   "upload": "node -e 'import(`@resultify/hubspot-cms-lib/upload`)'"
+ * }
  */
-async function upload (opt) {
-  await confirmThemeName()
-  const hubAuth = await getAuthConfig()
-  const timeStart = utils.startTaskGroup(`Upload ${globals.THEME_NAME}`)
-  await cleanVendorFolder()
+async function upload () {
+  const timeStart = ui.startTaskGroup(`Upload ${themeName}`)
+  const hubAuthData = await loadAuthConfig(themeName)
+  await cleanVendorDestFolder()
   await compileScss()
-  await Promise.all([compileCss(), compileJs(opt), compileFieldsJs()])
-  await uploadTheme(hubAuth)
-  utils.endTaskGroup({ taskName: `Upload ${globals.THEME_NAME}`, timeStart })
+  await compileCss()
+  await compileJs()
+  await compileFieldsJs()
+  await uploadTheme(hubAuthData, themeName)
+  ui.endTaskGroup({ taskName: `Upload ${themeName}`, timeStart })
 }
 
 export { upload }
