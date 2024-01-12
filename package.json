@@ -43,10 +43,10 @@
     "docs": "node build/docs.exec.js"
   },
   "dependencies": {
-    "@hubspot/cli-lib": "4.2.2",
+    "@hubspot/cli-lib": "7.0.0",
     "@rollup/plugin-node-resolve": "~15.2.3",
     "@rollup/plugin-replace": "~5.0.0",
-    "@types/node": "~20.8.4",
+    "@types/node": "~20.11.0",
     "@types/postcss-import": "~14.0.0",
     "@types/prompts": "~2.4.2",
     "@types/semver": "~7.5.0",
@@ -55,25 +55,24 @@
     "cli-table3": "~0.6.3",
     "del": "~7.1.0",
     "dotenv": "~16.3.1",
-    "globby": "~13.2.0",
-    "open": "~9.1.0",
-    "ora": "~7.0.1",
-    "postcss": "~8.4.24",
-    "postcss-import": "~15.1.0",
+    "globby": "~14.0.0",
+    "ora": "~8.0.1",
+    "postcss": "~8.4.33",
+    "postcss-import": "~16.0.0",
     "prompts": "~2.4.2",
-    "rollup": "~3.29.4",
-    "sass": "~1.69.2",
+    "rollup": "~4.9.4",
+    "sass": "~1.69.7",
     "semver": "~7.5.3"
   },
   "devDependencies": {
     "execa": "~8.0.1",
-    "husky": "~8.0.1",
+    "husky": "~8.0.3",
     "modern-jsdoc-template": "~1.0.0",
     "standard": "~17.1.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "engines": {
-    "node": ">=16.14",
+    "node": ">=18",
     "npm": ">=8.19"
   },
   "publishConfig": {
