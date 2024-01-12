@@ -1,3 +1,9 @@
+### v3.0.1 `January 12, 2024`
+* **[BUGFIX]** add missed execa dependency [`e1432f9`](https://github.com/Resultify/hubspot-cms-lib/commit/e1432f9) (dmh)
+* **[BUGFIX]** fix PublishNPM github action [`7614acb`](https://github.com/Resultify/hubspot-cms-lib/commit/7614acb) (dmh)
+
+***
+
 ### v3.0.0 `January 12, 2024`
 * **[DOC]** update documentation [`117e3a4`](https://github.com/Resultify/hubspot-cms-lib/commit/117e3a4) (dmh)
 * **[TASK]** big refactoring, update dependencies [`2702457`](https://github.com/Resultify/hubspot-cms-lib/commit/2702457) (dmh)
