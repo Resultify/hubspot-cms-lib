@@ -62,10 +62,10 @@
     "prompts": "~2.4.2",
     "rollup": "~4.9.4",
     "sass": "~1.69.7",
-    "semver": "~7.5.3"
+    "semver": "~7.5.3",
+    "execa": "~8.0.1"
   },
   "devDependencies": {
-    "execa": "~8.0.1",
     "husky": "~8.0.3",
     "modern-jsdoc-template": "~1.0.0",
     "standard": "~17.1.0",
