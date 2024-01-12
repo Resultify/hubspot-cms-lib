@@ -1,3 +1,15 @@
+### v3.0.0 `January 12, 2024`
+* **[DOC]** update documentation [`117e3a4`](https://github.com/Resultify/hubspot-cms-lib/commit/117e3a4) (dmh)
+* **[TASK]** big refactoring, update dependencies [`2702457`](https://github.com/Resultify/hubspot-cms-lib/commit/2702457) (dmh)
+* **[TASK]** add 30m timeout for all github actions [`2efe942`](https://github.com/Resultify/hubspot-cms-lib/commit/2efe942) (dmh)
+* **[TASK]** update npm deps [`2b04299`](https://github.com/Resultify/hubspot-cms-lib/commit/2b04299) (dmh)
+* **[DOC]** add API documentation using jsdoc [`0396c08`](https://github.com/Resultify/hubspot-cms-lib/commit/0396c08) (dmh)
+* **[TASK]** implement vendor folder concept, to store all third party files inside vendor folder [`1b329d3`](https://github.com/Resultify/hubspot-cms-lib/commit/1b329d3) (dmh)
+* **[TASK]** add build task to exports field, remove tmp folder config, compile scss directly to theme/assets/css [`887f72c`](https://github.com/Resultify/hubspot-cms-lib/commit/887f72c) (dmh)
+* **[TASK]** export lib commands to import and execute them separately [`317458a`](https://github.com/Resultify/hubspot-cms-lib/commit/317458a) (dmh)
+
+***
+
 ### v2.1.0 `June 30, 2023`
 * **[TASK]** add quick-release config [`f41bcfb`](https://github.com/Resultify/hubspot-cms-lib/commit/f41bcfb) (dmh)
 * **[TASK]** update npm dep-s, update editorconfig [`ae80a66`](https://github.com/Resultify/hubspot-cms-lib/commit/ae80a66) (dmh)
