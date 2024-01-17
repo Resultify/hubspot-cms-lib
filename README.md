@@ -28,32 +28,26 @@ Library with additional functionality on top of native HubSpot CMS CLI library (
 ## What's inside:
 
 - Commands
-  - Watch
-  - FetchModules
-  - Fetch
-  - Upload
-  - Build
-  - Validate
-  - Lighthouse
-  - Fields
-  - HubDB upload (TODO)
-  - HubDB fetch (TODO)
+  - Watch - watches for changes in files and uploads them to HubSpot
+  - FetchModules - fetches all modules from HubSpot
+  - Fetch - fetches all files from HubSpot
+  - Upload - uploads all files to HubSpot
+  - Build - builds all files (scss, js, css)
+  - Validate - HubSpot marketplace validation
+  - Lighthouse - HubSpot lighthouse validation
+  - Fields - converts module fields.js to fields.json
+  - fetchDb - fetches chosen HubDB tables
+  - uploadDb - uploads chosen HubDB tables
 
 - Compilers:
-  - SCSS [sass]
-  - JS [RollupJs]
-  - CSS [PostCSS]
+  - SCSS - SASS
+  - JS - RollupJs
+  - CSS - PostCSS
 
-- HubSpot
+- Other features:
   - [Custom multi-account authentication](#custom-multi-account-authentication)
-  - Fetch
-  - Upload
-  - Watch
   - [FieldsJs](https://github.com/Resultify/hubspot-fields-js)
-  - Marketplace validation
-  - Lighthouse
-  - HubDB (TODO)
-
+  - Watch process combines `SCSS`, `PostCSS`, and `Rolup.js` compilers with the Hubspot watch and Upload process.
 
 ## Instal
 This library should be a part of HubSpot Theme as an NPM dependency
@@ -78,29 +72,30 @@ npm i @resultify/hubspot-cms-lib
 ```
   "cmslib": {
     "themeFolder": "theme",
+    "hubdbFolder": "hubdb",
     "vendorSrc": "vendor",
     "vendorDest": "theme/vendor",
-    "js": {
-      "external": ["@popperjs/core"],
-      "replace": {
-        "global.SimpleLightbox": "window.SimpleLightbox"
-      },
-      "globals": {
-        "@popperjs/core": "Popper = () => {}"
-      }
-    },
     "lighthouse": {
       "performance": 75,
       "accessibility": 90,
       "bestPractices": 90,
       "seo": 80
+    },
+    "js": {
+      "external": ["@popperjs/core"],
+      "replace": {},
+      "globals": {
+        "@popperjs/core": "Popper = () => {}"
+      }
     }
   }
 ```
 3. Add `.env` file with [multi-account authentication configuration](#custom-multi-account-authentication)
-4. Run scripts with npm
+4. Run commands from package.json
 ```
 npm run fetch
+or
+npm run watch
 ```
 
 `package.json` example: https://github.com/Resultify/nimbly-lite/blob/master/package.json
@@ -125,18 +120,23 @@ hub_portalname2=personal-access-key-for-this-portalname2
 Add **hubspot-cms-lib** configuration object to `package.json` with needed options.
 ```json
 "cmslib": {
-    "themeFolder": "theme"
+    "themeFolder": "theme",
+    "hubdbFolder": "hubdb"
 }
 ```
 ### Options
 |Option|Default value|Type|Description|
 |---|---|---|---|
 |themeFoldere|'theme'|string|HubSpot CMS theme folder name inside your repository|
-|vendorSrc|'vendor'|string|Entry point folder name for third party libraries|
+|hubdbFolder|'hubdb'|string| HubDB folder name inside your repository to store HubDB tables|
+|vendorSrc|'vendor'|string|Entry point folder name for third party libraries [e.g., `vendor/css`,`vendor/js`,`vendor/scss`]|
 |vendorDest|'theme/vendor'|string|Folder name for compiled third party libraries|
-|lighthouse||object|lighthouse threshold numbers|
+|lighthouse||Object|lighthouse threshold numbers|
 |lighthouse.performance|75|number||
 |lighthouse.accessibility|90|number||
 |lighthouse.bestPractices|90|number||
 |lighthouse.seo|80|number||
-|js||object|rollupjs configurations|
+|js|[optional]|Object|rollupjs configurations|
+|js.external||Array<string>|https://rollupjs.org/configuration-options/#external|
+|js.replace||Object<string, string>|https://github.com/rollup/plugins/tree/master/packages/replace|
+|js.globals||Object<string, string>|https://rollupjs.org/configuration-options/#output-globals|

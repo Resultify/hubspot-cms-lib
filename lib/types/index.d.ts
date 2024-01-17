@@ -11,3 +11,5 @@ declare module '@hubspot/cli-lib/lib/uploadFolder.js';
 declare module '@hubspot/cli-lib/api/lighthouseScore.js';
 declare module '@hubspot/cli-lib/api/marketplaceValidation.js';
 declare module '@hubspot/cli-lib/lib/watch.js';
+declare module '@hubspot/cli-lib/hubdb.js';
+declare module '@hubspot/cli-lib/api/hubdb.js';
