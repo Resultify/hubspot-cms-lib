@@ -1,3 +1,12 @@
+### v3.1.0 `January 17, 2024`
+* **[DOC]** update docs [`c551291`](https://github.com/Resultify/hubspot-cms-lib/commit/c551291) (dmh)
+* **[TASK]** create cmslib cli alias and make it executable [`13081e0`](https://github.com/Resultify/hubspot-cms-lib/commit/13081e0) (dmh)
+* **[TASK]** add add error handler for access-key missing access scopes [`e900602`](https://github.com/Resultify/hubspot-cms-lib/commit/e900602) (dmh)
+* **[FEATURE]** add hubdb fetch and upload functionality (#2) [`5ebec38`](https://github.com/Resultify/hubspot-cms-lib/commit/5ebec38) (Dmytro Hrynevych)
+* **[TASK]** use inquirer.js instead of prompts.js for cli prompts, some refactoring [`08cbd8f`](https://github.com/Resultify/hubspot-cms-lib/commit/08cbd8f) (dmh)
+
+***
+
 ### v3.0.1 `January 12, 2024`
 * **[BUGFIX]** add missed execa dependency [`e1432f9`](https://github.com/Resultify/hubspot-cms-lib/commit/e1432f9) (dmh)
 * **[BUGFIX]** fix PublishNPM github action [`7614acb`](https://github.com/Resultify/hubspot-cms-lib/commit/7614acb) (dmh)
