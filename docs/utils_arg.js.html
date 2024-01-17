@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cmd/validate.js</title>
+    <title>JSDoc: Source: utils/arg.js</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,7 +18,7 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Source: cmd/validate.js</h1>
+                <h1 class="page-title">Source: utils/arg.js</h1>
                 
 
 
@@ -26,40 +26,41 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import '../utils/check.js'
-import themeName from '../hubspot/theme.js'
-import { marketplaceValidate } from '../hubspot/validate.js'
-import { loadAuthConfig } from '../hubspot/auth/auth.js'
-import * as ui from '../utils/ui.js'
+            <pre class="prettyprint source linenums"><code>/** @module utils/args */
 
-/**
- * #### Theme Validation
- * @async
- * @memberof Commands
- * @example
- * // run with node
- * echo "import '@resultify/hubspot-cms-lib/validate'" > validate.js
- * node validate.js
- *
- *
- * // run with npm by adding to package.json scripts:
- * "scripts": {
- *  "validate": "cmslib --validate",
- * }
- * or
- * "scripts": {
- *   "validate": "node -e 'import(`@resultify/hubspot-cms-lib/validate`)'"
- * }
- * npm run validate
- */
-async function validate () {
-  const timeStart = ui.startTaskGroup(`Validate ${themeName}`)
-  const hubAuthData = await loadAuthConfig(themeName)
-  await marketplaceValidate(hubAuthData, themeName)
-  ui.endTaskGroup({ taskName: `Validate ${themeName}`, timeStart })
+import chalk from 'chalk'
+import minimist from 'minimist'
+
+const argOptions = {
+  boolean: [
+    'build',
+    'watch',
+    'fetch',
+    'fetchModules',
+    'upload',
+    'validate',
+    'lighthouse',
+    'fields',
+    'fetchDb',
+    'uploadDb'
+  ],
+  stopEarly: true,
+  '--': true,
+  unknown: (/** @type {any} */ arg) => {
+    console.error(`${chalk.red('Unknown')} or unexpected option: ${arg}`)
+    process.exit(1)
+  }
 }
 
-export { validate }
+/**
+ * #### parse cli args
+ * @returns {any} cli args
+ */
+function parseArgs () {
+  return minimist(process.argv.slice(2), argOptions)
+}
+
+export { parseArgs }
 </code></pre>
         </article>
     </section>

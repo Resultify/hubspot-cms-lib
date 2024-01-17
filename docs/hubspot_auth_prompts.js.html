@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -26,10 +26,11 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module hubspot/auth/prompt */
+            <pre class="prettyprint source linenums"><code>/** @module hubspot/auth/prompts */
 
-import prompts from 'prompts'
 import chalk from 'chalk'
+import confirm from '@inquirer/confirm'
+import select from '@inquirer/select'
 
 /**
  * #### show prompt with portals and return the selected portal name
@@ -39,67 +40,37 @@ import chalk from 'chalk'
  * @returns {Promise&lt;string>} portal name
  */
 async function choosePortal (portalNames, themeName) {
-  // process.exit(0) if no confirmation for portal name
-  // https://github.com/terkelg/prompts#optionsonsubmit
-  const onSubmit = async (/** @type {prompts.PromptObject} */ prompt, /** @type {Boolean} */ answer) => {
-    if (prompt.name === 'secondConfirm' &amp;&amp; answer === false) {
-      process.exit(0)
+  /**
+   * #### prompt to select Portal if more than one name with confirmation
+   * @type {{message:string, choices:Array&lt;{title:string, value:string}>}}
+   */
+  const selectPortal = {
+    message: `HubSpot account for ${chalk.yellow(themeName)} theme:`,
+    choices: portalNames
+  }
+
+  const confirmSinglePortal = (/** @type {string} */ value) => {
+    return {
+      message: `${chalk.dim(`[${chalk.yellow(themeName)} theme]`)} Continue with ${chalk.cyan.bold(value)} portal?`
     }
   }
-  // process.exit(0) when the user cancels/exits the prompt
-  // https://github.com/terkelg/prompts#optionsoncancel
-  const onCancel = async () => {
-    process.exit(0)
+  const confirmPortal = (/** @type {string} */ value) => {
+    return {
+      message: `Continue with ${chalk.cyan.bold(value)} portal?`
+    }
   }
   if (portalNames.length > 1) {
-    /**
-     * #### prompt to select Portal if more than one name with confirmation
-     * @type {Array&lt;prompts.PromptObject&lt;string>>}
-     */
-    const selectPortal = [
-      {
-        type: 'select',
-        name: 'value',
-        message: `HubSpot account for ${chalk.yellow(themeName)} theme:`,
-        choices: portalNames,
-        initial: 0
-      },
-      {
-        type: 'confirm',
-        name: 'firstConfirm',
-        message: prev => `Continue with ${chalk.cyan.bold(prev)} portal?`,
-        initial: true
-      },
-      {
-        type: prev => prev === false ? 'select' : null,
-        name: 'value',
-        message: `HubSpot account for ${chalk.yellow(themeName)} theme:`,
-        choices: portalNames,
-        initial: 0
-      },
-      {
-        type: (_, values) => values.firstConfirm === false ? 'confirm' : null,
-        name: 'secondConfirm',
-        message: prev => `Continue with ${chalk.cyan.bold(prev)} portal?`,
-        initial: true
-      }
-    ]
-    const portal = await prompts(selectPortal, { onSubmit, onCancel })
-    return portal.value
+    const portal = await select(selectPortal)
+    const confirmed = await confirm(confirmPortal(portal))
+    if (!confirmed) {
+      process.exit(0)
+    }
+    return portal
   } else {
-    /**
-     * #### prompt to confirm Portal if one portal name
-     * @type {Array&lt;prompts.PromptObject&lt;string>>}
-     */
-    const confirmPortal = [
-      {
-        type: 'confirm',
-        name: 'secondConfirm',
-        message: `${chalk.dim(`[${chalk.yellow(themeName)} theme]`)} Continue with ${chalk.cyan.bold(portalNames[0].value)} portal?`,
-        initial: true
-      }
-    ]
-    await prompts(confirmPortal, { onSubmit, onCancel })
+    const confirmed = await confirm(confirmSinglePortal(portalNames[0].value))
+    if (!confirmed) {
+      process.exit(0)
+    }
     return portalNames[0].value
   }
 }

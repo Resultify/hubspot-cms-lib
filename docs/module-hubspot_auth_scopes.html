@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: hubspot/auth/scopes</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link type="text/css" rel="stylesheet" href="styles/base.min.css">
+</head>
+
+<body class="body">
+
+    <div class="container">
+
+        <nav class="sidenav">
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </nav>
+
+        <main id="main" class="main">
+            <div id="content" class="content">
+                <h1 class="page-title">Module: hubspot/auth/scopes</h1>
+                
+
+
+
+
+<section>
+
+<header>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_auth_scopes.js.html">hubspot/auth/scopes.js</a>, <a href="hubspot_auth_scopes.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~throwErrorIfMissingScope" data-heading-label="~throwErrorIfMissingScope" ><span class="type-signature">(inner) </span>throwErrorIfMissingScope<span class="signature">(config, scopeName)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="throw-error-if-missing-scopes">throw error if missing scopes</h4>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="responsive-table">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>hubspot authentication config</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scopeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">'cms_pages'</span>
+|
+
+<span class="param-type">'crm_objects'</span>
+|
+
+<span class="param-type">'custom_objects'</span>
+|
+
+<span class="param-type">'design_manager'</span>
+|
+
+<span class="param-type">'developer_projects'</span>
+|
+
+<span class="param-type">'file_manager'</span>
+|
+
+<span class="param-type">'graphql_data_fetching'</span>
+|
+
+<span class="param-type">'hubdb'</span>
+|
+
+<span class="param-type">'serverless_functions'</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>scope name</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_auth_scopes.js.html">hubspot/auth/scopes.js</a>, <a href="hubspot_auth_scopes.js.html#line127">line 127</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>undefined</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="~SCOPES" data-heading-label="~SCOPES">SCOPES</h4>
+
+
+
+
+<div class="description">
+    <h4 id="scopes">scopes</h4>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="responsive-table">
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cms_pages</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>View and download website data.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>crm_objects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Read data from HubSpot objects in the CRM.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>custom_objects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Create, delete, or make changes to custom objects in the CRM.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>design_manager</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Upload and download templates, modules, and other files that developers need to write the code for websites and emails.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>developer_projects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Upload and download developer projects.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>file_manager</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Upload and download files that can be used across HubSpot tools when creating content.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>graphql_data_fetching</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Execute GraphQL queries and fetch GraphQL Schema.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hubdb</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Create, update, and delete HubDB tables.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serverless_functions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SCOPE_DETAILS</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>View logs, manage secrets, and interact with other serverless functionality.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_auth_scopes.js.html">hubspot/auth/scopes.js</a>, <a href="hubspot_auth_scopes.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~SCOPE_DETAILS" data-heading-label="~SCOPE_DETAILS">SCOPE_DETAILS</h4>
+
+
+
+
+<div class="description">
+    <h4 id="scope-details">scope details</h4>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<div class="responsive-table">
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>selected</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>is selected</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>scope title</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>scope description</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_auth_scopes.js.html">hubspot/auth/scopes.js</a>, <a href="hubspot_auth_scopes.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+
+            <div class="toc">
+                <h2>Table of contents</h2>
+                <div class="toc-nav"></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script >
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.prettyprint.linenums code').forEach((el) => {
+                hljs.configure({
+                    languages: ['javascript'],
+                });
+                hljs.highlightElement(el);
+                hljs.lineNumbersBlock(el);
+            });
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.configure({
+                    languages: ['javascript'],
+                });
+                hljs.highlightElement(el);
+            });
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+    <script>
+        tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.toc-nav',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.main article',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1.name, h2.name, h3.name, h4.name',
+        headingLabelCallback: (string) => string
+    });
+    </script>
+</body>
+</html>

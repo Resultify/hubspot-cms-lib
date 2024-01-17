@@ -102,6 +102,8 @@ npm run watch
 
 `package.json` example: https://github.com/Resultify/nimbly-lite/blob/master/package.json
 
+[More examples of how to run commands in your project](https://resultify.github.io/hubspot-cms-lib/Commands.html)
+
 ***
 
 ## Custom multi-account authentication

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cmd/validate.js</title>
+    <title>JSDoc: Module: utils/args</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,51 +18,207 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Source: cmd/validate.js</h1>
+                <h1 class="page-title">Module: utils/args</h1>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import '../utils/check.js'
-import themeName from '../hubspot/theme.js'
-import { marketplaceValidate } from '../hubspot/validate.js'
-import { loadAuthConfig } from '../hubspot/auth/auth.js'
-import * as ui from '../utils/ui.js'
+</header>
 
-/**
- * #### Theme Validation
- * @async
- * @memberof Commands
- * @example
- * // run with node
- * echo "import '@resultify/hubspot-cms-lib/validate'" > validate.js
- * node validate.js
- *
- *
- * // run with npm by adding to package.json scripts:
- * "scripts": {
- *  "validate": "cmslib --validate",
- * }
- * or
- * "scripts": {
- *   "validate": "node -e 'import(`@resultify/hubspot-cms-lib/validate`)'"
- * }
- * npm run validate
- */
-async function validate () {
-  const timeStart = ui.startTaskGroup(`Validate ${themeName}`)
-  const hubAuthData = await loadAuthConfig(themeName)
-  await marketplaceValidate(hubAuthData, themeName)
-  ui.endTaskGroup({ taskName: `Validate ${themeName}`, timeStart })
-}
+<article>
+    <div class="container-overview">
+    
+        
 
-export { validate }
-</code></pre>
-        </article>
-    </section>
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_arg.js.html">utils/arg.js</a>, <a href="utils_arg.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~parseArgs" data-heading-label="~parseArgs" ><span class="type-signature">(inner) </span>parseArgs<span class="signature">()</span><span class="type-signature"> &rarr; {any}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="parse-cli-args">parse cli args</h4>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_arg.js.html">utils/arg.js</a>, <a href="utils_arg.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>cli args</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

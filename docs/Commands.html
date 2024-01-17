@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -163,7 +163,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_build.js.html">cmd/build.js</a>, <a href="cmd_build.js.html#line22">line 22</a>
+        <a href="cmd_build.js.html">cmd/build.js</a>, <a href="cmd_build.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -194,13 +194,126 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { build } from '@resultify/hubspot-cms-lib/build'
-build()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/build'" > build.js
+node build.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "build": "cmslib --build",
+}
+or
 "scripts": {
   "build": "node -e 'import(`@resultify/hubspot-cms-lib/build`)'"
-}</code></pre>
+}
+npm run build</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".fetchDb" data-heading-label=".fetchDb" ><span class="type-signature">(async, static) </span>fetchDb<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="fetch-hubdb-table%2Fs">Fetch HubDB table/s</h4>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cmd_hubdb.js.html">cmd/hubdb.js</a>, <a href="cmd_hubdb.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/fetchDb'" > fetchDb.js
+node fetchDb.js
+
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "fetchDb": "cmslib --fetchDb",
+}
+or
+"scripts": {
+  "fetchDb": "node -e 'import(`@resultify/hubspot-cms-lib/fetchDb`)'"
+}
+npm run fetchDb</code></pre>
 
 
 
@@ -262,7 +375,7 @@ build()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_fields.js.html">cmd/fields.js</a>, <a href="cmd_fields.js.html#line18">line 18</a>
+        <a href="cmd_fields.js.html">cmd/fields.js</a>, <a href="cmd_fields.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -293,13 +406,20 @@ build()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { fields } from '@resultify/hubspot-cms-lib/fields'
-fields()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/fields'" > fields.js
+node fields.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "fields": "cmslib --fields",
+}
+or
 "scripts": {
   "fields": "node -e 'import(`@resultify/hubspot-cms-lib/fields`)'"
-}</code></pre>
+}
+npm run fields</code></pre>
 
 
 
@@ -361,7 +481,7 @@ fields()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_fetch.js.html">cmd/fetch.js</a>, <a href="cmd_fetch.js.html#line20">line 20</a>
+        <a href="cmd_fetch.js.html">cmd/fetch.js</a>, <a href="cmd_fetch.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -392,13 +512,20 @@ fields()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { fetch } from '@resultify/hubspot-cms-lib/fetch'
-fetch()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/fetch'" > fetch.js
+node fetch.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "fetch": "cmslib --fetch",
+}
+or
 "scripts": {
   "fetch": "node -e 'import(`@resultify/hubspot-cms-lib/fetch`)'"
-}</code></pre>
+}
+npm run fetch</code></pre>
 
 
 
@@ -460,7 +587,7 @@ fetch()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_fetchModules.js.html">cmd/fetchModules.js</a>, <a href="cmd_fetchModules.js.html#line20">line 20</a>
+        <a href="cmd_fetchModules.js.html">cmd/fetchModules.js</a>, <a href="cmd_fetchModules.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -491,13 +618,20 @@ fetch()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { fetchModules } from '@resultify/hubspot-cms-lib/fetchModules'
-fetchModules()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/fetchModules'" > fetchModules.js
+node fetchModules.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "fetchModules": "cmslib --fetchModules",
+}
+or
 "scripts": {
   "fetchModules": "node -e 'import(`@resultify/hubspot-cms-lib/fetchModules`)'"
-}</code></pre>
+}
+npm run fetchModules</code></pre>
 
 
 
@@ -559,7 +693,7 @@ fetchModules()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_lighthouse.js.html">cmd/lighthouse.js</a>, <a href="cmd_lighthouse.js.html#line20">line 20</a>
+        <a href="cmd_lighthouse.js.html">cmd/lighthouse.js</a>, <a href="cmd_lighthouse.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -590,13 +724,20 @@ fetchModules()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { lighthouse } from '@resultify/hubspot-cms-lib/lighthouse'
-lighthouse()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/lighthouse'" > lighthouse.js
+node lighthouse.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "lighthouse": "cmslib --lighthouse",
+}
+or
 "scripts": {
   "lighthouse": "node -e 'import(`@resultify/hubspot-cms-lib/lighthouse`)'"
-}</code></pre>
+}
+npm run lighthouse</code></pre>
 
 
 
@@ -658,7 +799,7 @@ lighthouse()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_upload.js.html">cmd/upload.js</a>, <a href="cmd_upload.js.html#line25">line 25</a>
+        <a href="cmd_upload.js.html">cmd/upload.js</a>, <a href="cmd_upload.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -689,13 +830,126 @@ lighthouse()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { upload } from '@resultify/hubspot-cms-lib/upload'
-upload()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/upload'" > upload.js
+node upload.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "upload": "cmslib --upload",
+}
+or
 "scripts": {
   "upload": "node -e 'import(`@resultify/hubspot-cms-lib/upload`)'"
-}</code></pre>
+}
+npm run upload</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".uploadDb" data-heading-label=".uploadDb" ><span class="type-signature">(async, static) </span>uploadDb<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="upload-hubdb-table%2Fs">Upload HubDB table/s</h4>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cmd_hubdb.js.html">cmd/hubdb.js</a>, <a href="cmd_hubdb.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/uploadDb'" > uploadDb.js
+node uploadDb.js
+
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "uploadDb": "cmslib --uploadDb",
+}
+or
+"scripts": {
+  "uploadDb": "node -e 'import(`@resultify/hubspot-cms-lib/uploadDb`)'"
+}
+npm run uploadDb</code></pre>
 
 
 
@@ -757,7 +1011,7 @@ upload()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_validate.js.html">cmd/validate.js</a>, <a href="cmd_validate.js.html#line20">line 20</a>
+        <a href="cmd_validate.js.html">cmd/validate.js</a>, <a href="cmd_validate.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -788,13 +1042,20 @@ upload()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { validate } from '@resultify/hubspot-cms-lib/validate'
-validate()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/validate'" > validate.js
+node validate.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "validate": "cmslib --validate",
+}
+or
 "scripts": {
   "validate": "node -e 'import(`@resultify/hubspot-cms-lib/validate`)'"
-}</code></pre>
+}
+npm run validate</code></pre>
 
 
 
@@ -856,7 +1117,7 @@ validate()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cmd_watch.js.html">cmd/watch.js</a>, <a href="cmd_watch.js.html#line20">line 20</a>
+        <a href="cmd_watch.js.html">cmd/watch.js</a>, <a href="cmd_watch.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -887,13 +1148,20 @@ validate()
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import { watch } from '@resultify/hubspot-cms-lib/watch'
-watch()
+    <pre class="prettyprint"><code>// run with node
+echo "import '@resultify/hubspot-cms-lib/watch'" > watch.js
+node watch.js
 
-// or run with npm by adding to package.json scripts:
+
+// run with npm by adding to package.json scripts:
+"scripts": {
+ "watch": "cmslib --watch",
+}
+or
 "scripts": {
   "watch": "node -e 'import(`@resultify/hubspot-cms-lib/watch`)'"
-}</code></pre>
+}
+npm run watch</code></pre>
 
 
 

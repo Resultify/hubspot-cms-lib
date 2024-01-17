@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -31,12 +31,15 @@
  * @typedef {Object} HUBSPOT_ACCESSTOKEN_SCHEMA
  * @property {number} portalId
  * @property {string} accessToken
+ * @property {string} expiresAt
+ * @property {Array&lt;string>} scopeGroups
+ * @property {string} encodedOAuthRefreshToken
  */
 
 /**
  * #### Hubspot Auth config schema
  * @typedef {Object} HUBSPOT_AUTH_CONFIG
- * @property {string} defaultPortal
+ * @property {string} [defaultPortal]
  * @property {boolean} allowUsageTracking
  * @property {Array&lt;HUBSPOT_AUTH_PORTALS_CONFIG>} portals
  */
@@ -44,11 +47,12 @@
 /**
  * #### Hubspot Auth config portals schema
  * @typedef {Object} HUBSPOT_AUTH_PORTALS_CONFIG
- * @property {string} name
+ * @property {string} [name]
  * @property {number} portalId
  * @property {any} env
  * @property {string} authType
  * @property {string} personalAccessKey
+ * @property {Array&lt;string>} scopeGroups
  */
 
 /**
@@ -75,6 +79,7 @@
  * #### Custom Theme options
  * @typedef {Object} THEME_OPTIONS
  * @property {string} themeFolder
+ * @property {string} hubdbFolder
  * @property {string} vendorSrc
  * @property {string} vendorDest
  * @property {Object} [js]

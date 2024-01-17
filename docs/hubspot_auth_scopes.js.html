@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: hubspot/auth/scopes.js</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link type="text/css" rel="stylesheet" href="styles/base.min.css">
+</head>
+
+<body class="body">
+
+    <div class="container">
+
+        <nav class="sidenav">
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </nav>
+
+        <main id="main" class="main">
+            <div id="content" class="content">
+                <h1 class="page-title">Source: hubspot/auth/scopes.js</h1>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module hubspot/auth/scopes */
+
+import chalk from 'chalk'
+import * as TYPES from '../../types/types.js' // eslint-disable-line no-unused-vars
+
+/**
+ * @ignore
+ * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
+ */
+
+/**
+ * #### scope details
+ * @typedef {Object} SCOPE_DETAILS
+ * @property {boolean} selected - is selected
+ * @property {string} title - scope title
+ * @property {string} description - scope description
+ */
+
+/**
+ * #### scopes
+ * @typedef {Object} SCOPES
+ * @property {SCOPE_DETAILS} cms_pages - View and download website data.
+ * @property {SCOPE_DETAILS} crm_objects - Read data from HubSpot objects in the CRM.
+ * @property {SCOPE_DETAILS} custom_objects - Create, delete, or make changes to custom objects in the CRM.
+ * @property {SCOPE_DETAILS} design_manager - Upload and download templates, modules, and other files that developers need to write the code for websites and emails.
+ * @property {SCOPE_DETAILS} developer_projects - Upload and download developer projects.
+ * @property {SCOPE_DETAILS} file_manager - Upload and download files that can be used across HubSpot tools when creating content.
+ * @property {SCOPE_DETAILS} graphql_data_fetching - Execute GraphQL queries and fetch GraphQL Schema.
+ * @property {SCOPE_DETAILS} hubdb - Create, update, and delete HubDB tables.
+ * @property {SCOPE_DETAILS} serverless_functions - View logs, manage secrets, and interact with other serverless functionality.
+ */
+
+/**
+ * #### parse scopes
+ * @private
+ * @param {HUBSPOT_AUTH_CONFIG} config - hubspot authentication config
+ * @returns {SCOPES} scopes
+ */
+function parseScopes (config) {
+  /**
+   * @type {SCOPES}
+   */
+  const scopes = {
+    cms_pages: {
+      selected: false,
+      title: 'CMS Pages',
+      description: 'View and download website data.'
+    },
+    crm_objects: {
+      selected: false,
+      title: 'CRM Objects',
+      description: 'Read data from HubSpot objects in the CRM.'
+    },
+    custom_objects: {
+      selected: false,
+      title: 'Custom Objects',
+      description: 'Create, delete, or make changes to custom objects in the CRM.'
+    },
+    design_manager: {
+      selected: false,
+      title: 'Design Manager',
+      description: 'Upload and download templates, modules, and other files that developers need to write the code for websites and emails.'
+    },
+    developer_projects: {
+      selected: false,
+      title: 'Developer Projects',
+      description: 'Upload and download developer projects.'
+    },
+    file_manager: {
+      selected: false,
+      title: 'File Manager',
+      description: 'Upload and download files that can be used across HubSpot tools when creating content.'
+    },
+    graphql_data_fetching: {
+      selected: false,
+      title: 'GraphQL Data Fetching',
+      description: 'Execute GraphQL queries and fetch GraphQL Schema.'
+    },
+    hubdb: {
+      selected: false,
+      title: 'HubDB',
+      description: 'Create, update, and delete HubDB tables.'
+    },
+    serverless_functions: {
+      selected: false,
+      title: 'Serverless functions',
+      description: 'View logs, manage secrets, and interact with other serverless functionality.'
+    }
+  }
+
+  if (config.portals[0].scopeGroups.includes('cms.pages.landing_pages.read' &amp;&amp; 'cms.pages.site_pages.read')) {
+    scopes.cms_pages.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('crm.objects.companies.read' &amp;&amp; 'crm.objects.contacts.read' &amp;&amp; 'crm.objects.deals.read' &amp;&amp; 'crm.objects.owners.read' &amp;&amp; 'crm.schemas.companies.read' &amp;&amp; 'crm.schemas.contacts.read' &amp;&amp; 'crm.schemas.deals.read')) {
+    scopes.crm_objects.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('crm.objects.custom.read' &amp;&amp; 'crm.objects.custom.write' &amp;&amp; 'crm.schemas.custom.read' &amp;&amp; 'crm.schemas.custom.write')) {
+    scopes.custom_objects.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('cms.source_code.write' &amp;&amp; 'cms.source_code.read')) {
+    scopes.design_manager.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('developer.projects.write')) {
+    scopes.developer_projects.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('files')) {
+    scopes.file_manager.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('collector.graphql_query.execute' &amp;&amp; 'collector.graphql_schema.read')) {
+    scopes.graphql_data_fetching.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('hubdb')) {
+    scopes.hubdb.selected = true
+  }
+  if (config.portals[0].scopeGroups.includes('cms.functions.read' &amp;&amp; 'cms.functions.write')) {
+    scopes.serverless_functions.selected = true
+  }
+  return scopes
+}
+
+/**
+ * #### throw error if missing scopes
+ * @param {HUBSPOT_AUTH_CONFIG} config - hubspot authentication config
+ * @param {'cms_pages'|'crm_objects'|'custom_objects'|'design_manager'|'developer_projects'|'file_manager'|'graphql_data_fetching'|'hubdb'|'serverless_functions'} scopeName - scope name
+ * @returns undefined
+ */
+function throwErrorIfMissingScope (config, scopeName) {
+  const scopes = parseScopes(config)
+  if (!scopes[scopeName].selected) {
+    const msg = 'This app hasn\'t been granted all required scopes to make this call. Read more about required scopes here: https://developers.hubspot.com/docs/cms/personal-access-key.'
+    console.error(`${chalk.red.bold('[MISSING_SCOPES]')} ${msg}`)
+    console.error('All of the following scopes are required:')
+    console.error(`[${chalk.red(scopes[scopeName].title)}] - ${scopes[scopeName].description}`)
+    process.exit(1)
+  }
+}
+
+export { throwErrorIfMissingScope }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+
+            <div class="toc">
+                <h2>Table of contents</h2>
+                <div class="toc-nav"></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script >
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.prettyprint.linenums code').forEach((el) => {
+                hljs.configure({
+                    languages: ['javascript'],
+                });
+                hljs.highlightElement(el);
+                hljs.lineNumbersBlock(el);
+            });
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.configure({
+                    languages: ['javascript'],
+                });
+                hljs.highlightElement(el);
+            });
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+    <script>
+        tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.toc-nav',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.main article',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1.name, h2.name, h3.name, h4.name',
+        headingLabelCallback: (string) => string
+    });
+    </script>
+</body>
+</html>

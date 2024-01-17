@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: hubspot/fetch.js</title>
+    <title>JSDoc: Source: hubspot/hubdb/hubdb.js</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,7 +18,7 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Source: hubspot/fetch.js</h1>
+                <h1 class="page-title">Source: hubspot/hubdb/hubdb.js</h1>
                 
 
 
@@ -26,50 +26,52 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module hubspot/fetch */
-import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
-import { downloadFileOrFolder } from '@hubspot/cli-lib/fileMapper.js'
-import logger from '@hubspot/cli-lib/logger.js'
-import * as ui from '../utils/ui.js'
-import { savedConsoleDebug } from '../utils/console.js'
-import { getThemeOptions } from '../utils/options.js'
-import { throwErrorIfMissingScope } from './auth/scopes.js'
+            <pre class="prettyprint source linenums"><code>/** @module hubspot/fetchdb */
+
+import * as TYPES from '../../types/types.js' // eslint-disable-line no-unused-vars
+import { downloadHubDbTable, createHubDbTable, updateHubDbTable, clearHubDbTableRows, addRowsToHubDbTable } from '@hubspot/cli-lib/hubdb.js'
+import { fetchTables, fetchRows } from '@hubspot/cli-lib/api/hubdb.js'
+import chalk from 'chalk'
+import * as ui from '../../utils/ui.js'
+import { savedConsoleDebug } from '../../utils/console.js'
+import { getThemeOptions } from '../../utils/options.js'
+import { selectTables, selectFiles, confirmTableOverwrite } from './prompts.js'
+import ora, { oraPromise } from 'ora'
+import { getFileList } from '../../utils/fs.js'
+import { createRequire } from 'module'
+import { throwErrorIfMissingScope } from '../auth/scopes.js'
+const require = createRequire(import.meta.url)
+const cmslibOptions = getThemeOptions()
 
 /**
  * @ignore
  * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
  */
 
-let cmsMode = 'publish'
-if (process.env.HUB_MODE === 'draft') {
-  cmsMode = 'draft'
-}
-const cmslibOptions = getThemeOptions()
-
 /**
- * #### fetch all HubSpot theme Modules
+ * #### fetch HubDB tables
  * @async
  * @param {HUBSPOT_AUTH_CONFIG} config - hubspot authentication config
- * @param {string} themeName - theme name
  * @returns undefined
  */
-async function fetchModules (config, themeName) {
+async function fetchHubDb (config) {
   try {
-    const timeStart = ui.startTask('fetchModules')
-    const src = `${themeName}/modules`
-    const dest = `${process.cwd()}/${cmslibOptions.themeFolder}/modules`
+    const timeStart = ui.startTask('fetchDb')
+    const dest = `${process.cwd()}/${cmslibOptions.hubdbFolder}`
     const accountId = config.portals[0].portalId
-    const mode = cmsMode
-    const options = {
-      overwrite: true
-    }
-    throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(2)
+    throwErrorIfMissingScope(config, 'hubdb')
     console.debug = () => {}
-    await downloadFileOrFolder({ accountId, src, dest, mode, options })
+    // fetch all tables from the account
+    const tables = await fetchTables(accountId)
     console.debug = savedConsoleDebug
-
-    ui.endTask({ taskName: 'fetchModules', timeStart })
+    // select tables to download
+    const selectedTables = await selectTables(tables.results)
+    const msg = (/** @type {string} */ tableName) => `Saving HubDB ${chalk.magenta(tableName)} table into ${chalk.dim.green(`${tableName}.json`)} file`
+    for await (const table of selectedTables) {
+      // download each table into a json file
+      await oraPromise(downloadHubDbTable(accountId, table.id, `${dest}/${table.name}.json`), { text: msg(table.name) })
+    }
+    ui.endTask({ taskName: 'fetchDb', timeStart })
   } catch (error) {
     console.error(error)
     process.exit(1)
@@ -77,36 +79,70 @@ async function fetchModules (config, themeName) {
 }
 
 /**
- * #### fetch all HubSpot theme files
+ * #### upload HubDB tables
  * @async
  * @param {HUBSPOT_AUTH_CONFIG} config - hubspot authentication config
- * @param {string} themeName - theme name
  * @returns undefined
  */
-async function fetch (config, themeName) {
+async function uploadHubDb (config) {
   try {
-    const timeStart = ui.startTask('fetch')
-    const src = themeName
-    const dest = `${process.cwd()}/${cmslibOptions.themeFolder}`
+    const timeStart = ui.startTask('uploadDb')
+    const hubdbFolder = `${process.cwd()}/${cmslibOptions.hubdbFolder}`
     const accountId = config.portals[0].portalId
-    const mode = cmsMode
-    const options = {
-      overwrite: true
+    throwErrorIfMissingScope(config, 'hubdb')
+    // get all json files from the hubdb folder
+    const files = await getFileList(`${hubdbFolder}/*.json`, { objectMode: true })
+    if (files === undefined || files.length === 0) {
+      console.log('No HubDb files found')
+      process.exit(0)
     }
-    throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(2)
+    // select files to upload
+    const selectedFiles = await selectFiles(files)
     console.debug = () => {}
-    await downloadFileOrFolder({ accountId, src, dest, mode, options })
+    // fetch all tables from the account
+    const tables = await fetchTables(accountId)
     console.debug = savedConsoleDebug
-
-    ui.endTask({ taskName: 'fetch', timeStart })
+    const createMsg = (/** @type {string} */ fileName) => `Creating and publishing ${chalk.magenta(fileName)} table based on ${chalk.dim.green(`${fileName}.json`)} file`
+    const overwriteMsg = (/** @type {string} */ fileName) => `Overwriting and publishing ${chalk.magenta(fileName)} table.`
+    for (const file of selectedFiles) {
+      // check if table already exists
+      const table = tables.results.find((/** @type {any} */ t) => t.name === file.label)
+      if (table) {
+        console.warn(`${chalk.red('[Warning]')} ${chalk.magenta(file.label)} table already exists in the selected account.`)
+        await confirmTableOverwrite(file.label)
+        const spinner = ora(overwriteMsg(file.label)).start()
+        try {
+          // get table rows from the json file
+          const rows = require(file.path).rows
+          // update table columns and options
+          await updateHubDbTable(accountId, table.id, file.path)
+          // check if remote table has rows
+          const remoteRows = await fetchRows(accountId, table.id)
+          if (remoteRows.results.length) {
+            // clear remote table rows if exists
+            await clearHubDbTableRows(accountId, table.id)
+          }
+          // add new rows to the table from the json file
+          await addRowsToHubDbTable(accountId, table.id, rows)
+          spinner.succeed()
+        } catch (error) {
+          spinner.fail()
+          console.error(error)
+          process.exit(1)
+        }
+      } else {
+        // create and publish table if it does not exist
+        await oraPromise(createHubDbTable(accountId, file.path), { text: createMsg(file.label) })
+      }
+    }
+    ui.endTask({ taskName: 'uploadDb', timeStart })
   } catch (error) {
     console.error(error)
     process.exit(1)
   }
 }
 
-export { fetch, fetchModules }
+export { fetchHubDb, uploadHubDb }
 </code></pre>
         </article>
     </section>

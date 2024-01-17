@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -44,7 +44,7 @@
 
     <section class="readme">
         <article><h1 id="%40resultify%2Fhubspot-cms-lib">@resultify/hubspot-cms-lib</h1>
-<p>Library with additional functionality on top of native HubSpot CMS CLI library (<a href="https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib">cli-lib</a>) with command-line interface.</p>
+<p>Library with additional functionality on top of native HubSpot CMS CLI library (<a href="https://github.com/HubSpot/cli-lib">cli-lib</a>) with command-line interface.</p>
 <p>❗It should be used instead of <code>hubspot-cli</code>❗</p>
 <p><a href="https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml"><img src="https://github.com/Resultify/hubspot-cms-lib/actions/workflows/test.yml/badge.svg" alt="Run tests"></a>
 <img src="https://img.shields.io/node/v/@resultify/hubspot-cms-lib" alt="node-current">
@@ -72,37 +72,32 @@
 <li>
 <p>Commands</p>
 <ul>
-<li>Watch</li>
-<li>FetchModules</li>
-<li>Fetch</li>
-<li>Upload</li>
-<li>Build</li>
-<li>Validate</li>
-<li>Lighthouse</li>
-<li>Fields</li>
-<li>HubDB upload (TODO)</li>
-<li>HubDB fetch (TODO)</li>
+<li><code>build</code> - compile all vendor files (scss, js, css)</li>
+<li><code>watch</code> - tracks file changes, compiles, and uploads/moves/deletes them to HubSpot</li>
+<li><code>fetch</code> - fetches all files from HubSpot</li>
+<li><code>fetchModules</code> - fetches all modules from HubSpot theme</li>
+<li><code>upload</code> - uploads all files to HubSpot</li>
+<li><code>validate</code> - HubSpot Marketplace validation</li>
+<li><code>lighthouse</code> - HubSpot Lighthouse validation</li>
+<li><code>fields</code> - converts theme/modules <code>fields.js</code> to <code>fields.json</code></li>
+<li><code>fetchDb</code> - fetches chosen HubDB tables to local <code>.json</code> files</li>
+<li><code>uploadDb</code> - uploads and publish chosen HubDB tables from local <code>.json</code> files</li>
 </ul>
 </li>
 <li>
 <p>Compilers:</p>
 <ul>
-<li>SCSS [sass]</li>
-<li>JS [RollupJs]</li>
-<li>CSS [PostCSS]</li>
+<li>SCSS - SASS</li>
+<li>JS - RollupJs</li>
+<li>CSS - PostCSS</li>
 </ul>
 </li>
 <li>
-<p>HubSpot</p>
+<p>Other features:</p>
 <ul>
 <li><a href="#custom-multi-account-authentication">Custom multi-account authentication</a></li>
-<li>Fetch</li>
-<li>Upload</li>
-<li>Watch</li>
 <li><a href="https://github.com/Resultify/hubspot-fields-js">FieldsJs</a></li>
-<li>Marketplace validation</li>
-<li>Lighthouse</li>
-<li>HubDB (TODO)</li>
+<li>Watch process combines <code>SCSS</code>, <code>PostCSS</code>, and <code>Rolup.js</code> compilers with the Hubspot watch and Upload process.</li>
 </ul>
 </li>
 </ul>
@@ -115,14 +110,16 @@
 <li>Add needed scripts to package.json</li>
 </ol>
 <pre class="prettyprint source"><code>  &quot;scripts&quot;: {
-    &quot;build&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/build`)'&quot;,
-    &quot;upload&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/upload`)'&quot;,
-    &quot;fields&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/fields`)'&quot;,
-    &quot;validate&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/validate`)'&quot;,
-    &quot;lighthouse&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/lighthouse`)'&quot;,
-    &quot;fetchModules&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/fetchModules`)'&quot;,
-    &quot;fetch&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/fetch`)'&quot;,
-    &quot;watch&quot;: &quot;node -e 'import(`@resultify/hubspot-cms-lib/watch`)'&quot;
+    &quot;build&quot;: &quot;cmslib --build&quot;,
+    &quot;watch&quot;: &quot;cmslib --watch'&quot;,
+    &quot;fetch&quot;: &quot;cmslib --fetch&quot;,
+    &quot;fetchModules&quot;: &quot;cmslib --fetchModules&quot;,
+    &quot;upload&quot;: &quot;cmslib --upload&quot;,
+    &quot;validate&quot;: &quot;cmslib --validate&quot;,
+    &quot;lighthouse&quot;: &quot;cmslib --lighthouse&quot;,
+    &quot;fields&quot;: &quot;cmslib --fields&quot;,
+    &quot;fetchDb&quot;: &quot;cmslib --fetchDb&quot;,
+    &quot;uploadDb&quot;: &quot;cmslib --uploadDb&quot;
   }
 </code></pre>
 <ol start="2">
@@ -130,32 +127,34 @@
 </ol>
 <pre class="prettyprint source"><code>  &quot;cmslib&quot;: {
     &quot;themeFolder&quot;: &quot;theme&quot;,
+    &quot;hubdbFolder&quot;: &quot;hubdb&quot;,
     &quot;vendorSrc&quot;: &quot;vendor&quot;,
     &quot;vendorDest&quot;: &quot;theme/vendor&quot;,
-    &quot;js&quot;: {
-      &quot;external&quot;: [&quot;@popperjs/core&quot;],
-      &quot;replace&quot;: {
-        &quot;global.SimpleLightbox&quot;: &quot;window.SimpleLightbox&quot;
-      },
-      &quot;globals&quot;: {
-        &quot;@popperjs/core&quot;: &quot;Popper = () => {}&quot;
-      }
-    },
     &quot;lighthouse&quot;: {
       &quot;performance&quot;: 75,
       &quot;accessibility&quot;: 90,
       &quot;bestPractices&quot;: 90,
       &quot;seo&quot;: 80
+    },
+    &quot;js&quot;: {
+      &quot;external&quot;: [&quot;@popperjs/core&quot;],
+      &quot;replace&quot;: {},
+      &quot;globals&quot;: {
+        &quot;@popperjs/core&quot;: &quot;Popper = () => {}&quot;
+      }
     }
   }
 </code></pre>
 <ol start="3">
 <li>Add <code>.env</code> file with <a href="#custom-multi-account-authentication">multi-account authentication configuration</a></li>
-<li>Run scripts with npm</li>
+<li>Run commands from package.json</li>
 </ol>
 <pre class="prettyprint source"><code>npm run fetch
+or
+npm run watch
 </code></pre>
 <p><code>package.json</code> example: https://github.com/Resultify/nimbly-lite/blob/master/package.json</p>
+<p><a href="https://resultify.github.io/hubspot-cms-lib/Commands.html">More examples of how to run commands in your project</a></p>
 <hr>
 <h2 id="custom-multi-account-authentication">Custom multi-account authentication</h2>
 <ol>
@@ -171,7 +170,8 @@ hub_portalname2=personal-access-key-for-this-portalname2
 <h2 id="configuration">Configuration</h2>
 <p>Add <strong>hubspot-cms-lib</strong> configuration object to <code>package.json</code> with needed options.</p>
 <pre class="prettyprint source lang-json"><code>&quot;cmslib&quot;: {
-    &quot;themeFolder&quot;: &quot;theme&quot;
+    &quot;themeFolder&quot;: &quot;theme&quot;,
+    &quot;hubdbFolder&quot;: &quot;hubdb&quot;
 }
 </code></pre>
 <h3 id="options">Options</h3>
@@ -192,10 +192,16 @@ hub_portalname2=personal-access-key-for-this-portalname2
 <td>HubSpot CMS theme folder name inside your repository</td>
 </tr>
 <tr>
+<td>hubdbFolder</td>
+<td>'hubdb'</td>
+<td>string</td>
+<td>HubDB folder name inside your repository to store HubDB tables</td>
+</tr>
+<tr>
 <td>vendorSrc</td>
 <td>'vendor'</td>
 <td>string</td>
-<td>Entry point folder name for third party libraries</td>
+<td>Entry point folder name for third party libraries [e.g., <code>vendor/css</code>,<code>vendor/js</code>,<code>vendor/scss</code>]</td>
 </tr>
 <tr>
 <td>vendorDest</td>
@@ -206,7 +212,7 @@ hub_portalname2=personal-access-key-for-this-portalname2
 <tr>
 <td>lighthouse</td>
 <td></td>
-<td>object</td>
+<td>Object</td>
 <td>lighthouse threshold numbers</td>
 </tr>
 <tr>
@@ -235,9 +241,27 @@ hub_portalname2=personal-access-key-for-this-portalname2
 </tr>
 <tr>
 <td>js</td>
-<td></td>
-<td>object</td>
+<td>[optional]</td>
+<td>Object</td>
 <td>rollupjs configurations</td>
+</tr>
+<tr>
+<td>js.external</td>
+<td></td>
+<td>Array<string></td>
+<td>https://rollupjs.org/configuration-options/#external</td>
+</tr>
+<tr>
+<td>js.replace</td>
+<td></td>
+<td>Object&lt;string, string&gt;</td>
+<td>https://github.com/rollup/plugins/tree/master/packages/replace</td>
+</tr>
+<tr>
+<td>js.globals</td>
+<td></td>
+<td>Object&lt;string, string&gt;</td>
+<td>https://rollupjs.org/configuration-options/#output-globals</td>
 </tr>
 </tbody>
 </table></article>

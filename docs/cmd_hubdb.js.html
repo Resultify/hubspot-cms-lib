@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cmd/validate.js</title>
+    <title>JSDoc: Source: cmd/hubdb.js</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,7 +18,7 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Source: cmd/validate.js</h1>
+                <h1 class="page-title">Source: cmd/hubdb.js</h1>
                 
 
 
@@ -28,38 +28,65 @@
         <article>
             <pre class="prettyprint source linenums"><code>import '../utils/check.js'
 import themeName from '../hubspot/theme.js'
-import { marketplaceValidate } from '../hubspot/validate.js'
+import { fetchHubDb, uploadHubDb } from '../hubspot/hubdb/hubdb.js'
 import { loadAuthConfig } from '../hubspot/auth/auth.js'
 import * as ui from '../utils/ui.js'
 
 /**
- * #### Theme Validation
+ * #### Fetch HubDB table/s
  * @async
  * @memberof Commands
  * @example
  * // run with node
- * echo "import '@resultify/hubspot-cms-lib/validate'" > validate.js
- * node validate.js
+ * echo "import '@resultify/hubspot-cms-lib/fetchDb'" > fetchDb.js
+ * node fetchDb.js
  *
  *
  * // run with npm by adding to package.json scripts:
  * "scripts": {
- *  "validate": "cmslib --validate",
+ *  "fetchDb": "cmslib --fetchDb",
  * }
  * or
  * "scripts": {
- *   "validate": "node -e 'import(`@resultify/hubspot-cms-lib/validate`)'"
+ *   "fetchDb": "node -e 'import(`@resultify/hubspot-cms-lib/fetchDb`)'"
  * }
- * npm run validate
+ * npm run fetchDb
  */
-async function validate () {
-  const timeStart = ui.startTaskGroup(`Validate ${themeName}`)
+async function fetchDb () {
+  const timeStart = ui.startTaskGroup('Fetch HubDB')
   const hubAuthData = await loadAuthConfig(themeName)
-  await marketplaceValidate(hubAuthData, themeName)
-  ui.endTaskGroup({ taskName: `Validate ${themeName}`, timeStart })
+  await fetchHubDb(hubAuthData)
+  ui.endTaskGroup({ taskName: 'Fetch HubDB', timeStart })
 }
 
-export { validate }
+/**
+ * #### Upload HubDB table/s
+ * @async
+ * @memberof Commands
+ * @example
+ * // run with node
+ * echo "import '@resultify/hubspot-cms-lib/uploadDb'" > uploadDb.js
+ * node uploadDb.js
+ *
+ *
+ * // run with npm by adding to package.json scripts:
+ * "scripts": {
+ *  "uploadDb": "cmslib --uploadDb",
+ * }
+ * or
+ * "scripts": {
+ *   "uploadDb": "node -e 'import(`@resultify/hubspot-cms-lib/uploadDb`)'"
+ * }
+ * npm run uploadDb
+ */
+async function uploadDb () {
+  const timeStart = ui.startTaskGroup('Upload HubDB')
+  const hubAuthData = await loadAuthConfig(themeName)
+  await uploadHubDb(hubAuthData)
+  ui.endTaskGroup({ taskName: 'Upload HubDB', timeStart })
+}
+
+export { fetchDb, uploadDb }
 </code></pre>
         </article>
     </section>

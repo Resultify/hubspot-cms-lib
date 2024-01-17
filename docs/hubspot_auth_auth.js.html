@@ -13,7 +13,7 @@
     <div class="container">
 
         <nav class="sidenav">
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompt.html">hubspot/auth/prompt</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-compile_clean.html">compile/clean</a></li><li><a href="module-compile_css.html">compile/css</a></li><li><a href="module-compile_js.html">compile/js</a></li><li><a href="module-compile_sass.html">compile/sass</a></li><li><a href="module-compile_watch.html">compile/watch</a></li><li><a href="module-hubspot_auth.html">hubspot/auth</a></li><li><a href="module-hubspot_auth_env.html">hubspot/auth/env</a></li><li><a href="module-hubspot_auth_prompts.html">hubspot/auth/prompts</a></li><li><a href="module-hubspot_auth_scopes.html">hubspot/auth/scopes</a></li><li><a href="module-hubspot_fetch.html">hubspot/fetch</a></li><li><a href="module-hubspot_fetchdb.html">hubspot/fetchdb</a></li><li><a href="module-hubspot_fieldsJs.html">hubspot/fieldsJs</a></li><li><a href="module-hubspot_hubdb_prompts.html">hubspot/hubdb/prompts</a></li><li><a href="module-hubspot_lighthouseScore.html">hubspot/lighthouseScore</a></li><li><a href="module-hubspot_marketplaceValidate.html">hubspot/marketplaceValidate</a></li><li><a href="module-hubspot_theme.html">hubspot/theme</a></li><li><a href="module-hubspot_upload.html">hubspot/upload</a></li><li><a href="module-hubspot_watch.html">hubspot/watch</a></li><li><a href="module-utils_args.html">utils/args</a></li><li><a href="module-utils_check.html">utils/check</a></li><li><a href="module-utils_console.html">utils/console</a></li><li><a href="module-utils_fs.html">utils/fs</a></li><li><a href="module-utils_options.html">utils/options</a></li><li><a href="module-utils_ui.html">utils/ui</a></li></ul><h3>Namespaces</h3><ul><li><a href="Commands.html">Commands</a></li></ul><h3><a href="global.html">Global</a></h3>
         </nav>
 
         <main id="main" class="main">
@@ -33,7 +33,7 @@ import { getAccessToken } from '@hubspot/local-dev-lib/personalAccessKey'
 import { validateConfig, getAndLoadConfigIfNeeded, writeConfig, setConfig, createEmptyConfigFile, deleteConfigFile } from '@hubspot/local-dev-lib/config'
 import chalk from 'chalk'
 import ora from 'ora'
-import { getAuthDataFromEnvFile } from './env.js'
+import { getAuthDataFromEnvFile, getAuthDataFromEnvVars } from './env.js'
 import { savedConsoleDebug } from '../../utils/console.js'
 
 /**
@@ -49,7 +49,7 @@ import { savedConsoleDebug } from '../../utils/console.js'
  * @returns {Promise&lt;HUBSPOT_ACCESSTOKEN_SCHEMA>} AccessToken data
  */
 async function getAccessTokenData (accessKey) {
-  const spinner = ora('Authentication').start()
+  const spinner = ora({ text: 'Authentication', discardStdin: false }).start()
   try {
     console.debug = () => {}
     const accessTokenData = await getAccessToken(accessKey)
@@ -60,7 +60,8 @@ async function getAccessTokenData (accessKey) {
     spinner.fail()
     await deleteConfigFile()
     if (error.cause.response.statusText === 'Unauthorized') {
-      console.error(`${chalk.red.bold('[Error]')} ${error.cause.response.statusText}. Check the personal access key and try again.`)
+      const msg = error.cause.response.data.message ? error.cause.response.data.message : 'Check the personal access key and try again.'
+      console.error(`${chalk.red.bold('[Error]')} ${error.cause.response.statusText}. ${msg}`)
     } else {
       console.error(error)
     }
@@ -69,40 +70,40 @@ async function getAccessTokenData (accessKey) {
 }
 
 /**
- * #### Load and validate Hubspot config
+ * #### Load and validate Hubspot auth config
  * @async
  * @param {string} themeName - theme name
- * @returns {Promise&lt;HUBSPOT_AUTH_CONFIG>} AccessToken data
+ * @returns {Promise&lt;HUBSPOT_AUTH_CONFIG>} Hubspot auth config
  */
 async function loadAuthConfig (themeName) {
   if (process.env.HUBSPOT_PORTAL_ID &amp;&amp; process.env.HUBSPOT_PERSONAL_ACCESS_KEY) {
     // get access token data from Hubspot
-    const accessTokenData = await getAccessTokenData(process.env.HUBSPOT_PERSONAL_ACCESS_KEY)
+    const authConfig = await getAuthDataFromEnvVars()
     // check if the portal ID and personal access key match
-    if (accessTokenData.portalId !== Number(process.env.HUBSPOT_PORTAL_ID)) {
+    if (authConfig.portals[0].portalId !== Number(process.env.HUBSPOT_PORTAL_ID)) {
       console.error(`${chalk.red.bold('[Error]')} Portal ID and Personal Access Key do not match`)
       process.exit(1)
     }
     console.debug = () => {}
     // load Hubspot auth config
-    const hubAuthConfig = await getAndLoadConfigIfNeeded({ silenceErrors: false, useEnv: true })
+    await getAndLoadConfigIfNeeded({ silenceErrors: false, useEnv: true })
     console.debug = savedConsoleDebug
     await validateConfig()
-    return hubAuthConfig
+    return authConfig
   } else {
     // get auth data from .env file
-    const authDataFromEnvFile = await getAuthDataFromEnvFile(themeName)
+    const authConfig = await getAuthDataFromEnvFile(themeName)
     console.debug = () => {}
     await createEmptyConfigFile()
     console.debug = savedConsoleDebug
     // load Hubspot auth config
-    const hubAuthConfig = await setConfig(authDataFromEnvFile)
+    await setConfig(authConfig)
     await validateConfig()
     console.debug = () => {}
     // add auth data to hubspot.config.yml file
     await writeConfig()
     console.debug = savedConsoleDebug
-    return hubAuthConfig
+    return authConfig
   }
 }
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: compile/sass</title>
+    <title>JSDoc: Module: hubspot/hubdb/prompts</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,7 +18,7 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Module: compile/sass</h1>
+                <h1 class="page-title">Module: hubspot/hubdb/prompts</h1>
                 
 
 
@@ -67,7 +67,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="compile_sass.js.html">compile/sass.js</a>, <a href="compile_sass.js.html#line1">line 1</a>
+        <a href="hubspot_hubdb_prompts.js.html">hubspot/hubdb/prompts.js</a>, <a href="hubspot_hubdb_prompts.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -106,7 +106,7 @@
     
 
     
-    <h4 class="name" id="~compileScss" data-heading-label="~compileScss" ><span class="type-signature">(async, inner) </span>compileScss<span class="signature">(hideStatus<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~confirmTableOverwrite" data-heading-label="~confirmTableOverwrite" ><span class="type-signature">(async, inner) </span>confirmTableOverwrite<span class="signature">(tableName)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
     
 
     
@@ -114,7 +114,7 @@
 
 
 <div class="description">
-    <h4 id="compile-scss-task">Compile Scss task</h4>
+    <h4 id="confirm-overwrite-of-existing-table">confirm overwrite of existing table</h4>
 </div>
 
 
@@ -139,8 +139,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -153,33 +151,23 @@
 
         <tr>
             
-                <td class="name"><code>hideStatus</code></td>
+                <td class="name"><code>tableName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>hide status messages</p></td>
+            <td class="description last"><p>table name</p></td>
         </tr>
 
     
@@ -221,7 +209,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="compile_sass.js.html">compile/sass.js</a>, <a href="compile_sass.js.html#line16">line 16</a>
+        <a href="hubspot_hubdb_prompts.js.html">hubspot/hubdb/prompts.js</a>, <a href="hubspot_hubdb_prompts.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -250,10 +238,344 @@
 
         
 <div class="param-desc">
-    <p>undefined</p>
+    <p>overwrite confirmation</p>
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;boolean></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~selectFiles" data-heading-label="~selectFiles" ><span class="type-signature">(async, inner) </span>selectFiles<span class="signature">(files)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;{path:string, name:string, label:string}>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="select-json-files-to-upload-as-a-table-to-hubdb">select json files to upload as a table to hubdb</h4>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="responsive-table">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>files</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#FILE_LIST">FILE_LIST</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>files</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_hubdb_prompts.js.html">hubspot/hubdb/prompts.js</a>, <a href="hubspot_hubdb_prompts.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>selected files</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;{path:string, name:string, label:string}>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~selectTables" data-heading-label="~selectTables" ><span class="type-signature">(async, inner) </span>selectTables<span class="signature">(tables)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;any>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <h4 id="select-tables-from-account-table-list">select tables from account table list</h4>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<div class="responsive-table">
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tables</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;{name:string, id:string, published:boolean}></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>hubdb tables</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hubspot_hubdb_prompts.js.html">hubspot/hubdb/prompts.js</a>, <a href="hubspot_hubdb_prompts.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>selected tables</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;any>></span>
+
+
+    </dd>
+</dl>
 
     
 
