@@ -1,5 +1,5 @@
 # @resultify/hubspot-cms-lib
-Library with additional functionality on top of native HubSpot CMS CLI library ([cli-lib](https://github.com/HubSpot/hubspot-cli/tree/master/packages/cli-lib)) with command-line interface.
+Library with additional functionality on top of native HubSpot CMS CLI library ([cli-lib](https://github.com/HubSpot/cli-lib)) with command-line interface.
 
 ❗It should be used instead of `hubspot-cli`❗
 
@@ -28,16 +28,16 @@ Library with additional functionality on top of native HubSpot CMS CLI library (
 ## What's inside:
 
 - Commands
-  - Watch - watches for changes in files and uploads them to HubSpot
-  - FetchModules - fetches all modules from HubSpot
-  - Fetch - fetches all files from HubSpot
-  - Upload - uploads all files to HubSpot
-  - Build - builds all files (scss, js, css)
-  - Validate - HubSpot marketplace validation
-  - Lighthouse - HubSpot lighthouse validation
-  - Fields - converts module fields.js to fields.json
-  - fetchDb - fetches chosen HubDB tables
-  - uploadDb - uploads chosen HubDB tables
+  - `build` - compile all vendor files (scss, js, css)
+  - `watch` - tracks file changes, compiles, and uploads/moves/deletes them to HubSpot
+  - `fetch` - fetches all files from HubSpot
+  - `fetchModules` - fetches all modules from HubSpot theme
+  - `upload` - uploads all files to HubSpot
+  - `validate` - HubSpot Marketplace validation
+  - `lighthouse` - HubSpot Lighthouse validation
+  - `fields` - converts theme/modules `fields.js` to `fields.json`
+  - `fetchDb` - fetches chosen HubDB tables to local `.json` files
+  - `uploadDb` - uploads and publish chosen HubDB tables from local `.json` files
 
 - Compilers:
   - SCSS - SASS
@@ -58,14 +58,16 @@ npm i @resultify/hubspot-cms-lib
 1. Add needed scripts to package.json
 ```
   "scripts": {
-    "build": "node -e 'import(`@resultify/hubspot-cms-lib/build`)'",
-    "upload": "node -e 'import(`@resultify/hubspot-cms-lib/upload`)'",
-    "fields": "node -e 'import(`@resultify/hubspot-cms-lib/fields`)'",
-    "validate": "node -e 'import(`@resultify/hubspot-cms-lib/validate`)'",
-    "lighthouse": "node -e 'import(`@resultify/hubspot-cms-lib/lighthouse`)'",
-    "fetchModules": "node -e 'import(`@resultify/hubspot-cms-lib/fetchModules`)'",
-    "fetch": "node -e 'import(`@resultify/hubspot-cms-lib/fetch`)'",
-    "watch": "node -e 'import(`@resultify/hubspot-cms-lib/watch`)'"
+    "build": "cmslib --build",
+    "watch": "cmslib --watch'",
+    "fetch": "cmslib --fetch",
+    "fetchModules": "cmslib --fetchModules",
+    "upload": "cmslib --upload",
+    "validate": "cmslib --validate",
+    "lighthouse": "cmslib --lighthouse",
+    "fields": "cmslib --fields",
+    "fetchDb": "cmslib --fetchDb",
+    "uploadDb": "cmslib --uploadDb"
   }
 ```
 2. Add [cmslib configuration](#configuration) to package.json

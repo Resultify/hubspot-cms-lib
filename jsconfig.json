@@ -8,5 +8,5 @@
     "useUnknownInCatchVariables": false,
     "moduleResolution": "node"
   },
-  "include": ["lib/**/*"],
+  "include": ["lib/**/*", "bin/**/*"],
 }
