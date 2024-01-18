@@ -49,7 +49,28 @@ function getThemeName () {
   }
 }
 
+/**
+ * #### check is child theme
+ * @returns {boolean} true if child theme, false if not
+ * @throws console.error &amp; process.exit(1) if theme.json does not exist
+ */
+function isChildTheme () {
+  try {
+    const themeJson = require(`${process.cwd()}/${cmslibOptions.themeFolder}/theme.json`)
+    // if theme.json has extends property, it's a child theme
+    if (themeJson.extends) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(`${chalk.red.bold('ERROR')}: ${chalk.cyan(`${cmslibOptions.themeFolder}/theme.json`)} does not exist`)
+    process.exit(1)
+  }
+}
+
 const themeName = getThemeName()
+const childTheme = isChildTheme()
 
 /**
  * #### Check package.json name and theme.json name
@@ -65,7 +86,7 @@ function checkPackageThemeConsistent () {
 }
 checkPackageThemeConsistent()
 
-export default themeName
+export { themeName, childTheme }
 </code></pre>
         </article>
     </section>
