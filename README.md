@@ -138,7 +138,7 @@ Add **hubspot-cms-lib** configuration object to `package.json` with needed optio
 |lighthouse||Object|lighthouse threshold numbers|
 |lighthouse.performance|75|number||
 |lighthouse.accessibility|90|number||
-|lighthouse.bestPractices|90|number||
+|lighthouse.bestPractices|80|number||
 |lighthouse.seo|80|number||
 |js|[optional]|Object|rollupjs configurations|
 |js.external||Array<string>|https://rollupjs.org/configuration-options/#external|
