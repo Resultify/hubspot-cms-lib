@@ -233,7 +233,10 @@ async function lighthouseScore (config, themeName) {
         console.log(`${chalk.cyan(themeName)} Average Mobile Lighthouse scores`)
         showAverageResults(averageMobileScoreResult)
         console.log('This is the average of all theme templates')
-        console.log('Use the [cmslib --lighthouse -- --verbose] command to include individual template scores')
+        console.log(chalk.dim('----------------------------'))
+        console.log(`Use the ${chalk.blue('cmslib --lighthouse -- --verbose')} npm script to show individual template scores`)
+        console.log(`or run directly from npm with ${chalk.blue('npm run lighthouse -- -- --verbose')}`)
+        console.log(chalk.dim('----------------------------'))
       }
     }
 
