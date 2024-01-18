@@ -1,3 +1,8 @@
+### v3.1.1 `January 18, 2024`
+* **[TASK]** decrease lighthouse best Practices default threshold to 80 since testing environment using http links not https [`dd1df12`](https://github.com/Resultify/hubspot-cms-lib/commit/dd1df12) (dmh)
+
+***
+
 ### v3.1.0 `January 17, 2024`
 * **[DOC]** update docs [`c551291`](https://github.com/Resultify/hubspot-cms-lib/commit/c551291) (dmh)
 * **[TASK]** create cmslib cli alias and make it executable [`13081e0`](https://github.com/Resultify/hubspot-cms-lib/commit/13081e0) (dmh)
