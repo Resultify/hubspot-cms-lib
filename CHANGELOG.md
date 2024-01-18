@@ -1,3 +1,8 @@
+### v3.1.2 `January 18, 2024`
+* **[TASK]** add check isChildTheme, adopt validation process for child themes [`ad10736`](https://github.com/Resultify/hubspot-cms-lib/commit/ad10736) (dmh)
+
+***
+
 ### v3.1.1 `January 18, 2024`
 * **[TASK]** decrease lighthouse best Practices default threshold to 80 since testing environment using http links not https [`dd1df12`](https://github.com/Resultify/hubspot-cms-lib/commit/dd1df12) (dmh)
 
