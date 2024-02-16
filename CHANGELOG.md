@@ -1,3 +1,12 @@
+### v3.2.0 `February 16, 2024`
+* **[BUGFIX]** do not upload hubdb without confirmation [`a092a3b`](https://github.com/Resultify/hubspot-cms-lib/commit/a092a3b) (dmh)
+* **[TASK]** exclude inherits_brand_color check from child theme validation [`31fcc1e`](https://github.com/Resultify/hubspot-cms-lib/commit/31fcc1e) (dmh)
+* **[TASK]** update cli ui [`246f868`](https://github.com/Resultify/hubspot-cms-lib/commit/246f868) (dmh)
+* **[TASK]** add cleanUpload cmd, update npm deps [`16b339c`](https://github.com/Resultify/hubspot-cms-lib/commit/16b339c) (dmh)
+* **[BUGFIX]** uso only hubspot related personal-keys prefixed by hub_ [`2746094`](https://github.com/Resultify/hubspot-cms-lib/commit/2746094) (dmh)
+
+***
+
 ### v3.1.2 `January 18, 2024`
 * **[TASK]** add check isChildTheme, adopt validation process for child themes [`ad10736`](https://github.com/Resultify/hubspot-cms-lib/commit/ad10736) (dmh)
 
