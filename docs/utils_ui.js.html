@@ -92,7 +92,7 @@ function filesStats (files) {
 function startTask (taskName) {
   const timeStart = Date.now()
   console.log(
-    `${chalk.dim(`[${new Date(timeStart).toLocaleTimeString()}]`)} ${chalk.blue(taskName)} ${chalk.dim('start')}`
+    `${chalk.blue(taskName)} ${chalk.dim('start')}`
   )
   return timeStart
 }
@@ -117,14 +117,14 @@ function startTask (taskName) {
 function endTask (options) {
   const timeEnd = Date.now()
   const timeDiff = (timeEnd - options.timeStart) / 1000
-  const msg = `${chalk.dim(`${chalk.magenta('─────●')} [${new Date(timeEnd).toLocaleTimeString()}]`)} ${chalk.blue(options.taskName)}`
+  const msg = `${chalk.dim(`${chalk.magenta('─────●')}`)} ${chalk.blue(options.taskName)}`
   if (options.files &amp;&amp; options.files.length > 0) {
     console.log(
-      `${filesStats(options.files)}\n${msg} ${chalk.gray('finished after')} ${chalk.yellow(`${timeDiff}s`)}\n`
+      `${filesStats(options.files)}\n${msg} ${chalk.gray('finished after')} ${chalk.dim.yellow(`${timeDiff}s`)}\n`
     )
   } else {
     console.log(
-      `${msg} ${chalk.gray('finished after')} ${chalk.yellow(`${timeDiff}s`)}\n`
+      `${msg} ${chalk.gray('finished after')} ${chalk.dim.yellow(`${timeDiff}s`)}\n`
     )
   }
 }
@@ -139,8 +139,8 @@ function endTask (options) {
  */
 function startTaskGroup (taskName) {
   const timeStart = Date.now()
-  const msg = `[${chalk.yellow(new Date(timeStart).toLocaleTimeString())}] ${chalk.bold(taskName)}`
-  console.log(`${msg}\n`)
+  const msg = `${chalk.bold(taskName)} ${chalk.dim(`[${new Date(timeStart).toLocaleTimeString()}]`)}`
+  console.log(`${msg}`)
   return timeStart
 }
 
@@ -155,15 +155,14 @@ function startTaskGroup (taskName) {
 function endTaskGroup (options) {
   const timeEnd = Date.now()
   const timeDiff = (timeEnd - options.timeStart) / 1000
-
-  const msg = `[${chalk.yellow(new Date(timeEnd).toLocaleTimeString())}] ${chalk.bold(options.taskName)}`
+  const msg = `${chalk.bold(options.taskName)}`
   let processStatusMark
   if (process.exitCode === 1) {
     processStatusMark = chalk.red('●')
   } else {
     processStatusMark = chalk.green('●')
   }
-  console.log(`${processStatusMark} DONE ${msg} ${chalk.grey('finished after')} ${chalk.bold.yellow.underline(`${timeDiff}s`)}`)
+  console.log(`${processStatusMark} ${msg} ${chalk.grey('finished after')} ${chalk.dim.yellow.underline(`${timeDiff}s`)} ${chalk.dim(`[${new Date(timeEnd).toLocaleTimeString()}]`)}`)
 }
 
 export { startTask, endTask, startTaskGroup, endTaskGroup, convertFileSize }

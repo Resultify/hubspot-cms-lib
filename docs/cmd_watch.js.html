@@ -31,6 +31,8 @@ import { themeName } from '../hubspot/theme.js'
 import { watchVendor } from '../compile/watch.js'
 import { watchHubspotTheme } from '../hubspot/watch.js'
 import { loadAuthConfig } from '../hubspot/auth/auth.js'
+import * as ui from '../utils/ui.js'
+import chalk from 'chalk'
 
 /**
  * #### Run watch process with css/js/scss compilation
@@ -53,6 +55,7 @@ import { loadAuthConfig } from '../hubspot/auth/auth.js'
  * npm run watch
  */
 async function watch () {
+  ui.startTaskGroup(`Watch ${chalk.yellow(themeName)}`)
   const hubAuthData = await loadAuthConfig(themeName)
   await watchVendor()
   await watchHubspotTheme(hubAuthData, themeName)

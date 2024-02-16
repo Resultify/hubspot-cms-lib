@@ -33,7 +33,6 @@ import { requestValidation, getValidationStatus, getValidationResults } from '@h
 import chalk from 'chalk'
 import ora from 'ora'
 import * as ui from '../utils/ui.js'
-import { savedConsoleDebug } from '../utils/console.js'
 import { throwErrorIfMissingScope } from './auth/scopes.js'
 import { childTheme } from './theme.js'
 
@@ -57,13 +56,11 @@ async function requestHubspotValidation (portalId, themeName, spinner) {
   try {
     const assetType = 'THEME'
     const requestGroup = 'EXTERNAL_DEVELOPER'
-    console.debug = () => {}
     const requestResult = await requestValidation(portalId, {
       path: themeName,
       assetType,
       requestGroup
     })
-    console.debug = savedConsoleDebug
     return requestResult
   } catch (error) {
     if (error.statusCode === 409) {
@@ -173,7 +170,10 @@ function showValidationResults (validationResults) {
       )
       failedValidations.forEach((/** @type {any} */ val) => {
         if (childTheme) {
-          if (val.check !== 'theme_has_internal_dependency') {
+          if (
+            val.check !== 'theme_has_internal_dependency' &amp;&amp;
+            val.check !== 'inherits_brand_color'
+          ) {
             console.error(`\n${chalk.red.bold('[ERROR]')} ${val.description}`)
             console.warn(`${chalk.dim('doc-link:')} ${val.documentationLink}`)
             showFileInfo(val.file, val.line)

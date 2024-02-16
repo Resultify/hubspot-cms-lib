@@ -36,6 +36,7 @@ import { compileCss } from '../compile/css.js'
 import { compileJs } from '../compile/js.js'
 import { compileFieldsJs } from '../hubspot/fields.js'
 import * as ui from '../utils/ui.js'
+import chalk from 'chalk'
 
 /**
  * #### Upload theme to HUBSPOT cms portall
@@ -58,7 +59,7 @@ import * as ui from '../utils/ui.js'
  * npm run upload
  */
 async function upload () {
-  const timeStart = ui.startTaskGroup(`Upload ${themeName}`)
+  const timeStart = ui.startTaskGroup(`Upload ${chalk.yellow(themeName)}`)
   const hubAuthData = await loadAuthConfig(themeName)
   await cleanVendorDestFolder()
   await compileScss()
@@ -66,7 +67,7 @@ async function upload () {
   await compileJs()
   await compileFieldsJs()
   await uploadTheme(hubAuthData, themeName)
-  ui.endTaskGroup({ taskName: `Upload ${themeName}`, timeStart })
+  ui.endTaskGroup({ taskName: `Upload ${chalk.yellow(themeName)}`, timeStart })
 }
 
 export { upload }

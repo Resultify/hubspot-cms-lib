@@ -31,7 +31,6 @@ import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
 import { downloadFileOrFolder } from '@hubspot/cli-lib/fileMapper.js'
 import logger from '@hubspot/cli-lib/logger.js'
 import * as ui from '../utils/ui.js'
-import { savedConsoleDebug } from '../utils/console.js'
 import { getThemeOptions } from '../utils/options.js'
 import { throwErrorIfMissingScope } from './auth/scopes.js'
 
@@ -65,9 +64,7 @@ async function fetchModules (config, themeName) {
     }
     throwErrorIfMissingScope(config, 'design_manager')
     logger.setLogLevel(2)
-    console.debug = () => {}
     await downloadFileOrFolder({ accountId, src, dest, mode, options })
-    console.debug = savedConsoleDebug
 
     ui.endTask({ taskName: 'fetchModules', timeStart })
   } catch (error) {
@@ -95,9 +92,7 @@ async function fetch (config, themeName) {
     }
     throwErrorIfMissingScope(config, 'design_manager')
     logger.setLogLevel(2)
-    console.debug = () => {}
     await downloadFileOrFolder({ accountId, src, dest, mode, options })
-    console.debug = savedConsoleDebug
 
     ui.endTask({ taskName: 'fetch', timeStart })
   } catch (error) {

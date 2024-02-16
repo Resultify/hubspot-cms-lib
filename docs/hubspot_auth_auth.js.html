@@ -34,7 +34,6 @@ import { validateConfig, getAndLoadConfigIfNeeded, writeConfig, setConfig, creat
 import chalk from 'chalk'
 import ora from 'ora'
 import { getAuthDataFromEnvFile, getAuthDataFromEnvVars } from './env.js'
-import { savedConsoleDebug } from '../../utils/console.js'
 
 /**
  * @ignore
@@ -51,9 +50,7 @@ import { savedConsoleDebug } from '../../utils/console.js'
 async function getAccessTokenData (accessKey) {
   const spinner = ora({ text: 'Authentication', discardStdin: false }).start()
   try {
-    console.debug = () => {}
     const accessTokenData = await getAccessToken(accessKey)
-    console.debug = savedConsoleDebug
     spinner.succeed()
     return accessTokenData
   } catch (error) {
@@ -84,25 +81,19 @@ async function loadAuthConfig (themeName) {
       console.error(`${chalk.red.bold('[Error]')} Portal ID and Personal Access Key do not match`)
       process.exit(1)
     }
-    console.debug = () => {}
     // load Hubspot auth config
     await getAndLoadConfigIfNeeded({ silenceErrors: false, useEnv: true })
-    console.debug = savedConsoleDebug
     await validateConfig()
     return authConfig
   } else {
     // get auth data from .env file
-    const authConfig = await getAuthDataFromEnvFile(themeName)
-    console.debug = () => {}
+    const authConfig = await getAuthDataFromEnvFile()
     await createEmptyConfigFile()
-    console.debug = savedConsoleDebug
     // load Hubspot auth config
     await setConfig(authConfig)
     await validateConfig()
-    console.debug = () => {}
     // add auth data to hubspot.config.yml file
     await writeConfig()
-    console.debug = savedConsoleDebug
     return authConfig
   }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: hubspot/auth/env</title>
+    <title>JSDoc: Source: cmd/cleanUpload.js</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link type="text/css" rel="stylesheet" href="styles/base.min.css">
@@ -18,305 +18,62 @@
 
         <main id="main" class="main">
             <div id="content" class="content">
-                <h1 class="page-title">Module: hubspot/auth/env</h1>
+                <h1 class="page-title">Source: cmd/cleanUpload.js</h1>
                 
 
 
 
-
-<section>
-
-<header>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_auth_env.js.html">hubspot/auth/env.js</a>, <a href="hubspot_auth_env.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~getAuthDataFromEnvVars" data-heading-label="~getAuthDataFromEnvVars" ><span class="type-signature">(async, inner) </span>getAuthDataFromEnvVars<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Generate Hubspot auth config from environment variables (HUBSPOT_PORTAL_ID, HUBSPOT_PERSONAL_ACCESS_KEY)</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_auth_env.js.html">hubspot/auth/env.js</a>, <a href="hubspot_auth_env.js.html#line149">line 149</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>AccessToken data</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="global.html#HUBSPOT_AUTH_CONFIG">HUBSPOT_AUTH_CONFIG</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~initEnvFile" data-heading-label="~initEnvFile" ><span class="type-signature">(async, inner) </span>initEnvFile<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <h4 id="init-.env-file">Init .env file</h4>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hubspot_auth_env.js.html">hubspot/auth/env.js</a>, <a href="hubspot_auth_env.js.html#line82">line 82</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>undefined</p>
-</div>
-
-
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import '../utils/check.js'
+import { themeName } from '../hubspot/theme.js'
+import { loadAuthConfig } from '../hubspot/auth/auth.js'
+import { cleanUploadTheme } from '../hubspot/upload.js'
+import { cleanVendorDestFolder } from '../compile/clean.js'
+import { compileScss } from '../compile/sass.js'
+import { compileCss } from '../compile/css.js'
+import { compileJs } from '../compile/js.js'
+import { compileFieldsJs } from '../hubspot/fields.js'
+import * as ui from '../utils/ui.js'
+import chalk from 'chalk'
+
+/**
+ * #### Clean Upload theme to HUBSPOT cms portall
+ * @async
+ * @memberof Commands
+ * @example
+ * // run with node
+ * echo "import '@resultify/hubspot-cms-lib/cleanUpload'" > cleanUpload.js
+ * node cleanUpload.js
+ *
+ *
+ * // run with npm by adding to package.json scripts:
+ * "scripts": {
+ *  "cleanUpload": "cmslib --cleanUpload",
+ * }
+ * or
+ * "scripts": {
+ *   "cleanUpload": "node -e 'import(`@resultify/hubspot-cms-lib/cleanUpload`)'"
+ * }
+ * npm run cleanUpload
+ */
+async function cleanUpload () {
+  const timeStart = ui.startTaskGroup(`Clean upload ${chalk.yellow(themeName)}`)
+  const hubAuthData = await loadAuthConfig(themeName)
+  await cleanVendorDestFolder()
+  await compileScss()
+  await compileCss()
+  await compileJs()
+  await compileFieldsJs()
+  await cleanUploadTheme(hubAuthData, themeName)
+  ui.endTaskGroup({ taskName: `Clean upload ${chalk.yellow(themeName)}`, timeStart })
+}
+
+export { cleanUpload }
+</code></pre>
+        </article>
+    </section>
 
 
 
