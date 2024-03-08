@@ -1,3 +1,8 @@
+### v3.2.1 `March 8, 2024`
+* **[TASK]** update default template data for new .env file to use it with CI [`48234de`](https://github.com/Resultify/hubspot-cms-lib/commit/48234de) (dmh)
+
+***
+
 ### v3.2.0 `February 16, 2024`
 * **[BUGFIX]** do not upload hubdb without confirmation [`a092a3b`](https://github.com/Resultify/hubspot-cms-lib/commit/a092a3b) (dmh)
 * **[TASK]** exclude inherits_brand_color check from child theme validation [`31fcc1e`](https://github.com/Resultify/hubspot-cms-lib/commit/31fcc1e) (dmh)
