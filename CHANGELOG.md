@@ -1,3 +1,11 @@
+### v3.3.0 `July 5, 2024`
+* **[TEST]** fix test github action [`c457848`](https://github.com/Resultify/hubspot-cms-lib/commit/c457848) (dmh)
+* **[TASK]** update github actions [`92e50f7`](https://github.com/Resultify/hubspot-cms-lib/commit/92e50f7) (dmh)
+* **[TASK]** update child theme hubspot marketplace validation [`389e853`](https://github.com/Resultify/hubspot-cms-lib/commit/389e853) (dmh)
+* **[TASK]** update npm deps [`d6505b0`](https://github.com/Resultify/hubspot-cms-lib/commit/d6505b0) (dmh)
+
+***
+
 ### v3.2.1 `March 8, 2024`
 * **[TASK]** update default template data for new .env file to use it with CI [`48234de`](https://github.com/Resultify/hubspot-cms-lib/commit/48234de) (dmh)
 
