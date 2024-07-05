@@ -1,22 +1,20 @@
 name: Run tests
-
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
-
-  build:
-    name: Node
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    strategy:
-      matrix:
-        node: [18, 20]
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js v${{ matrix.node }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 20
           cache: 'npm'
       - run: npm ci
       - run: npm test
