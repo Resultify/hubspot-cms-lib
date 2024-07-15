@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
+    "module": "esnext",
     "target": "esnext",
     "strict": true,
     "checkJs": true,
     "forceConsistentCasingInFileNames": true,
     "useUnknownInCatchVariables": false,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "bundler"
   },
   "include": ["lib/**/*", "bin/**/*"],
 }
