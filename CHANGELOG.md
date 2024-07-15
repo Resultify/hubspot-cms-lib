@@ -1,3 +1,8 @@
+### v3.4.1 `July 15, 2024`
+* **[BUGFIX]** fix fetchHubDb functionality [`22ad184`](https://github.com/Resultify/hubspot-cms-lib/commit/22ad184) (dmh)
+
+***
+
 ### v3.4.0 `July 15, 2024`
 * **[TASK]** update npm deps, update @hubspot/local-dev-lib to v1.7.0 [`0c412a2`](https://github.com/Resultify/hubspot-cms-lib/commit/0c412a2) (dmh)
 * **[TASK]** update reference for js types [`77bc854`](https://github.com/Resultify/hubspot-cms-lib/commit/77bc854) (dmh)
