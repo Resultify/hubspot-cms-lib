@@ -27,9 +27,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/lighthouseScore */
-
-import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
-import { requestLighthouseScore, getLighthouseScoreStatus, getLighthouseScore } from '@hubspot/cli-lib/api/lighthouseScore.js'
+/// &lt;reference path="../types/types.js" />
+import { requestLighthouseScore, getLighthouseScoreStatus, getLighthouseScore } from '@hubspot/local-dev-lib/api/lighthouseScore'
 import chalk from 'chalk'
 import Table from 'cli-table3'
 import ora from 'ora'
@@ -38,13 +37,6 @@ import * as ui from '../utils/ui.js'
 import { cleanUploadThemeTemplates } from '../hubspot/upload.js'
 import { throwErrorIfMissingScope } from './auth/scopes.js'
 import minimist from 'minimist'
-
-/**
- * @ignore
- * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
- * @typedef {TYPES.LIGHTHOUSE_THRESHOLD} LIGHTHOUSE_THRESHOLD {@link LIGHTHOUSE_THRESHOLD}
- * @typedef {TYPES.LIGHTHOUSE_SCORE} LIGHTHOUSE_SCORE {@link LIGHTHOUSE_SCORE}
- */
 
 /**
  * #### get Mobile Lighthouse Score for theme
@@ -106,7 +98,7 @@ async function lighthouseScore (config, themeName) {
       process.exit(1)
     }
     // get Lighthouse score results
-    let mobileScoreResult
+    let mobileScoreResult = {}
     let averageMobileScoreResult
     let verbose = false
     const args = minimist(process.argv.slice(2), { '--': true })['--']
@@ -222,12 +214,15 @@ async function lighthouseScore (config, themeName) {
     if (verbose) {
       if ('scores' in averageMobileScoreResult &amp;&amp; 'scores' in mobileScoreResult) {
         console.log(`${chalk.cyan(themeName)} Average Mobile Lighthouse scores`)
+        // @ts-ignore
         showAverageResults(averageMobileScoreResult)
+        // @ts-ignore
         showVerboseResults(mobileScoreResult)
       }
     } else {
       if ('scores' in averageMobileScoreResult) {
         console.log(`${chalk.cyan(themeName)} Average Mobile Lighthouse scores`)
+        // @ts-ignore
         showAverageResults(averageMobileScoreResult)
         console.log('This is the average of all theme templates')
         console.log(chalk.dim('----------------------------'))
@@ -239,6 +234,7 @@ async function lighthouseScore (config, themeName) {
 
     console.log('Powered by Google Lighthouse')
     console.log(`id:${requestResult.mobileId}`)
+    // @ts-ignore
     exitWithErrorIfLighthouseThreshold(averageMobileScoreResult.scores[0], lighthouseThreshold)
     ui.endTask({ taskName: 'LighthouseScore', timeStart })
     return mobileScoreResult

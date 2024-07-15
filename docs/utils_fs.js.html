@@ -27,15 +27,9 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module utils/fs */
-
-import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
+/// &lt;reference path="../types/types.js" />
 import { globby } from 'globby'
 import fsPromises from 'fs/promises'
-
-/**
- * @ignore
- * @typedef {TYPES.FILE_LIST} FILE_LIST {@link FILE_LIST}
- */
 
 /**
  * #### get file list based on glob pattern

@@ -55,7 +55,7 @@ import chalk from 'chalk'
  */
 async function hubspotFetchModules () {
   const timeStart = ui.startTaskGroup(`Fetch modules from ${chalk.yellow(themeName)}`)
-  const hubAuthData = await loadAuthConfig(themeName)
+  const hubAuthData = await loadAuthConfig()
   await fetchModules(hubAuthData, themeName)
   ui.endTaskGroup({ taskName: `Fetch modules from ${chalk.yellow(themeName)}`, timeStart })
 }

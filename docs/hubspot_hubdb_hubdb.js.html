@@ -27,10 +27,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/fetchdb */
-
-import * as TYPES from '../../types/types.js' // eslint-disable-line no-unused-vars
-import { downloadHubDbTable, createHubDbTable, updateHubDbTable, clearHubDbTableRows, addRowsToHubDbTable } from '@hubspot/cli-lib/hubdb.js'
-import { fetchTables, fetchRows } from '@hubspot/cli-lib/api/hubdb.js'
+/// &lt;reference path="../../types/types.js" />
+import { downloadHubDbTable, createHubDbTable, updateHubDbTable, clearHubDbTableRows, addRowsToHubDbTable } from '@hubspot/local-dev-lib/hubdb'
+import { fetchRows } from '@hubspot/local-dev-lib/api/hubdb'
+import http from '@hubspot/local-dev-lib/http'
 import chalk from 'chalk'
 import * as ui from '../../utils/ui.js'
 import { getThemeOptions } from '../../utils/options.js'
@@ -42,10 +42,20 @@ import { throwErrorIfMissingScope } from '../auth/scopes.js'
 const require = createRequire(import.meta.url)
 const cmslibOptions = getThemeOptions()
 
+const HUBDB_API_PATH = 'cms/v3/hubdb'
+
 /**
- * @ignore
- * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
+ * #### fetch HubDB tables
+ * @async
+ * @private
+ * @param {number} accountId - hubspot account id
+ * @returns {Promise&lt;any>} hubdb tables
  */
+async function fetchTables (accountId) {
+  return http.get(accountId, {
+    url: `${HUBDB_API_PATH}/tables`
+  })
+}
 
 /**
  * #### fetch HubDB tables

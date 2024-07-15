@@ -60,7 +60,7 @@ import chalk from 'chalk'
  */
 async function upload () {
   const timeStart = ui.startTaskGroup(`Upload ${chalk.yellow(themeName)}`)
-  const hubAuthData = await loadAuthConfig(themeName)
+  const hubAuthData = await loadAuthConfig()
   await cleanVendorDestFolder()
   await compileScss()
   await compileCss()

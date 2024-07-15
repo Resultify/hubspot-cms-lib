@@ -27,19 +27,12 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/auth */
-
-import * as TYPES from '../../types/types.js' // eslint-disable-line no-unused-vars
+/// &lt;reference path="../../types/types.js" />
 import { getAccessToken } from '@hubspot/local-dev-lib/personalAccessKey'
 import { validateConfig, getAndLoadConfigIfNeeded, writeConfig, setConfig, createEmptyConfigFile, deleteConfigFile } from '@hubspot/local-dev-lib/config'
 import chalk from 'chalk'
 import ora from 'ora'
-import { getAuthDataFromEnvFile, getAuthDataFromEnvVars } from './env.js'
-
-/**
- * @ignore
- * @typedef {TYPES.HUBSPOT_ACCESSTOKEN_SCHEMA} HUBSPOT_ACCESSTOKEN_SCHEMA {@link HUBSPOT_ACCESSTOKEN_SCHEMA}
- * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
- */
+import { getAuthDataFromEnv } from './env.js'
 
 /**
  * #### Get AccessToken and portalId
@@ -56,9 +49,9 @@ async function getAccessTokenData (accessKey) {
   } catch (error) {
     spinner.fail()
     await deleteConfigFile()
-    if (error.cause.response.statusText === 'Unauthorized') {
-      const msg = error.cause.response.data.message ? error.cause.response.data.message : 'Check the personal access key and try again.'
-      console.error(`${chalk.red.bold('[Error]')} ${error.cause.response.statusText}. ${msg}`)
+    if (error.status === 401) {
+      const msg = error.message ? error.message : 'Check the personal access key and try again.'
+      console.error(`${chalk.red.bold('[Error]')} ${error.category}. ${msg}`)
     } else {
       console.error(error)
     }
@@ -69,13 +62,11 @@ async function getAccessTokenData (accessKey) {
 /**
  * #### Load and validate Hubspot auth config
  * @async
- * @param {string} themeName - theme name
  * @returns {Promise&lt;HUBSPOT_AUTH_CONFIG>} Hubspot auth config
  */
-async function loadAuthConfig (themeName) {
-  if (process.env.HUBSPOT_PORTAL_ID &amp;&amp; process.env.HUBSPOT_PERSONAL_ACCESS_KEY) {
-    // get access token data from Hubspot
-    const authConfig = await getAuthDataFromEnvVars()
+async function loadAuthConfig () {
+  const authConfig = await getAuthDataFromEnv()
+  if (authConfig.nativeHubSpotEnv) {
     // check if the portal ID and personal access key match
     if (authConfig.portals[0].portalId !== Number(process.env.HUBSPOT_PORTAL_ID)) {
       console.error(`${chalk.red.bold('[Error]')} Portal ID and Personal Access Key do not match`)
@@ -86,10 +77,9 @@ async function loadAuthConfig (themeName) {
     await validateConfig()
     return authConfig
   } else {
-    // get auth data from .env file
-    const authConfig = await getAuthDataFromEnvFile()
     await createEmptyConfigFile()
     // load Hubspot auth config
+    // @ts-ignore
     await setConfig(authConfig)
     await validateConfig()
     // add auth data to hubspot.config.yml file

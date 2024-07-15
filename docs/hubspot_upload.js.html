@@ -27,11 +27,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/upload */
-
-import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
-import uploadFolder from '@hubspot/cli-lib/lib/uploadFolder.js'
-import { deleteFile, getDirectoryContentsByPath } from '@hubspot/cli-lib/api/fileMapper.js'
-import logger from '@hubspot/cli-lib/logger.js'
+/// &lt;reference path="../types/types.js" />
+import uploadFolder from '@hubspot/local-dev-lib/cms/uploadFolder'
+import { deleteFile, getDirectoryContentsByPath } from '@hubspot/local-dev-lib/api/fileMapper'
+import { setLogLevel, LOG_LEVEL } from '@hubspot/local-dev-lib/logger'
 import { isAllowedExtension } from '@hubspot/local-dev-lib/path'
 import { createIgnoreFilter } from '@hubspot/local-dev-lib/ignoreRules'
 import { walk } from '@hubspot/local-dev-lib/fs'
@@ -41,10 +40,8 @@ import { throwErrorIfMissingScope } from './auth/scopes.js'
 import ora from 'ora'
 
 /**
- * @ignore
- * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
+ * @type {"draft" | "publish"}
  */
-
 let cmsMode = 'publish'
 if (process.env.HUB_MODE === 'draft') {
   cmsMode = 'draft'
@@ -54,10 +51,13 @@ if (process.env.HUB_MODE === 'draft') {
  * #### Walks the src folder for files, filters them based on ignore filter.
  * @async
  * @private
- * @param {Object} src - src folder
+ * @param {string} src - src folder
  * @returns {Promise&lt;Array&lt;string>>} src file list
  */
 const getUploadableFileList = async (src) => {
+  /**
+   * @type {Array&lt;string>}
+   */
   let filePaths = []
   try {
     filePaths = await walk(src)
@@ -69,6 +69,7 @@ const getUploadableFileList = async (src) => {
       return false
     }
     return true
+    // @ts-ignore
   }).filter(createIgnoreFilter())
   return allowedFiles
 }
@@ -89,15 +90,16 @@ async function uploadTheme (config, themeName) {
     const portalId = config.portals[0].portalId
 
     throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(2)
+    setLogLevel(LOG_LEVEL.LOG)
     const uploadableFileList = await getUploadableFileList(src)
     await uploadFolder.uploadFolder(
       portalId,
       src,
       dest,
-      { mode: cmsMode },
+      { overwrite: false },
       { saveOutput: true, convertFields: false },
-      uploadableFileList
+      uploadableFileList,
+      cmsMode
     )
     ui.endTask({ taskName: 'uploadTheme', timeStart })
   } catch (error) {
@@ -123,11 +125,12 @@ async function cleanUploadThemeTemplates (config, themeName) {
     const portalId = config.portals[0].portalId
 
     throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(0)
+    setLogLevel(LOG_LEVEL.NONE)
     const uploadableFileList = await getUploadableFileList(src)
     const filesToDelete = await getDirectoryContentsByPath(portalId, dest)
     if (filesToDelete !== undefined &amp;&amp; filesToDelete.children.length > 0) {
       for await (const file of filesToDelete.children) {
+        // @ts-ignore
         if (file.includes('.html')) {
           await deleteFile(portalId, `${dest}/${file}`)
         }
@@ -137,9 +140,10 @@ async function cleanUploadThemeTemplates (config, themeName) {
       portalId,
       src,
       dest,
-      { mode: cmsMode },
+      { overwrite: false },
       { saveOutput: true, convertFields: false },
-      uploadableFileList
+      uploadableFileList,
+      cmsMode
     )
     spinner.succeed()
     ui.endTask({ taskName: 'cleanUploadThemeTemplates', timeStart })
@@ -167,12 +171,13 @@ async function cleanUploadTheme (config, themeName) {
     const portalId = config.portals[0].portalId
 
     throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(2)
+    setLogLevel(LOG_LEVEL.LOG)
     const uploadableFileList = await getUploadableFileList(src)
     spinner.start()
     const filesToDelete = await getDirectoryContentsByPath(portalId, '/')
     if (filesToDelete !== undefined &amp;&amp; filesToDelete.children.length > 0) {
       for await (const file of filesToDelete.children) {
+        // @ts-ignore
         if (file === dest) {
           await deleteFile(portalId, file)
         }
@@ -183,9 +188,10 @@ async function cleanUploadTheme (config, themeName) {
       portalId,
       src,
       dest,
-      { mode: cmsMode },
+      { overwrite: false },
       { saveOutput: true, convertFields: false },
-      uploadableFileList
+      uploadableFileList,
+      cmsMode
     )
     ui.endTask({ taskName: 'cleanUploadTheme', timeStart })
   } catch (error) {

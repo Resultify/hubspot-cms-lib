@@ -27,18 +27,16 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** @module hubspot/fetch */
-import * as TYPES from '../types/types.js' // eslint-disable-line no-unused-vars
-import { downloadFileOrFolder } from '@hubspot/cli-lib/fileMapper.js'
-import logger from '@hubspot/cli-lib/logger.js'
+/// &lt;reference path="../types/types.js" />
+import { downloadFileOrFolder } from '@hubspot/local-dev-lib/fileMapper'
+import { setLogLevel, LOG_LEVEL } from '@hubspot/local-dev-lib/logger'
 import * as ui from '../utils/ui.js'
 import { getThemeOptions } from '../utils/options.js'
 import { throwErrorIfMissingScope } from './auth/scopes.js'
 
 /**
- * @ignore
- * @typedef {TYPES.HUBSPOT_AUTH_CONFIG} HUBSPOT_AUTH_CONFIG {@link HUBSPOT_AUTH_CONFIG}
+ * @type {"draft" | "publish"}
  */
-
 let cmsMode = 'publish'
 if (process.env.HUB_MODE === 'draft') {
   cmsMode = 'draft'
@@ -63,8 +61,8 @@ async function fetchModules (config, themeName) {
       overwrite: true
     }
     throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(2)
-    await downloadFileOrFolder({ accountId, src, dest, mode, options })
+    setLogLevel(LOG_LEVEL.LOG)
+    await downloadFileOrFolder(accountId, src, dest, mode, options)
 
     ui.endTask({ taskName: 'fetchModules', timeStart })
   } catch (error) {
@@ -91,8 +89,8 @@ async function fetch (config, themeName) {
       overwrite: true
     }
     throwErrorIfMissingScope(config, 'design_manager')
-    logger.setLogLevel(2)
-    await downloadFileOrFolder({ accountId, src, dest, mode, options })
+    setLogLevel(LOG_LEVEL.LOG)
+    await downloadFileOrFolder(accountId, src, dest, mode, options)
 
     ui.endTask({ taskName: 'fetch', timeStart })
   } catch (error) {

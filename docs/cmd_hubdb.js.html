@@ -27,7 +27,6 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import '../utils/check.js'
-import { themeName } from '../hubspot/theme.js'
 import { fetchHubDb, uploadHubDb } from '../hubspot/hubdb/hubdb.js'
 import { loadAuthConfig } from '../hubspot/auth/auth.js'
 import * as ui from '../utils/ui.js'
@@ -54,7 +53,7 @@ import * as ui from '../utils/ui.js'
  */
 async function fetchDb () {
   const timeStart = ui.startTaskGroup('Fetch HubDB')
-  const hubAuthData = await loadAuthConfig(themeName)
+  const hubAuthData = await loadAuthConfig()
   await fetchHubDb(hubAuthData)
   ui.endTaskGroup({ taskName: 'Fetch HubDB', timeStart })
 }
@@ -81,7 +80,7 @@ async function fetchDb () {
  */
 async function uploadDb () {
   const timeStart = ui.startTaskGroup('Upload HubDB')
-  const hubAuthData = await loadAuthConfig(themeName)
+  const hubAuthData = await loadAuthConfig()
   await uploadHubDb(hubAuthData)
   ui.endTaskGroup({ taskName: 'Upload HubDB', timeStart })
 }
