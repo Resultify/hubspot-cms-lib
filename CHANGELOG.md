@@ -1,3 +1,12 @@
+### v3.4.0 `July 15, 2024`
+* **[TASK]** update npm deps, update @hubspot/local-dev-lib to v1.7.0 [`0c412a2`](https://github.com/Resultify/hubspot-cms-lib/commit/0c412a2) (dmh)
+* **[TASK]** update reference for js types [`77bc854`](https://github.com/Resultify/hubspot-cms-lib/commit/77bc854) (dmh)
+* **[TASK]** update hubspot auth functionality [`5f7c85d`](https://github.com/Resultify/hubspot-cms-lib/commit/5f7c85d) (dmh)
+* **[TASK]** remove deprecated @hubspot/cli-lib and use instead @hubspot/local-dev-lib #2 [`96ca444`](https://github.com/Resultify/hubspot-cms-lib/commit/96ca444) (dmh)
+* **[TASK]** remove deprecated @hubspot/cli-lib and use instead @hubspot/local-dev-lib [`5a35608`](https://github.com/Resultify/hubspot-cms-lib/commit/5a35608) (dmh)
+
+***
+
 ### v3.3.0 `July 5, 2024`
 * **[TEST]** fix test github action [`c457848`](https://github.com/Resultify/hubspot-cms-lib/commit/c457848) (dmh)
 * **[TASK]** update github actions [`92e50f7`](https://github.com/Resultify/hubspot-cms-lib/commit/92e50f7) (dmh)
