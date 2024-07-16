@@ -1,3 +1,8 @@
+### v3.4.2 `July 16, 2024`
+* **[BUGFIX]** fix native HubSpot Env auth [`188ff60`](https://github.com/Resultify/hubspot-cms-lib/commit/188ff60) (dmh)
+
+***
+
 ### v3.4.1 `July 15, 2024`
 * **[BUGFIX]** fix fetchHubDb functionality [`22ad184`](https://github.com/Resultify/hubspot-cms-lib/commit/22ad184) (dmh)
 
