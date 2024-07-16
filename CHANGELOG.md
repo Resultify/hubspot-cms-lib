@@ -1,3 +1,8 @@
+### v3.4.3 `July 16, 2024`
+* **[BUGFIX]** check only local .env file and variable which only starts from hub_ [`dea95c1`](https://github.com/Resultify/hubspot-cms-lib/commit/dea95c1) (dmh)
+
+***
+
 ### v3.4.2 `July 16, 2024`
 * **[BUGFIX]** fix native HubSpot Env auth [`188ff60`](https://github.com/Resultify/hubspot-cms-lib/commit/188ff60) (dmh)
 
