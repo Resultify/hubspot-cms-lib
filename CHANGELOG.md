@@ -1,3 +1,8 @@
+### v3.4.4 `July 18, 2024`
+* **[TASK]** include also global env variables for the auth process [`2227a5e`](https://github.com/Resultify/hubspot-cms-lib/commit/2227a5e) (dmh)
+
+***
+
 ### v3.4.3 `July 16, 2024`
 * **[BUGFIX]** check only local .env file and variable which only starts from hub_ [`dea95c1`](https://github.com/Resultify/hubspot-cms-lib/commit/dea95c1) (dmh)
 
