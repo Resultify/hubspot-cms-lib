@@ -1,3 +1,9 @@
+### v3.4.5 `July 19, 2024`
+* **[TASK]** update npm deps, update @hubspot/local-dev-lib to v1.9.0 [`6e6560f`](https://github.com/Resultify/hubspot-cms-lib/commit/6e6560f) (dmh)
+* **[TASK]** update error handling for watch and upload command [`6f8a9d8`](https://github.com/Resultify/hubspot-cms-lib/commit/6f8a9d8) (dmh)
+
+***
+
 ### v3.4.4 `July 18, 2024`
 * **[TASK]** include also global env variables for the auth process [`2227a5e`](https://github.com/Resultify/hubspot-cms-lib/commit/2227a5e) (dmh)
 
