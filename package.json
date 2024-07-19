@@ -50,10 +50,10 @@
     "docs": "node build/docs.exec.js"
   },
   "dependencies": {
-    "@hubspot/local-dev-lib": "1.7.0",
-    "@inquirer/checkbox": "~2.3.10",
+    "@hubspot/local-dev-lib": "1.9.0",
+    "@inquirer/checkbox": "~2.4.0",
     "@inquirer/confirm": "~3.1.13",
-    "@inquirer/select": "~2.3.10",
+    "@inquirer/select": "~2.4.0",
     "@rollup/plugin-node-resolve": "~15.2.3",
     "@rollup/plugin-replace": "~5.0.7",
     "@types/minimist": "~1.2.5",
@@ -78,7 +78,7 @@
     "signal-exit": "~4.1.0"
   },
   "devDependencies": {
-    "husky": "~9.0.11",
+    "husky": "~9.1.1",
     "modern-jsdoc-template": "~1.0.0",
     "standard": "~17.1.0",
     "typescript": "~5.5.3"
