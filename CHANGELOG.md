@@ -1,3 +1,12 @@
+### v3.5.0 `September 27, 2024`
+* **[TASK]** show table id info for fetchDb cmd [`e0ae527`](https://github.com/Resultify/hubspot-cms-lib/commit/e0ae527) (dmh)
+* **[TASK]** update error handling for the watch process [`ca55f7f`](https://github.com/Resultify/hubspot-cms-lib/commit/ca55f7f) (dmh)
+* **[TASK]** sanitize hubdb table JSON file [`c0a413e`](https://github.com/Resultify/hubspot-cms-lib/commit/c0a413e) (dmh)
+* **[BUGFIX]** fix expression was always truthy [`a10b92a`](https://github.com/Resultify/hubspot-cms-lib/commit/a10b92a) (dmh)
+* **[TASK]** update npm deps [`5d398dd`](https://github.com/Resultify/hubspot-cms-lib/commit/5d398dd) (dmh)
+
+***
+
 ### v3.4.5 `July 19, 2024`
 * **[TASK]** update npm deps, update @hubspot/local-dev-lib to v1.9.0 [`6e6560f`](https://github.com/Resultify/hubspot-cms-lib/commit/6e6560f) (dmh)
 * **[TASK]** update error handling for watch and upload command [`6f8a9d8`](https://github.com/Resultify/hubspot-cms-lib/commit/6f8a9d8) (dmh)
