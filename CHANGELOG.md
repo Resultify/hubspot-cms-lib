@@ -1,3 +1,11 @@
+### v3.6.0 `October 11, 2024`
+* **[TASK]** update watch process with new chokidar pkg without globs [`31a36f6`](https://github.com/Resultify/hubspot-cms-lib/commit/31a36f6) (dmh)
+* **[TASK]** add ciUpload cmd to uload files based on .cihsignore file [`618279a`](https://github.com/Resultify/hubspot-cms-lib/commit/618279a) (dmh)
+* **[TASK]** update @hubspot/local-dev-lib to v2.0.0 with new axios response data [`a345987`](https://github.com/Resultify/hubspot-cms-lib/commit/a345987) (dmh)
+* **[TASK]** update npm deps [`b02c776`](https://github.com/Resultify/hubspot-cms-lib/commit/b02c776) (dmh)
+
+***
+
 ### v3.5.0 `September 27, 2024`
 * **[TASK]** show table id info for fetchDb cmd [`e0ae527`](https://github.com/Resultify/hubspot-cms-lib/commit/e0ae527) (dmh)
 * **[TASK]** update error handling for the watch process [`ca55f7f`](https://github.com/Resultify/hubspot-cms-lib/commit/ca55f7f) (dmh)
