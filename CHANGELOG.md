@@ -1,3 +1,11 @@
+### v3.7.0 `October 30, 2024`
+* **[TASK]** update watch and upload cmd-s error handlers [`d205813`](https://github.com/Resultify/hubspot-cms-lib/commit/d205813) (dmh)
+* **[TASK]** only accept module configuration that starts with (compile-) and ends with (module.js) [`30dfeb0`](https://github.com/Resultify/hubspot-cms-lib/commit/30dfeb0) (dmh)
+* **[TASK]** add buildModule and uploadModule commands [`937961b`](https://github.com/Resultify/hubspot-cms-lib/commit/937961b) (dmh)
+* **[TASK]** compile all fields.js partials with watch process [`020ef28`](https://github.com/Resultify/hubspot-cms-lib/commit/020ef28) (dmh)
+
+***
+
 ### v3.6.0 `October 11, 2024`
 * **[TASK]** update watch process with new chokidar pkg without globs [`31a36f6`](https://github.com/Resultify/hubspot-cms-lib/commit/31a36f6) (dmh)
 * **[TASK]** add ciUpload cmd to uload files based on .cihsignore file [`618279a`](https://github.com/Resultify/hubspot-cms-lib/commit/618279a) (dmh)
