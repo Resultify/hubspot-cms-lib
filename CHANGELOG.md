@@ -1,3 +1,10 @@
+### v3.7.1 `February 3, 2025`
+* **[TASK]** Add check for if restricted_template_type is within childTheme failedValidations (#6) [`1f1a6ee`](https://github.com/Resultify/hubspot-cms-lib/commit/1f1a6ee) (Mattias Nilsson)
+* **[TASK]** Update NPM packages with security issues [`5710907`](https://github.com/Resultify/hubspot-cms-lib/commit/5710907) (Mattias Nilsson)
+* **[TASK]** update upload cmd error handling [`9963cf3`](https://github.com/Resultify/hubspot-cms-lib/commit/9963cf3) (dmh)
+
+***
+
 ### v3.7.0 `October 30, 2024`
 * **[TASK]** update watch and upload cmd-s error handlers [`d205813`](https://github.com/Resultify/hubspot-cms-lib/commit/d205813) (dmh)
 * **[TASK]** only accept module configuration that starts with (compile-) and ends with (module.js) [`30dfeb0`](https://github.com/Resultify/hubspot-cms-lib/commit/30dfeb0) (dmh)
