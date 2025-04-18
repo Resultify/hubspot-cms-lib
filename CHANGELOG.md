@@ -1,3 +1,9 @@
+### v3.7.2 `April 18, 2025`
+* **[TASK]** update validation checks to exclude new module and lighthouse score validations [`55e39e4`](https://github.com/Resultify/hubspot-cms-lib/commit/55e39e4) (dmh)
+* **[TASK]** add newModuleFields to StandaloneModulesConfig and implement updateModuleFields function for managing module fields data [`1848b5f`](https://github.com/Resultify/hubspot-cms-lib/commit/1848b5f) (dmh)
+
+***
+
 ### v3.7.1 `February 3, 2025`
 * **[TASK]** Add check for if restricted_template_type is within childTheme failedValidations (#6) [`1f1a6ee`](https://github.com/Resultify/hubspot-cms-lib/commit/1f1a6ee) (Mattias Nilsson)
 * **[TASK]** Update NPM packages with security issues [`5710907`](https://github.com/Resultify/hubspot-cms-lib/commit/5710907) (Mattias Nilsson)
