@@ -1,3 +1,8 @@
+### v3.7.3 `April 18, 2025`
+* **[TASK]** update dependencies [`ccc0517`](https://github.com/Resultify/hubspot-cms-lib/commit/ccc0517) (dmh)
+
+***
+
 ### v3.7.2 `April 18, 2025`
 * **[TASK]** update validation checks to exclude new module and lighthouse score validations [`55e39e4`](https://github.com/Resultify/hubspot-cms-lib/commit/55e39e4) (dmh)
 * **[TASK]** add newModuleFields to StandaloneModulesConfig and implement updateModuleFields function for managing module fields data [`1848b5f`](https://github.com/Resultify/hubspot-cms-lib/commit/1848b5f) (dmh)
