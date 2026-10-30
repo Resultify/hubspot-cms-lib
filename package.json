@@ -75,9 +75,9 @@
     "globby": "~14.0.2",
     "minimist": "~1.2.8",
     "ora": "~8.1.0",
-    "postcss": "~8.4.47",
+    "postcss": "~8.5.32",
     "postcss-import": "~16.1.0",
-    "rollup": "~4.24.0",
+    "rollup": "~4.65.1",
     "sass": "1.77.8",
     "semver": "~7.6.2",
     "signal-exit": "~4.1.0"
